@@ -5,26 +5,26 @@ import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, Chevr
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
   <div className="flex flex-col items-center relative z-10 group w-full md:w-auto">
-    <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 ${
+    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg transition-all duration-300 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-6 h-6 md:w-8 md:h-8" />
+      <Icon className="w-5 h-5 md:w-6 md:h-6" />
     </div>
-    <h4 className="font-bold text-white text-xs md:text-sm text-center mb-1">{title}</h4>
-    <p className="text-[10px] md:text-xs text-gray-400 text-center max-w-[200px] md:max-w-[120px]">{sub}</p>
+    <h4 className="font-bold text-white text-sm md:text-base text-center mb-1">{title}</h4>
+    <p className="text-xs md:text-sm text-gray-400 text-center max-w-[200px] md:max-w-[140px] leading-tight">{sub}</p>
     
     {!isLast && (
-      <div className="absolute top-7 md:top-8 left-1/2 w-full h-[2px] bg-gray-700 -z-10 hidden md:block">
-        <div className="absolute right-0 -top-1.5 text-gray-700">
+      <div className="absolute top-6 md:top-7 left-1/2 w-full h-[2px] bg-gray-700 -z-10 hidden md:block">
+        <div className="absolute right-0 -top-2 text-gray-700">
           <ChevronRight className="w-5 h-5" />
         </div>
       </div>
     )}
     {!isLast && (
-      <div className="md:hidden my-4 text-gray-600 animate-bounce">
-        <ArrowDown className="w-6 h-6" />
+      <div className="md:hidden my-2 text-gray-600 animate-bounce">
+        <ArrowDown className="w-5 h-5" />
       </div>
     )}
   </div>
@@ -41,7 +41,7 @@ const FeeLayer = ({ title, value }) => (
 
 const App = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 7; // Increased to 7 to accommodate the new slide
+  const totalSlides = 7;
 
   // Keyboard navigation
   useEffect(() => {
@@ -107,15 +107,14 @@ const App = () => {
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                      這是比特幣歷史上最重要的一天。
                      <span className="text-white font-bold mx-1">Laszlo Hanyecz</span> 
-                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣。
+                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣，而不僅僅是數位收藏品。
                    </p>
                    <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm">
                      <div className="flex gap-3 mb-4">
                         <div className="min-w-[4px] bg-purple-500 rounded-full h-auto"></div>
                         <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Laszlo 的堅持</p>
-                          <p className="text-white font-bold">"我只是想用比特幣換到食物... 就像在飯店點早餐一樣。"</p>
-                          <p className="text-gray-400 mt-1">他寧願承受高摩擦與溢價，也要完成這筆「點對點」實物交易。</p>
+                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">當時的網友建議</p>
+                          <p className="text-gray-300 italic">"為何不去交易所賣掉換 $41 美金？買披薩只要 $25，你還能現賺 $16 價差。"</p>
                         </div>
                      </div>
                      <div className="flex gap-3">
@@ -158,7 +157,7 @@ const App = () => {
                {/* Connecting Line */}
                <div className="hidden md:block absolute top-7 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
 
-               <ProcessStep icon={Wallet} title="Laszlo" sub="發起懸賞 (10k BTC)" />
+               <ProcessStep icon={Wallet} title="Laszlo" sub="佛羅里達發起懸賞 (10k BTC)" />
                <ProcessStep icon={Layers} title="BitcoinTalk" sub="論壇媒合 (等待4天)" />
                <ProcessStep icon={Activity} title="Jercos" sub="加州學生接單" />
                <ProcessStep icon={CreditCard} title="Fiat Bridge" sub="Jercos 刷卡代付" />
