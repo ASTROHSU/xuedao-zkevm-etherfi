@@ -66,7 +66,7 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   );
 };
 
-const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, answer, theme = "blue" }) => {
+const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, answer, theme = "blue", image }) => {
   const themes = {
     blue: "from-blue-900/50 to-gray-900 border-blue-500/30 text-blue-400",
     purple: "from-purple-900/50 to-gray-900 border-purple-500/30 text-purple-400",
@@ -93,8 +93,14 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
            </div>
         </div>
 
+        {image && (
+          <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 relative group">
+             <img src={image} alt={title} className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+        )}
+
         <div className={`p-4 rounded-xl bg-gray-900/50 border border-white/10 flex-grow`}>
-          <Icon className="w-10 h-10 mb-3 opacity-80" />
+          {!image && <Icon className="w-10 h-10 mb-3 opacity-80" />}
           <p className="text-lg text-gray-200 leading-relaxed font-light">{mainText}</p>
         </div>
       </div>
@@ -288,6 +294,7 @@ export default function App() {
               era="ERA 1 (2010-2012)"
               title="The Exchange Era"
               icon={Landmark}
+              image="https://bitbo.io/calendar/assets/img/hacks/interface.png"
               question="比特幣可以買東西嗎？"
               answer="可以，但你要先去賣掉換錢。"
               mainText="2010 年 7 月 Mt. Gox 成立 (比披薩日晚 2 個月)。總算開始解決流動性分散問題，大家不用再上論壇貼文，而是有專門平台集中流動性，讓價格變得透明且可查詢。"
@@ -305,9 +312,9 @@ export default function App() {
               title="Merchant Adoption"
               icon={Store}
               question="比特幣可以買東西嗎？"
-              answer="可以，如果你付比特幣給我們。"
+              answer="可以，但僅限願意收比特幣的電商平台、科技公司"
               mainText="Overstock, Newegg 等科技電商開始「願意收幣」。這簡化了使用者的流程，你可以直接把幣轉給商家。"
-              subText={`問題：\n這變成了商家的麻煩。\n\n如果沒有中心化交易所的報價，電商怎麼知道要收多少幣？\n而且商家收了幣之後，他們也要去交易所賣掉換現金。\n負擔只是從消費者轉移到了商家身上。`}
+              subText={`問題：這變成了商家的麻煩。\n\n多虧有中心化交易所的報價，電商才知道要收多少幣。但商家收了幣之後，他們也要自己去交易所賣掉換現金。負擔只是從消費者轉移到了商家身上。`}
               theme="purple"
             />
           </div>
