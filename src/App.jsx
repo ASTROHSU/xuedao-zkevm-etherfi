@@ -149,7 +149,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 13; // Increased to 13
+  const totalSlides = 13;
 
   // Keyboard navigation
   useEffect(() => {
@@ -256,7 +256,7 @@ export default function App() {
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-8">
+              <div className="grid md:grid-cols-5 gap-8 mb-4">
                 <div className="md:col-span-3">
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
@@ -481,81 +481,29 @@ export default function App() {
 
       case 8:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
-            <div className="mb-8 md:mb-10 text-white">
-              <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 2 (2018-2020)</span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                The Failed Pioneers (L1)
-              </h2>
-              <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-6 max-w-2xl">
-                 <div className="flex items-start gap-3 mb-2">
-                   <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
-                   <p className="text-gray-300 italic text-sm md:text-base">"我可以自己保管錢並消費嗎？"</p>
-                 </div>
-                 <div className="flex items-start gap-3">
-                   <div className="bg-red-500/20 p-1.5 rounded text-xs font-bold text-red-400">A</div>
-                   <p className="text-red-200 font-medium text-sm md:text-base">"可以，但你必須先付 Gas Fee 充值法幣。"</p>
-                 </div>
-              </div>
-              <p className="text-lg md:text-xl text-gray-400 max-w-4xl leading-relaxed">
-                2018 年 Monolith (TokenCard) 試圖在不犧牲「資產所有權」的前提下介接 Visa。<br/>
-                但當時 Visa 不收加密貨幣，因此他們發明了「法幣緩衝區 (Fiat Buffer)」架構。
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8 pb-8">
-              <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Prepaid Model</h3>
-                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Fiat Buffer</span>
-                  </div>
-                  <Smartphone className="text-gray-500 w-8 h-8" />
-                </div>
-                <ul className="space-y-4 text-gray-400 text-sm md:text-base">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-400 font-bold">✓</span>
-                    <span>自託管：平時錢在你的合約錢包，平台無法挪用。</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-yellow-500 font-bold">!</span>
-                    <span>預付制：消費前必須手動「Top-up」，將幣賣掉換成法幣存入卡片。</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">L1 Friction</h3>
-                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Gas Fee</span>
-                  </div>
-                  <AlertTriangle className="text-gray-500 w-8 h-8" />
-                </div>
-                <ul className="space-y-4 text-gray-400 text-sm md:text-base">
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span>致命傷：每次「充值」都是一筆以太坊主網交易。</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span>充值 $10 可能要付 $10 Gas Fee，且無法在刷卡當下即時扣款。</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <FlowSection steps={[
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
+            <TimelineCard 
+              era="GEN 2 (2018-2020)"
+              title="The Failed Pioneers (L1)"
+              icon={Shield}
+              image="https://miro.medium.com/1*kCFgcfRzore3mLX0OQnqfA.png"
+              question="我可以自己保管錢並消費嗎？"
+              answer="可以，但你必須先付 Gas Fee 充值法幣。"
+              mainText="2018 年 Monolith (TokenCard) 試圖實現自託管支付。用戶需先將資金鎖入合約錢包，待消費前「手動充值」至法幣緩衝區，Visa 再從法幣帳戶扣款。"
+              subText={`雖然解決了自託管，但代價慘重：\n1. 流程斷層：消費前要先掏手機發送交易。\n2. 成本高昂：每次充值都是一筆 L1 交易，充 $10 可能要付 $5-$10 Gas Fee。`}
+              theme="purple"
+            >
+              <FlowSection steps={[
                 { icon: Shield, title: "Contract", sub: "自託管錢包" },
                 { icon: ArrowRight, title: "Manual", sub: "手動充值 (L1 Tx)", isBad: true },
                 { icon: Banknote, title: "Buffer", sub: "法幣預付戶" },
                 { icon: CreditCard, title: "Visa", sub: "刷卡扣法幣" },
                 { icon: Store, title: "Shop", sub: "交易完成" }
               ]} />
+            </TimelineCard>
           </div>
         );
 
-      // --- NEW SLIDE 9: INFRASTRUCTURE ---
       case 9:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
