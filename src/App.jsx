@@ -402,6 +402,7 @@ export default function App() {
               era="ERA 4 (2016-2019)"
               title="Tech Improvements"
               icon={Zap}
+              image="https://images.ctfassets.net/4ua9vnmkuhzj/6ftfQVD8uXtISVdt6utFmZ/6f014da9e96d58736600190c9979a487/lightning_network_1.jpg"
               question="比特幣可以買東西嗎？"
               answer="可以，而且現在變快了 (USDT/LN)。"
               mainText="Lightning Network 讓交易變快；USDT 讓價值穩定。技術一直在進步，支付不再需要等 10 分鐘。"
