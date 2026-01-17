@@ -402,12 +402,12 @@ export default function App() {
               era="ERA 4 (2016-2019)"
               title="Tech Improvements"
               icon={Zap}
-              image="https://images.ctfassets.net/4ua9vnmkuhzj/6ftfQVD8uXtISVdt6utFmZ/6f014da9e96d58736600190c9979a487/lightning_network_1.jpg"
               question="比特幣可以買東西嗎？"
               answer="可以，而且現在變快了 (USDT/LN)。"
               mainText="Lightning Network 讓交易變快；USDT 讓價值穩定。技術一直在進步，支付不再需要等 10 分鐘。"
               subText={`問題：\n你還是只能在「支援加密貨幣」的特定店家消費。\n\n我想買咖啡、我想搭捷運、我想去便利商店。\n現實世界絕大多數的消費場景，依然只收法幣 (Visa/Mastercard)。\n\n我們需要的不是「更快的轉帳」，而是「通用的支付」。`}
               theme="green"
+              image="https://images.ctfassets.net/4ua9vnmkuhzj/6ftfQVD8uXtISVdt6utFmZ/6f014da9e96d58736600190c9979a487/lightning_network_1.jpg"
             >
               <FlowSection steps={[
                 { icon: Wallet, title: "User", sub: "LN 錢包" },
@@ -494,12 +494,12 @@ export default function App() {
                  </div>
                  <div className="flex items-start gap-3">
                    <div className="bg-red-500/20 p-1.5 rounded text-xs font-bold text-red-400">A</div>
-                   <p className="text-red-200 font-medium text-sm md:text-base">"可以，但每筆交易要付 $15 Gas Fee。"</p>
+                   <p className="text-red-200 font-medium text-sm md:text-base">"可以，但你必須先付 Gas Fee 充值法幣。"</p>
                  </div>
               </div>
-              <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
-                同時期 (2018) Monolith (TokenCard) 試圖做「自託管支付」。<br/>
-                錢在你的合約錢包，不在交易所。方向是對的，但基礎設施 (Ethereum L1) 是錯的。
+              <p className="text-lg md:text-xl text-gray-400 max-w-4xl leading-relaxed">
+                2018 年 Monolith (TokenCard) 試圖在不犧牲「資產所有權」的前提下介接 Visa。<br/>
+                但當時 Visa 不收加密貨幣，因此他們發明了「法幣緩衝區 (Fiat Buffer)」架構。
               </p>
             </div>
 
@@ -507,15 +507,19 @@ export default function App() {
               <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Weird UX</h3>
-                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Process</span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Prepaid Model</h3>
+                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Fiat Buffer</span>
                   </div>
                   <Smartphone className="text-gray-500 w-8 h-8" />
                 </div>
                 <ul className="space-y-4 text-gray-400 text-sm md:text-base">
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 font-bold">✗</span>
-                    <span>流程怪異：你在實體店刷卡後，還得拿出手機在 App 裡「簽名驗證」，交易才會過。</span>
+                    <span className="text-green-400 font-bold">✓</span>
+                    <span>自託管：平時錢在你的合約錢包，平台無法挪用。</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-500 font-bold">!</span>
+                    <span>預付制：消費前必須手動「Top-up」，將幣賣掉換成法幣存入卡片。</span>
                   </li>
                 </ul>
               </div>
@@ -523,7 +527,7 @@ export default function App() {
               <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Costly</h3>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">L1 Friction</h3>
                     <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Gas Fee</span>
                   </div>
                   <AlertTriangle className="text-gray-500 w-8 h-8" />
@@ -531,18 +535,22 @@ export default function App() {
                 <ul className="space-y-4 text-gray-400 text-sm md:text-base">
                   <li className="flex items-start gap-2">
                     <span className="text-red-500 font-bold">✗</span>
-                    <span>買一杯 $15 的商品，要付 $15 的 Gas Fee。除非是純粹的信仰者，否則沒人會用。</span>
+                    <span>致命傷：每次「充值」都是一筆以太坊主網交易。</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-red-500 font-bold">✗</span>
+                    <span>充值 $10 可能要付 $10 Gas Fee，且無法在刷卡當下即時扣款。</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <FlowSection steps={[
-                { icon: CreditCard, title: "Swipe", sub: "刷卡觸發" },
-                { icon: Smartphone, title: "Sign App", sub: "手機簽名驗證" },
-                { icon: AlertTriangle, title: "L1 Gas", sub: "Gas Fee $$$", isBad: true },
-                { icon: Shield, title: "Contract", sub: "L1 合約扣款" },
-                { icon: Store, title: "Merchant", sub: "交易完成" }
+                { icon: Shield, title: "Contract", sub: "自託管錢包" },
+                { icon: ArrowRight, title: "Manual", sub: "手動充值 (L1 Tx)", isBad: true },
+                { icon: Banknote, title: "Buffer", sub: "法幣預付戶" },
+                { icon: CreditCard, title: "Visa", sub: "刷卡扣法幣" },
+                { icon: Store, title: "Shop", sub: "交易完成" }
               ]} />
           </div>
         );
