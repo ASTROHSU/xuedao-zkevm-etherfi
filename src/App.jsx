@@ -459,7 +459,8 @@ export default function App() {
               </div>
 
               <div className="flex-1 flex justify-center w-full py-8 md:py-0 flex-col">
-                <div className="relative w-full max-w-[320px] mx-auto mb-8">
+                {/* Fixed container height to prevent overlap */}
+                <div className="relative w-full max-w-[320px] mx-auto mb-10 h-56 md:h-64">
                   <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-br from-blue-900 to-blue-600 rounded-2xl border border-blue-400/30 transform -rotate-6 shadow-2xl z-10 flex flex-col justify-between p-6">
                     <div className="text-blue-200 font-bold italic">CEX CARD</div>
                     <div className="flex justify-between items-end">
