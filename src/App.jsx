@@ -256,7 +256,7 @@ export default function App() {
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-4">
+              <div className="grid md:grid-cols-5 gap-8 mb-8">
                 <div className="md:col-span-3">
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
@@ -381,7 +381,7 @@ export default function App() {
               question="比特幣可以買東西嗎？"
               answer="可以，我們會幫店家自動換匯。"
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
-              subText={`問題：\n這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
+              subText={`問題：這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
               theme="yellow"
             >
               <FlowSection steps={[
@@ -586,17 +586,8 @@ export default function App() {
                 </p>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-8 items-center justify-center py-4">
-                 <div className="relative w-64 h-40 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl border border-gray-700 flex flex-col justify-between p-4 shadow-2xl transform rotate-[-5deg] z-0">
-                    <div className="text-gray-500 font-bold text-xs">Crypto Wallet</div>
-                    <div className="text-white font-mono text-lg">USDC Deposit</div>
-                 </div>
-                 <ArrowRight className="text-gray-500 w-8 h-8 hidden md:block" />
-                 <ArrowDown className="text-gray-500 w-8 h-8 md:hidden" />
-                 <div className="relative w-64 h-40 bg-gradient-to-r from-gray-100 to-white rounded-xl border border-gray-200 flex flex-col justify-center items-center shadow-[0_0_30px_rgba(255,255,255,0.1)] z-10">
-                    <Smartphone className="text-black w-12 h-12 mb-2" />
-                    <span className="text-black font-bold">Apple Pay</span>
-                 </div>
+              <div className="w-full rounded-2xl overflow-hidden border border-gray-700 shadow-2xl">
+                 <img src="https://duk.tw/aq4HNG.png" alt="Modern Crypto Card Experience" className="w-full h-auto object-contain" />
               </div>
 
               <div className="bg-yellow-900/10 p-6 rounded-2xl border border-yellow-500/20">
@@ -685,9 +676,14 @@ export default function App() {
               <p className="text-purple-400 font-bold mb-2 text-sm uppercase tracking-widest">NEXT</p>
               <h3 className="text-2xl font-bold text-white mb-4">Live Demo & Sign Up</h3>
               <p className="text-gray-400 text-sm mb-6">拿出你的手機，我們現在就來跨越這座橋。</p>
-              <button className="w-full bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2">
+              <a 
+                href="https://www.ether.fi/refer/7c8b3870" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
+              >
                 Let's Go <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
             </div>
           </div>
         );
