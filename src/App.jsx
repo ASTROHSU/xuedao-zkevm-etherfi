@@ -149,7 +149,18 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 12;
+  const totalSlides = 13;
+
+  // Set Title and Favicon
+  useEffect(() => {
+    document.title = "Ether.fi Cash - The Evolution of Crypto Payments";
+    
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/svg+xml';
+    link.rel = 'shortcut icon';
+    link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💳</text></svg>';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -584,10 +595,6 @@ export default function App() {
                   Ether.fi, Coinbase, Bybit, RedotPay 百花齊放。<br/>
                   現在的體驗是：<span className="text-white font-bold">只在儲值時接觸 Crypto，消費時完全無感。</span>
                 </p>
-              </div>
-
-              <div className="w-full rounded-2xl overflow-hidden border border-gray-700 shadow-2xl">
-                 <img src="https://duk.tw/aq4HNG.png" alt="Modern Crypto Card Experience" className="w-full h-auto object-contain max-h-[400px]" />
               </div>
 
               <div className="mt-8 mb-4">
