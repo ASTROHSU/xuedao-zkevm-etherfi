@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, QrCode, Store, Smartphone, Globe, Lock, CheckCircle } from 'lucide-react';
+import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, QrCode, Store, Smartphone, Globe, Lock, CheckCircle, Landmark, RefreshCw, AlertCircle } from 'lucide-react';
 
 // --- Components ---
 
@@ -15,7 +15,6 @@ const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) 
     <h4 className="font-bold text-white text-lg md:text-xl text-center mb-2">{title}</h4>
     <p className="text-sm md:text-base text-gray-400 text-center max-w-[200px] md:max-w-[160px] leading-snug">{sub}</p>
     
-    {/* Mobile Arrow Only - Desktop relies on the parent background line for cleaner look */}
     {!isLast && (
       <div className="md:hidden my-4 text-gray-600 animate-bounce">
         <ArrowDown className="w-6 h-6" />
@@ -51,16 +50,50 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   };
 
   return (
-    <div className={`relative p-4 rounded-xl border backdrop-blur-sm ${colorClasses[color]} flex flex-col items-center text-center w-full md:w-64 z-20`}>
+    <div className={`relative p-4 rounded-xl border backdrop-blur-sm ${colorClasses[color]} flex flex-col items-center text-center w-full lg:w-64 z-20 transition-all duration-300`}>
       <div className="mb-2 p-2 rounded-full bg-gray-900/50">
         <Icon className="w-6 h-6" />
       </div>
       <h4 className="font-bold text-white text-lg mb-1">{title}</h4>
       <p className="text-xs text-gray-300 leading-relaxed">{desc}</p>
       
-      {/* Connecting Line (Desktop Only) */}
-      <div className={`hidden md:block absolute bg-gray-600/50 ${lineStyles[position] || ""}`}>
+      <div className={`hidden lg:block absolute bg-gray-600/50 ${lineStyles[position] || ""}`}>
         <div className="absolute w-2 h-2 bg-white rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_white]"></div>
+      </div>
+    </div>
+  );
+};
+
+const TimelineCard = ({ title, era, icon: Icon, mainText, subText, theme = "blue" }) => {
+  const themes = {
+    blue: "from-blue-900/50 to-gray-900 border-blue-500/30 text-blue-400",
+    purple: "from-purple-900/50 to-gray-900 border-purple-500/30 text-purple-400",
+    yellow: "from-yellow-900/50 to-gray-900 border-yellow-500/30 text-yellow-400",
+    green: "from-green-900/50 to-gray-900 border-green-500/30 text-green-400",
+  };
+
+  return (
+    <div className={`flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br ${themes[theme]} p-8 rounded-2xl border w-full max-w-5xl mx-auto min-h-[400px]`}>
+      <div className="flex-1 space-y-6">
+        <div>
+          <span className="font-mono text-sm tracking-widest opacity-80 mb-2 block">{era}</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">{title}</h2>
+        </div>
+        <div className={`p-4 rounded-xl bg-gray-900/50 border border-white/10`}>
+          <Icon className="w-12 h-12 mb-4 opacity-80" />
+          <p className="text-xl text-gray-200 leading-relaxed font-light">{mainText}</p>
+        </div>
+      </div>
+      <div className="flex-1 w-full bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
+          <Icon className="w-32 h-32" />
+        </div>
+        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <AlertCircle className="w-5 h-5" /> The Reality
+        </h3>
+        <p className="text-gray-400 text-lg leading-relaxed whitespace-pre-line">
+          {subText}
+        </p>
       </div>
     </div>
   );
@@ -70,7 +103,7 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
 
 const App = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 8; // Updated to 8
+  const totalSlides = 11; // Increased to 11
 
   // Keyboard navigation
   useEffect(() => {
@@ -121,11 +154,11 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 1: ANATOMY (NEW)
+      // SLIDE 1: ANATOMY
       case 1:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
-            <div className="text-center mb-8 md:mb-12">
+          <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
+            <div className="text-center mb-8 lg:mb-12 shrink-0">
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE BLUEPRINT</span>
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 Anatomy of Ether.fi Cash
@@ -136,10 +169,10 @@ const App = () => {
               </p>
             </div>
 
-            <div className="relative flex flex-col md:grid md:grid-cols-3 md:grid-rows-3 gap-6 md:gap-0 items-center justify-center h-auto md:h-[500px] w-full max-w-4xl mx-auto">
+            <div className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-3 gap-6 lg:gap-8 items-center justify-center h-auto lg:h-[600px] w-full max-w-5xl mx-auto">
               
               {/* Central Card Visual */}
-              <div className="md:col-start-2 md:row-start-2 z-10 w-full flex justify-center order-1 md:order-none mb-8 md:mb-0">
+              <div className="lg:col-start-2 lg:row-start-2 z-10 w-full flex justify-center order-1 lg:order-none mb-8 lg:mb-0">
                 <div className="relative w-64 h-40 md:w-80 md:h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-2xl border border-purple-500/50 shadow-[0_0_50px_rgba(168,85,247,0.3)] flex flex-col justify-between p-6 transform hover:scale-105 transition-transform duration-500">
                   <div className="flex justify-between items-start">
                     <span className="text-purple-200 font-bold italic tracking-wider">ether.fi</span>
@@ -153,54 +186,22 @@ const App = () => {
                     <div className="text-xs text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded">L2 NATIVE</div>
                   </div>
                   
-                  {/* Connecting Lines for Mobile (Simulated) */}
-                  <div className="md:hidden absolute -top-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
-                  <div className="md:hidden absolute -bottom-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
+                  <div className="lg:hidden absolute -top-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
+                  <div className="lg:hidden absolute -bottom-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
                 </div>
               </div>
 
-              {/* Top: Visa */}
-              <div className="md:col-start-2 md:row-start-1 flex justify-center order-2 md:order-none w-full">
-                <AnatomyPart 
-                  icon={Globe} 
-                  title="Visa Network" 
-                  desc="解決「換幣」難題。連接全球 8000 萬商戶，讓加密貨幣能像法幣一樣流通。"
-                  position="bottom"
-                  color="blue"
-                />
+              <div className="lg:col-start-2 lg:row-start-1 flex justify-center order-2 lg:order-none w-full">
+                <AnatomyPart icon={Globe} title="Visa Network" desc="解決「換幣」難題。連接全球 8000 萬商戶，讓加密貨幣能像法幣一樣流通。" position="bottom" color="blue" />
               </div>
-
-              {/* Bottom: Scroll */}
-              <div className="md:col-start-2 md:row-start-3 flex justify-center order-3 md:order-none w-full">
-                <AnatomyPart 
-                  icon={Layers} 
-                  title="Scroll zkEVM" 
-                  desc="解決「Gas Fee」。提供極低成本的結算層，讓高頻小額消費成為可能。"
-                  position="top"
-                  color="yellow"
-                />
+              <div className="lg:col-start-2 lg:row-start-3 flex justify-center order-3 lg:order-none w-full">
+                <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="解決「Gas Fee」。提供極低成本的結算層，讓高頻小額消費成為可能。" position="top" color="yellow" />
               </div>
-
-              {/* Left: Smart Wallet */}
-              <div className="md:col-start-1 md:row-start-2 flex justify-center order-4 md:order-none w-full">
-                <AnatomyPart 
-                  icon={Lock} 
-                  title="Smart Wallet" 
-                  desc="解決「自託管」。資金在你的合約帳戶內，非交易所託管。支援多重簽名與恢復機制。"
-                  position="right"
-                  color="green"
-                />
+              <div className="lg:col-start-1 lg:row-start-2 flex justify-center order-4 lg:order-none w-full">
+                <AnatomyPart icon={Lock} title="Smart Wallet" desc="解決「自託管」。資金在你的合約帳戶內，非交易所託管。支援多重簽名與恢復機制。" position="right" color="green" />
               </div>
-
-              {/* Right: Rewards */}
-              <div className="md:col-start-3 md:row-start-2 flex justify-center order-5 md:order-none w-full">
-                <AnatomyPart 
-                  icon={TrendingUp} 
-                  title="Token Rewards" 
-                  desc="解決「誘因」。消費即挖礦 (Spend to Earn)，回饋大於磨損，實現正收益 (Positive Carry)。"
-                  position="left"
-                  color="purple"
-                />
+              <div className="lg:col-start-3 lg:row-start-2 flex justify-center order-5 lg:order-none w-full">
+                <AnatomyPart icon={TrendingUp} title="Token Rewards" desc="解決「誘因」。消費即挖礦 (Spend to Earn)，回饋大於磨損，實現正收益 (Positive Carry)。" position="left" color="purple" />
               </div>
             </div>
           </div>
@@ -221,7 +222,7 @@ const App = () => {
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                      這是比特幣歷史上最重要的一天。
                      <span className="text-white font-bold mx-1">Laszlo Hanyecz</span> 
-                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣，而不僅僅是數位收藏品。
+                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣。
                    </p>
                    <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm md:text-base">
                      <div className="flex gap-4 mb-4">
@@ -268,102 +269,80 @@ const App = () => {
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 relative pb-12">
-               {/* Connecting Line */}
                <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
-
                <ProcessStep icon={Wallet} title="Laszlo" sub="佛羅里達發起懸賞 (10k BTC)" />
                <ProcessStep icon={Layers} title="BitcoinTalk" sub="論壇媒合 (等待4天)" />
                <ProcessStep icon={Activity} title="Jercos" sub="加州學生接單" />
                <ProcessStep icon={CreditCard} title="Fiat Bridge" sub="Jercos 刷卡代付" />
                <ProcessStep icon={Pizza} title="Papa John's" sub="外送抵達 Laszlo 家" isLast={true} />
             </div>
-            
-            <div className="text-center text-gray-500 text-xs pb-8 md:pb-0">
-              *有趣的事實：這筆交易還支付了 1 BTC 給礦工，總成本其實是 10,001 BTC。
-            </div>
           </div>
         );
 
-      // SLIDE 3: THE FRICTION ERA
+      // --- EXPANDED SLIDES (3, 4, 5, 6) ---
+
+      // SLIDE 3: EXCHANGES (2010-2012)
       case 3:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
-            <div className="mb-8">
-              <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE FRICTION ERA (2012-2019)</span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                "Usable, but Painful"
-              </h2>
-              <p className="text-lg md:text-xl text-gray-400 max-w-3xl mb-8">
-                這段時期，商家開始願意收幣，技術也變快了。<br/>
-                但每一次支付，使用者都要經歷一次痛苦的<span className="text-white font-bold">「掃碼 + 等待」</span>。
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 pb-8">
-              {/* Card 1: Merchants */}
-              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-                <div className="flex items-center gap-3 mb-4 text-purple-400">
-                  <Store className="w-6 h-6" />
-                  <h3 className="font-bold text-white text-lg">Direct Acceptance</h3>
-                </div>
-                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
-                  Overstock, Newegg (2014).<br/>
-                  商家雖然願意收，但只收不付。
-                </p>
-                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
-                  <p className="mb-2 text-red-400 font-bold">UX Nightmare:</p>
-                  1. 打開錢包<br/>
-                  2. 掃描 QR Code<br/>
-                  3. 手動確認金額<br/>
-                  4. 原地等待 10 分鐘 (Confirmations)
-                </div>
-              </div>
-
-              {/* Card 2: Processors */}
-              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-                <div className="flex items-center gap-3 mb-4 text-purple-400">
-                  <QrCode className="w-6 h-6" />
-                  <h3 className="font-bold text-white text-lg">Payment Processors</h3>
-                </div>
-                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
-                  BitPay (2014-2018).<br/>
-                  幫商家立刻換成法幣避險。
-                </p>
-                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
-                  <p className="mb-2 text-yellow-500 font-bold">The Truth:</p>
-                  這是在解決「商家的風險」，<br/>
-                  不是在解決「用戶的體驗」。<br/>
-                  對消費者來說，依然沒有更簡單。
-                </div>
-              </div>
-
-              {/* Card 3: Tech vs UX */}
-              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-                <div className="flex items-center gap-3 mb-4 text-purple-400">
-                  <Zap className="w-6 h-6" />
-                  <h3 className="font-bold text-white text-lg">Tech Improvements</h3>
-                </div>
-                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
-                  Lightning, Stablecoins (2016+).<br/>
-                  交易變快了，波動變小了。
-                </p>
-                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
-                  <p className="mb-2 text-red-400 font-bold">Still Friction:</p>
-                  技術成功，但 UX 失敗。<br/>
-                  還是要開 Channel、轉帳、操作錢包。<br/>
-                  這不是「刷卡」的體驗。
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-center text-gray-500 text-sm italic">
-              "人不會這樣付錢。我們需要像 Visa 一樣的東西。"
-            </div>
+          <div className="flex flex-col justify-center px-4 h-full w-full">
+            <TimelineCard 
+              era="ERA 1 (2010-2012)"
+              title="The Exchange Era"
+              icon={Landmark}
+              mainText="交易所 (Mt. Gox, Bitstamp) 的出現，第一次解決了「流動性」問題。加密貨幣終於可以被定價、被賣掉。"
+              subText={`但這裡有一個很關鍵的差別：\n交易所讓你「把幣換成錢」，卻沒有讓你「直接用幣付錢」。\n\n實際的消費流程仍然是兩段式的：\n你先把幣賣掉，提現成法幣，然後再用法幣去消費。`}
+              theme="blue"
+            />
           </div>
         );
 
-      // SLIDE 4: GEN 1 - CEX CARDS
+      // SLIDE 4: MERCHANTS (2013-2016)
       case 4:
+        return (
+          <div className="flex flex-col justify-center px-4 h-full w-full">
+            <TimelineCard 
+              era="ERA 2 (2013-2016)"
+              title="Merchant Adoption"
+              icon={Store}
+              mainText="科技公司與電商平台 (Overstock, Newegg) 開始「願意收幣」。表面上這是走向實用的重要一步。"
+              subText={`但實際體驗卻是 UX 惡夢。\n\n對消費者來說：\n打開錢包 → 掃描地址 → 手動確認金額 → 等待 10 分鐘鏈上確認。\n\n這形成了一個非常不穩定的世界：\n如果你剛好有幣，對方剛好願意收，那就可以成交；\n但這種模式，不可能成為日常。`}
+              theme="purple"
+            />
+          </div>
+        );
+
+      // SLIDE 5: PROCESSORS (2014-2018)
+      case 5:
+        return (
+          <div className="flex flex-col justify-center px-4 h-full w-full">
+            <TimelineCard 
+              era="ERA 3 (2014-2018)"
+              title="Payment Processors"
+              icon={RefreshCw}
+              mainText="BitPay, Coinbase Commerce 出現。消費者付幣，商家收法幣。風險由平台吸收。"
+              subText={`這對商家來說是一大進步 (無風險)。\n但對消費者而言，體驗幾乎沒有改善。\n\n每一筆支付仍然是「轉帳、等待、確認」。\n這一代的創新，本質上是在解決商家的財務風險，而不是在解決支付本身的摩擦。`}
+              theme="yellow"
+            />
+          </div>
+        );
+
+      // SLIDE 6: TECH (2016-2019)
+      case 6:
+        return (
+          <div className="flex flex-col justify-center px-4 h-full w-full">
+            <TimelineCard 
+              era="ERA 4 (2016-2019)"
+              title="Tech, but No UX"
+              icon={Zap}
+              mainText="Lightning Network 讓交易變快；USDT/USDC 讓價值穩定。技術一直在進步。"
+              subText={`但支付行為本身還是轉帳。\n\n你仍然需要打開錢包、管理通道、簽名、確認。\n支付的最後一公尺，仍然卡在人類行為上。\n\n我們需要的不是更快的轉帳，而是「像刷卡一樣」的體驗。`}
+              theme="green"
+            />
+          </div>
+        );
+
+      // SLIDE 8 (Formerly 4): GEN 1 - CEX CARDS
+      case 7:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
@@ -373,19 +352,30 @@ const App = () => {
                   The "Centralized" Card
                 </h2>
                 <p className="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                  Crypto.com / Binance Card 出現了。<br/>
-                  這是歷史上第一次，摩擦被<span className="text-white font-bold">「藏起來」</span>了。<br/>
-                  你可以刷卡、即時換匯，但代價是中心化。
+                  第一次，有人把摩擦<span className="text-white font-bold">「藏起來」</span>了。<br/>
+                  Crypto.com / Binance 讓加密貨幣終於可以像 Visa 一樣刷。
                 </p>
                 
-                <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 w-full">
+                <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 w-full mb-6">
                    <h3 className="font-bold text-white mb-4 flex items-center gap-2">
-                     <AlertTriangle className="text-yellow-500" />
-                     The Hidden Cost
+                     <CheckCircle className="text-green-500" />
+                     Experience Solved
                    </h3>
-                   <FeeLayer title="1. 幣必須放在交易所" value="Custody Risk (FTX?)" />
-                   <FeeLayer title="2. 用戶賣幣 (Tax Event)" value="Capital Gain Tax" />
-                   <FeeLayer title="3. 匯率磨損 (Spread)" value="~2-3% Total Fees" />
+                   <p className="text-gray-300 text-sm mb-4">
+                     你不需要打開錢包、不需要簽名、不需要等待確認。只要刷卡，後端自動換匯。
+                   </p>
+                </div>
+
+                <div className="bg-red-900/20 p-6 rounded-xl border border-red-500/30 w-full">
+                   <h3 className="font-bold text-red-200 mb-4 flex items-center gap-2">
+                     <XCircle className="text-red-500" />
+                     Ownership Lost
+                   </h3>
+                   <p className="text-red-200/80 text-sm">
+                     代價是明確的：你的資產必須放在交易所。<br/>
+                     這些卡本質上是<span className="text-white font-bold">「交易所帳戶的延伸」</span>，而不是錢包的延伸。<br/>
+                     它讓加密貨幣可以被用，但沒有讓加密貨幣真正「屬於你」。
+                   </p>
                 </div>
               </div>
 
@@ -400,19 +390,16 @@ const App = () => {
                     </div>
                   </div>
                   
-                  {/* The Problem Visual */}
                   <div className="absolute top-28 md:top-24 -right-4 md:-right-12 bg-gray-900 border border-red-500 p-4 rounded-lg shadow-xl z-20 w-64">
                     <div className="flex items-center gap-3 text-red-400 mb-2">
-                      <XCircle className="w-5 h-5" />
-                      <span className="font-bold text-sm">NOT Your Keys</span>
+                      <AlertTriangle className="w-5 h-5" />
+                      <span className="font-bold text-sm">Not Your Keys</span>
                     </div>
                     <p className="text-xs text-gray-400">
-                      卡片只是交易所帳戶的延伸。<br/>
-                      這解決了支付，但放棄了初衷。
+                      2022 年 (FTX) 之後，大家才意識到這種模式的極限。
                     </p>
                   </div>
                   
-                  {/* Spacer for flow */}
                   <div className="h-64"></div>
                 </div>
               </div>
@@ -420,8 +407,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 5: GEN 2 - THE FAILED PIONEERS
-      case 5:
+      // SLIDE 9 (Formerly 5): GEN 2 - THE FAILED PIONEERS
+      case 8:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="mb-8 md:mb-10">
@@ -485,8 +472,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 6: GEN 3 - ETHER.FI CASH
-      case 6:
+      // SLIDE 10 (Formerly 6): GEN 3 - ETHER.FI CASH
+      case 9:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
@@ -544,8 +531,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 7: CONCLUSION / DEMO
-      case 7:
+      // SLIDE 11 (Formerly 7): CONCLUSION
+      case 10:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12">
             <h2 className="text-4xl md:text-7xl font-bold mb-8">
