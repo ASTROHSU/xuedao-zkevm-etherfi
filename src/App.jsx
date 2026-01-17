@@ -379,6 +379,7 @@ export default function App() {
               era="ERA 3 (2014-2018)"
               title="Payment Processors"
               icon={RefreshCw}
+              image="https://techcrunch.com/wp-content/uploads/2014/01/screen-shot-2014-01-04-at-09-59-13.png?w=624"
               question="比特幣可以買東西嗎？"
               answer="可以，我們會幫店家自動換匯。"
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
