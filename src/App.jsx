@@ -256,7 +256,7 @@ export default function App() {
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-4">
+              <div className="grid md:grid-cols-5 gap-8 mb-8">
                 <div className="md:col-span-3">
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
@@ -268,54 +268,51 @@ export default function App() {
                      這個故事最重要的並不是披薩，而是<span className="text-red-400 font-bold">「那時候沒有中心化交易所」</span>。
                      幣價非常不確定，Laszlo 只能到論壇喊價。
                    </p>
-                   <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm md:text-base">
-                     <div className="flex gap-4 mb-4">
-                        <div className="min-w-[4px] bg-red-500 rounded-full h-auto"></div>
-                        <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">當時的問題</p>
-                          <p className="text-gray-300 italic">"這 10,000 顆比特幣到底值多少錢？沒人說得準，論壇上有人說大概值 $41 美金。"</p>
-                        </div>
-                     </div>
-                     <div className="flex gap-4">
-                        <div className="min-w-[4px] bg-yellow-500 rounded-full h-auto"></div>
-                        <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">巨大的交易摩擦 (Friction)</p>
-                          <p className="text-yellow-400 font-bold">披薩成本 $25 → 付出 $41 等值 BTC</p>
-                          <p className="text-gray-300 italic">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。<span className="text-white">溢價 64%</span>。"</p>
-                        </div>
-                     </div>
-                   </div>
                 </div>
                 
                 <div className="md:col-span-2 flex flex-col gap-6">
                      <div className="bg-gray-900/30 p-6 rounded-xl border border-gray-800">
-                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
+                       <div className="flex justify-between border-b border-gray-800 pb-4 mb-4">
                          <span className="text-sm text-gray-500">BTC "Market" Value</span>
-                         <span className="text-green-400 font-mono">~$41.00 USD</span>
+                         <span className="text-green-400 font-mono font-bold">~$41.00 USD</span>
                        </div>
-                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
+                       <div className="flex justify-between border-b border-gray-800 pb-4 mb-4">
                          <span className="text-sm text-gray-500">Pizza Cost</span>
-                         <span className="text-red-400 font-mono">~$25.00 USD</span>
+                         <span className="text-red-400 font-mono font-bold">~$25.00 USD</span>
                        </div>
-                       <div className="flex justify-between pt-1">
+                       <div className="flex justify-between border-b border-gray-800 pb-4 mb-4">
                          <span className="text-sm text-gray-500">Premium Paid</span>
                          <span className="text-yellow-500 font-bold font-mono">+$16.00 (64%)</span>
                        </div>
-                       <div className="text-xs mt-4 text-gray-400 italic text-center">
-                         這 $16 美元的價差，就是當時為了「用比特幣買東西」所付出的代價。
+                       
+                       <p className="text-gray-300 italic text-sm mb-6 leading-relaxed">
+                         "這 $16 美元的價差，就是當時為了「用比特幣買東西」所付出的代價。"
+                       </p>
+
+                       <div className="space-y-4">
+                          <div>
+                            <h4 className="text-gray-500 text-xs uppercase tracking-wider mb-1">當時的問題</h4>
+                            <p className="text-gray-300 text-sm italic">"這 10,000 顆比特幣到底值多少錢？沒人說得準，論壇上有人說大概值 $41 美金。"</p>
+                          </div>
+                          <div>
+                            <h4 className="text-gray-500 text-xs uppercase tracking-wider mb-1">巨大的交易摩擦 (Friction)</h4>
+                            <p className="text-gray-300 text-sm">披薩成本 $25 → 付出 $41 等值 BTC</p>
+                            <p className="text-yellow-500 text-sm font-bold mt-1">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。溢價 64%。"</p>
+                          </div>
                        </div>
                      </div>
-
-                     <div className="bg-gray-900/30 p-4 rounded-xl border border-gray-800">
-                        <FlowSection steps={[
-                          { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
-                          { icon: Mail, title: "Forum", sub: "發文尋找" },
-                          { icon: Activity, title: "Jercos", sub: "刷卡代付" },
-                          { icon: CreditCard, title: "Bridge", sub: "法幣結算" },
-                          { icon: Pizza, title: "Pizza", sub: "完成交易" }
-                        ]} title="The Workflow" />
-                     </div>
                 </div>
+              </div>
+
+              {/* FLOW CHART RESTORED */}
+              <div className="mt-8">
+                <FlowSection steps={[
+                  { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
+                  { icon: Mail, title: "Forum", sub: "發文尋找" },
+                  { icon: Activity, title: "Jercos", sub: "刷卡代付" },
+                  { icon: CreditCard, title: "Bridge", sub: "法幣結算" },
+                  { icon: Pizza, title: "Pizza", sub: "完成交易" }
+                ]} title="Payment Flow" />
               </div>
             </div>
           </div>
@@ -384,7 +381,7 @@ export default function App() {
               question="比特幣可以買東西嗎？"
               answer="可以，我們會幫店家自動換匯。"
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
-              subText={`問題：\n這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
+              subText={`問題：這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
               theme="yellow"
             >
               <FlowSection steps={[
@@ -442,8 +439,8 @@ export default function App() {
                    </div>
                 </div>
                 <p className="text-base md:text-lg text-gray-400 mb-6 leading-relaxed">
-                  2019 年 Crypto.com 的關鍵突破，在於將加密貨幣接入了 <span className="text-white font-bold">Visa 支付網絡</span>。<br/><br/>
-                  支付本質改變了：使用者不再需要去尋找「願意收幣的特定商家」，而是只要認得「Visa 品牌」。這徹底解決了通路問題。
+                  2019 年 Crypto.com 將加密貨幣接入 <span className="text-white font-bold">Visa 支付網絡</span>。<br/><br/>
+                  使用者不再需要去尋找「願意收幣的特定商家」，而是只要認得「Visa 品牌」。這徹底解決了通路問題。
                 </p>
                 
                 <div className="bg-red-900/10 p-5 rounded-xl border border-red-500/20 w-full mb-4">
@@ -452,8 +449,7 @@ export default function App() {
                      The Trade-off (Custodial)
                    </h3>
                    <p className="text-red-200/70 text-xs md:text-sm leading-relaxed">
-                     Visa 當時並不直接收加密貨幣，它只是讓交易所發卡。<br/>
-                     這本質上是<span className="text-white font-bold">「交易所帳戶的提款卡」</span>。你需要先把幣存在中心化交易所 (甚至先換成法幣)，後端的髒活由交易所處理。
+                     Visa 當時並不直接收加密貨幣，它只是讓交易所發卡。本質上是<span className="text-white font-bold">「交易所帳戶的提款卡」</span>。
                    </p>
                 </div>
               </div>
