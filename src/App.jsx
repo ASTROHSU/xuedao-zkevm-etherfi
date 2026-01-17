@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown } from 'lucide-react';
+import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, QrCode, Store, Smartphone } from 'lucide-react';
 
 // --- Components ---
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
   <div className="flex flex-col items-center relative z-10 group w-full md:w-auto">
-    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 ${
+    <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-8 h-8" />
+      <Icon className="w-6 h-6 md:w-8 md:h-8" />
     </div>
-    <h4 className="font-bold text-white text-sm text-center mb-1">{title}</h4>
-    <p className="text-xs text-gray-400 text-center max-w-[200px] md:max-w-[120px]">{sub}</p>
+    <h4 className="font-bold text-white text-xs md:text-sm text-center mb-1">{title}</h4>
+    <p className="text-[10px] md:text-xs text-gray-400 text-center max-w-[200px] md:max-w-[120px]">{sub}</p>
     
     {!isLast && (
-      <div className="absolute top-8 left-1/2 w-full h-[2px] bg-gray-700 -z-10 hidden md:block">
+      <div className="absolute top-7 md:top-8 left-1/2 w-full h-[2px] bg-gray-700 -z-10 hidden md:block">
         <div className="absolute right-0 -top-1.5 text-gray-700">
           <ChevronRight className="w-5 h-5" />
         </div>
@@ -41,7 +41,7 @@ const FeeLayer = ({ title, value }) => (
 
 const App = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 6;
+  const totalSlides = 7; // Increased to 7 to accommodate the new slide
 
   // Keyboard navigation
   useEffect(() => {
@@ -61,7 +61,7 @@ const App = () => {
 
   const renderSlide = () => {
     switch(currentSlide) {
-      // SLIDE 1: OPENING
+      // SLIDE 0: OPENING
       case 0:
         return (
           <div className="flex flex-col justify-center items-center min-h-full py-12 text-center px-4 relative">
@@ -92,7 +92,7 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 2: GEN 0 - BITCOIN PIZZA
+      // SLIDE 1: GEN 0 - BITCOIN PIZZA
       case 1:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
@@ -107,22 +107,23 @@ const App = () => {
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                      這是比特幣歷史上最重要的一天。
                      <span className="text-white font-bold mx-1">Laszlo Hanyecz</span> 
-                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣，而不僅僅是數位收藏品。
+                     (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣。
                    </p>
                    <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm">
                      <div className="flex gap-3 mb-4">
                         <div className="min-w-[4px] bg-purple-500 rounded-full h-auto"></div>
                         <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">當時的網友建議</p>
-                          <p className="text-gray-300 italic">"為何不去交易所賣掉換 $41 美金？買披薩只要 $25，你還能現賺 $16 價差。"</p>
+                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Laszlo 的堅持</p>
+                          <p className="text-white font-bold">"我只是想用比特幣換到食物... 就像在飯店點早餐一樣。"</p>
+                          <p className="text-gray-400 mt-1">他寧願承受高摩擦與溢價，也要完成這筆「點對點」實物交易。</p>
                         </div>
                      </div>
                      <div className="flex gap-3">
                         <div className="min-w-[4px] bg-yellow-500 rounded-full h-auto"></div>
                         <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Laszlo 的堅持</p>
-                          <p className="text-white font-bold">"我只是想用比特幣換到食物... 就像在飯店點早餐一樣。"</p>
-                          <p className="text-gray-400 mt-1">他寧願承受高摩擦與溢價，也要完成這筆「點對點」實物交易。</p>
+                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Jercos 的獲利 (Arbitrage)</p>
+                          <p className="text-yellow-400 font-bold">成本 $25 → 收到 $41 等值 BTC</p>
+                          <p className="text-gray-300 italic">"多虧了他賺了這 $16 美元 (64% 價差)，否則比特幣披薩日根本不會發生。"</p>
                         </div>
                      </div>
                    </div>
@@ -146,8 +147,8 @@ const App = () => {
                        <span className="text-red-400">~$25.00 USD</span>
                      </div>
                      <div className="flex justify-between pt-1">
-                       <span>Premium Paid</span>
-                       <span className="text-yellow-500 font-bold">+64% (為了信仰)</span>
+                       <span>Jercos Profit</span>
+                       <span className="text-yellow-500 font-bold">+$16.00 (64%)</span>
                      </div>
                 </div>
               </div>
@@ -155,9 +156,9 @@ const App = () => {
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 relative pb-12">
                {/* Connecting Line */}
-               <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
+               <div className="hidden md:block absolute top-7 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
 
-               <ProcessStep icon={Wallet} title="Laszlo" sub="佛羅里達發起懸賞 (10k BTC)" />
+               <ProcessStep icon={Wallet} title="Laszlo" sub="發起懸賞 (10k BTC)" />
                <ProcessStep icon={Layers} title="BitcoinTalk" sub="論壇媒合 (等待4天)" />
                <ProcessStep icon={Activity} title="Jercos" sub="加州學生接單" />
                <ProcessStep icon={CreditCard} title="Fiat Bridge" sub="Jercos 刷卡代付" />
@@ -170,30 +171,108 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 3: GEN 1 - CEX CARDS
+      // SLIDE 2: THE FRICTION ERA (NEW)
       case 2:
+        return (
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
+            <div className="mb-8">
+              <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE FRICTION ERA (2012-2019)</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                "Usable, but Painful"
+              </h2>
+              <p className="text-lg md:text-xl text-gray-400 max-w-3xl mb-8">
+                這段時期，商家開始願意收幣，技術也變快了。<br/>
+                但每一次支付，使用者都要經歷一次痛苦的<span className="text-white font-bold">「掃碼 + 等待」</span>。
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 pb-8">
+              {/* Card 1: Merchants */}
+              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                <div className="flex items-center gap-3 mb-4 text-purple-400">
+                  <Store className="w-6 h-6" />
+                  <h3 className="font-bold text-white">Direct Acceptance</h3>
+                </div>
+                <p className="text-sm text-gray-300 mb-4 h-12">
+                  Overstock, Newegg (2014).<br/>
+                  商家雖然願意收，但只收不付。
+                </p>
+                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
+                  <p className="mb-1 text-red-400 font-bold">UX Nightmare:</p>
+                  1. 打開錢包<br/>
+                  2. 掃描 QR Code<br/>
+                  3. 手動確認金額<br/>
+                  4. 原地等待 10 分鐘 (Confirmations)
+                </div>
+              </div>
+
+              {/* Card 2: Processors */}
+              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                <div className="flex items-center gap-3 mb-4 text-purple-400">
+                  <QrCode className="w-6 h-6" />
+                  <h3 className="font-bold text-white">Payment Processors</h3>
+                </div>
+                <p className="text-sm text-gray-300 mb-4 h-12">
+                  BitPay (2014-2018).<br/>
+                  幫商家立刻換成法幣避險。
+                </p>
+                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
+                  <p className="mb-1 text-yellow-500 font-bold">The Truth:</p>
+                  這是在解決「商家的風險」，<br/>
+                  不是在解決「用戶的體驗」。<br/>
+                  對消費者來說，依然沒有更簡單。
+                </div>
+              </div>
+
+              {/* Card 3: Tech vs UX */}
+              <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
+                <div className="flex items-center gap-3 mb-4 text-purple-400">
+                  <Zap className="w-6 h-6" />
+                  <h3 className="font-bold text-white">Tech Improvements</h3>
+                </div>
+                <p className="text-sm text-gray-300 mb-4 h-12">
+                  Lightning, Stablecoins (2016+).<br/>
+                  交易變快了，波動變小了。
+                </p>
+                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
+                  <p className="mb-1 text-red-400 font-bold">Still Friction:</p>
+                  技術成功，但 UX 失敗。<br/>
+                  還是要開 Channel、轉帳、操作錢包。<br/>
+                  這不是「刷卡」的體驗。
+                </div>
+              </div>
+            </div>
+            
+            <div className="text-center text-gray-500 text-sm italic">
+              "人不會這樣付錢。我們需要像 Visa 一樣的東西。"
+            </div>
+          </div>
+        );
+
+      // SLIDE 3: GEN 1 - CEX CARDS (UPDATED)
+      case 3:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
               <div className="flex-1 w-full">
-                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1 (2016-2022)</span>
+                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1 (2019-2022)</span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                  The "CEX" Bridge
+                  The "Centralized" Card
                 </h2>
                 <p className="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                  交易所 (Crypto.com / Binance) 出現了。他們幫你把幣變現。<br/>
-                  雖然方便了，但這其實是一張<span className="text-white font-bold">「變現卡」</span>，每一筆消費都被層層剝皮。
+                  Crypto.com / Binance Card 出現了。<br/>
+                  這是歷史上第一次，摩擦被<span className="text-white font-bold">「藏起來」</span>了。<br/>
+                  你可以刷卡、即時換匯，但代價是中心化。
                 </p>
                 
                 <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 w-full">
                    <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                      <AlertTriangle className="text-yellow-500" />
-                     The Fee Sandwich
+                     The Hidden Cost
                    </h3>
-                   <FeeLayer title="1. 用戶賣幣 (Tax Event)" value="Capital Gain Tax" />
-                   <FeeLayer title="2. 換成 SGD/USD (匯差)" value="~0.5% Spread" />
-                   <FeeLayer title="3. 台灣刷卡 (SGD 轉 TWD)" value="~1.5% FX Fee" />
-                   <FeeLayer title="4. 跨國交易手續費" value="1.5% Int'l Fee" />
+                   <FeeLayer title="1. 幣必須放在交易所" value="Custody Risk (FTX?)" />
+                   <FeeLayer title="2. 用戶賣幣 (Tax Event)" value="Capital Gain Tax" />
+                   <FeeLayer title="3. 匯率磨損 (Spread)" value="~2-3% Total Fees" />
                 </div>
               </div>
 
@@ -204,7 +283,7 @@ const App = () => {
                     <div className="text-blue-200 font-bold italic">CEX CARD</div>
                     <div className="flex justify-between items-end">
                       <div className="text-blue-100 font-mono tracking-widest">**** 8888</div>
-                      <div className="text-xs text-blue-200">PREPAID</div>
+                      <div className="text-xs text-blue-200">DEBIT</div>
                     </div>
                   </div>
                   
@@ -212,10 +291,11 @@ const App = () => {
                   <div className="absolute top-28 md:top-24 -right-4 md:-right-12 bg-gray-900 border border-red-500 p-4 rounded-lg shadow-xl z-20 w-64">
                     <div className="flex items-center gap-3 text-red-400 mb-2">
                       <XCircle className="w-5 h-5" />
-                      <span className="font-bold text-sm">NOT Crypto Payment</span>
+                      <span className="font-bold text-sm">NOT Your Keys</span>
                     </div>
                     <p className="text-xs text-gray-400">
-                      你是把加密貨幣「賣掉」，把現金存進去。這失去了加密貨幣的意義。
+                      卡片只是交易所帳戶的延伸。<br/>
+                      這解決了支付，但放棄了初衷。
                     </p>
                   </div>
                   
@@ -228,7 +308,7 @@ const App = () => {
         );
 
       // SLIDE 4: GEN 2 - THE FAILED PIONEERS
-      case 3:
+      case 4:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="mb-8 md:mb-10">
@@ -293,7 +373,7 @@ const App = () => {
         );
 
       // SLIDE 5: GEN 3 - ETHER.FI CASH
-      case 4:
+      case 5:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
@@ -352,7 +432,7 @@ const App = () => {
         );
 
       // SLIDE 6: CONCLUSION / DEMO
-      case 5:
+      case 6:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12">
             <h2 className="text-4xl md:text-7xl font-bold mb-8">
