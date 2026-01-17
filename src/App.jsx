@@ -297,7 +297,7 @@ export default function App() {
                           <div>
                             <h4 className="text-gray-500 text-xs uppercase tracking-wider mb-1">巨大的交易摩擦 (Friction)</h4>
                             <p className="text-gray-300 text-sm">披薩成本 $25 → 付出 $41 等值 BTC</p>
-                            <p className="text-yellow-500 text-sm font-bold mt-1">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。溢價 64%。"</p>
+                            <p className="text-yellow-500 text-sm font-bold mt-1">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去. 溢價 64%。"</p>
                           </div>
                        </div>
                      </div>
@@ -381,7 +381,7 @@ export default function App() {
               question="比特幣可以買東西嗎？"
               answer="可以，我們會幫店家自動換匯。"
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
-              subText={`問題：這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
+              subText={`問題：\n這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
               theme="yellow"
             >
               <FlowSection steps={[
@@ -668,7 +668,6 @@ export default function App() {
             </h2>
             <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mb-12 leading-relaxed px-2">
               這條路走了 15 年，現在終於通了。<br/>
-              不需要解釋底層的 zkEVM 怎麼運作，<br/>
               去樓下 7-11 買杯咖啡，你就懂了。
             </p>
             
