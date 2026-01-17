@@ -105,7 +105,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
           </div>
           
-          <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-4">
+          <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-4 shrink-0">
              <div className="flex items-start gap-3 mb-2">
                <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
                <p className="text-gray-300 italic">"{question}"</p>
@@ -117,8 +117,8 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
           </div>
 
           {image && (
-            <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group">
-               <img src={image} alt={title} className="w-full h-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group shrink-0">
+               <img src={image} alt={title} className="w-full h-auto object-contain" />
             </div>
           )}
 
@@ -251,19 +251,19 @@ export default function App() {
       // SLIDE 2: GEN 0 - BITCOIN PIZZA
       case 2:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full overflow-y-auto">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
             <div className="mb-8">
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 0 (May 22, 2010)</span>
               <h2 className="text-3xl md:text-5xl font-bold mb-6 flex items-center gap-4 flex-wrap text-white">
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-4">
+              <div className="grid md:grid-cols-5 gap-8 mb-8">
                 <div className="md:col-span-3">
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
                      alt="Bitcoin Pizza" 
-                     className="w-full rounded-xl border border-gray-700 mb-6 shadow-lg object-contain h-auto max-h-80"
+                     className="w-full rounded-xl border border-gray-700 mb-6 shadow-lg object-contain h-auto"
                    />
                    
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
@@ -289,7 +289,7 @@ export default function App() {
                    </div>
                 </div>
                 
-                <div className="md:col-span-2 flex flex-col justify-center gap-3 text-sm md:text-base text-gray-500 bg-gray-900/30 p-6 rounded-xl border border-gray-800">
+                <div className="md:col-span-2 flex flex-col justify-center gap-3 text-sm md:text-base text-gray-500 bg-gray-900/30 p-6 rounded-xl border border-gray-800 h-fit">
                      <div className="flex justify-between border-b border-gray-800 pb-2">
                        <span>BTC "Market" Value</span>
                        <span className="text-green-400">~$41.00 USD</span>
@@ -324,7 +324,7 @@ export default function App() {
 
       case 3:
         return (
-          <div className="flex flex-col justify-center px-4 h-full w-full">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
             <TimelineCard 
               era="ERA 1 (2010-2012)"
               title="The Exchange Era"
@@ -349,7 +349,7 @@ export default function App() {
 
       case 4:
         return (
-          <div className="flex flex-col justify-center px-4 h-full w-full">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
             <TimelineCard 
               era="ERA 2 (2013-2016)"
               title="Merchant Adoption"
@@ -374,7 +374,7 @@ export default function App() {
 
       case 5:
         return (
-          <div className="flex flex-col justify-center px-4 h-full w-full">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
             <TimelineCard 
               era="ERA 3 (2014-2018)"
               title="Payment Processors"
@@ -399,7 +399,7 @@ export default function App() {
 
       case 6:
         return (
-          <div className="flex flex-col justify-center px-4 h-full w-full">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
             <TimelineCard 
               era="ERA 4 (2016-2019)"
               title="Tech Improvements"
@@ -423,7 +423,7 @@ export default function App() {
 
       case 7:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
               <div className="flex-1 w-full text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1 (2019-2022)</span>
@@ -483,7 +483,7 @@ export default function App() {
 
       case 8:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
             <div className="mb-8 md:mb-10 text-white">
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 2 (2018-2020)</span>
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -549,7 +549,7 @@ export default function App() {
 
       case 9:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full overflow-y-auto">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
               <div className="flex-1 w-full text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3 (2024-Present)</span>
