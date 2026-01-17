@@ -117,8 +117,8 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
           </div>
 
           {image && (
-            <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 relative group">
-               <img src={image} alt={title} className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group">
+               <img src={image} alt={title} className="w-full h-auto object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )}
 
@@ -263,7 +263,7 @@ export default function App() {
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
                      alt="Bitcoin Pizza" 
-                     className="w-full rounded-xl border border-gray-700 mb-6 shadow-lg object-cover h-48 md:h-64"
+                     className="w-full rounded-xl border border-gray-700 mb-6 shadow-lg object-contain h-auto max-h-80"
                    />
                    
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
@@ -614,7 +614,6 @@ export default function App() {
       case 10:
         return (
           <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
-            {/* ... existing code for Slide 10 (Anatomy) ... */}
             <div className="text-center mb-8 lg:mb-12 shrink-0">
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE BLUEPRINT</span>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
