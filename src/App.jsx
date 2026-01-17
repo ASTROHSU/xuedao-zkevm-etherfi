@@ -11,30 +11,30 @@ import {
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
   <div className="flex flex-col items-center relative z-10 group flex-1 min-w-0">
-    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center mb-2 shadow-lg transition-all duration-300 shrink-0 ${
+    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 shrink-0 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-4 h-4 md:w-5 md:h-5" />
+      <Icon className="w-6 h-6 md:w-8 md:h-8" />
     </div>
-    <h4 className="font-bold text-white text-xs text-center mb-0.5 truncate w-full px-1">{title}</h4>
-    <p className="text-[10px] text-gray-400 text-center leading-tight hidden md:block">{sub}</p>
+    <h4 className="font-bold text-white text-sm md:text-base text-center mb-1 w-full px-1 leading-tight">{title}</h4>
+    <p className="text-xs text-gray-400 text-center leading-tight">{sub}</p>
     
     {!isLast && (
-      <div className="absolute top-4 -right-[50%] w-full h-[1px] bg-gray-700 -z-10"></div>
+      <div className="hidden md:block absolute top-6 -right-[50%] w-full h-[2px] bg-gray-700 -z-10"></div>
     )}
   </div>
 );
 
 const FlowSection = ({ steps, title = "Payment Flow", className = "" }) => (
   <div className={`w-full ${className}`}>
-    <div className="flex items-center gap-2 mb-3 opacity-40">
+    <div className="flex items-center gap-2 mb-4 opacity-60">
       <div className="h-[1px] bg-gray-700 flex-1"></div>
-      <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">{title}</span>
+      <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">{title}</span>
       <div className="h-[1px] bg-gray-700 flex-1"></div>
     </div>
-    <div className="flex flex-row justify-between items-start gap-1 relative">
+    <div className="flex flex-row justify-between items-start gap-2 relative">
        {steps.map((step, index) => (
          <ProcessStep 
            key={index}
@@ -123,20 +123,20 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
           </div>
         </div>
         
-        <div className="flex-1 lg:w-1/2 bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col justify-between min-h-[300px]">
-          <div>
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-              <Icon className="w-48 h-48" />
+        <div className="flex-1 lg:w-1/2 bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col gap-6">
+          <div className="relative z-10">
+            <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+              <Icon className="w-64 h-64" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2 relative z-10">
-              <AlertCircle className="w-5 h-5" /> The Reality
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2 relative z-10">
+              <AlertCircle className="w-6 h-6" /> The Reality
             </h3>
-            <p className="text-gray-400 text-base md:text-lg leading-relaxed whitespace-pre-line relative z-10 mb-6">
+            <p className="text-gray-400 text-lg leading-relaxed whitespace-pre-line relative z-10">
               {subText}
             </p>
           </div>
           
-          <div className="relative z-10 mt-auto">
+          <div className="relative z-10 w-full mt-2">
             {children}
           </div>
         </div>
@@ -376,7 +376,7 @@ export default function App() {
         return (
           <div className="flex flex-col justify-center px-4 min-h-full w-full py-12">
             <TimelineCard 
-              era="ERA 3 (2014-2018)"
+              era="ERA  3 (2014-2018)"
               title="Payment Processors"
               icon={RefreshCw}
               image="https://techcrunch.com/wp-content/uploads/2014/01/screen-shot-2014-01-04-at-09-59-13.png?w=624"
