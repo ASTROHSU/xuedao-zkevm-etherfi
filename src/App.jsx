@@ -151,6 +151,17 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 13;
 
+  // Set Title and Favicon
+  useEffect(() => {
+    document.title = "Ether.fi Cash - The Evolution of Crypto Payments";
+    
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/svg+xml';
+    link.rel = 'shortcut icon';
+    link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💳</text></svg>';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
