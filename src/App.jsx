@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CreditCard, ArrowRight, Layers, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity } from 'lucide-react';
+import { CreditCard, ArrowRight, Layers, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, Quote } from 'lucide-react';
 
 const SlideSection = ({ children, className = "" }) => (
   <section className={`min-h-screen flex flex-col justify-center px-6 py-12 border-b border-gray-800 ${className}`}>
@@ -26,7 +26,7 @@ const Card = ({ title, icon: Icon, children }) => (
 const EvolutionStep = ({ year, title, desc, isActive, onClick }) => (
   <div 
     onClick={onClick}
-    className={`cursor-pointer p-6 rounded-xl transition-all duration-300 border ${
+    className={`cursor-pointer p-6 rounded-xl transition-all duration-300 border h-full flex flex-col ${
       isActive 
         ? 'bg-purple-900/30 border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.2)]' 
         : 'bg-gray-800/30 border-transparent hover:bg-gray-800'
@@ -40,6 +40,19 @@ const EvolutionStep = ({ year, title, desc, isActive, onClick }) => (
   </div>
 );
 
+const ArticleCard = ({ date, title, content }) => (
+  <div className="bg-gray-900/80 border border-gray-700 p-5 rounded-lg mb-4 hover:border-purple-500/50 transition-colors">
+    <div className="flex items-center gap-2 mb-2 text-xs font-mono text-purple-400">
+      <BookOpen className="w-3 h-3" />
+      {date} • Blocktrend Archive
+    </div>
+    <h4 className="font-bold text-white mb-2 text-base">{title}</h4>
+    <p className="text-gray-400 text-sm leading-relaxed border-l-2 border-gray-700 pl-3 italic">
+      "{content}"
+    </p>
+  </div>
+);
+
 const App = () => {
   const [activeEra, setActiveEra] = useState(2);
 
@@ -47,20 +60,51 @@ const App = () => {
     {
       year: "Gen 1.0 (2016-2020)",
       title: "CEX 預付卡 (Prepaid)",
-      desc: "充值法幣或賣出加密貨幣。本質是「變現」。需要手動操作，高滑點，每一筆消費都是應稅事件 (Tax Event)。",
-      detail: "例子：早期的 Wirex, Crypto.com, Binance Card。"
+      desc: "充值法幣或賣出加密貨幣。本質是「變現」。需要手動操作，高滑點。",
+      detail: "早期階段，重點在於讓加密貨幣「能用」。",
+      articles: [
+        {
+          date: "Mar 10, 2020",
+          title: "Coinbase 成為 Visa 主要會員 — 加密貨幣支付隱形化",
+          content: "消費者選擇以 Coinbase Visa 支付... Coinbase 再從消費者帳戶內扣除等值的加密貨幣。商家拿到現金，消費者花掉比特幣，大家都開心。這是最早期的隱形支付嘗試。"
+        },
+        {
+          date: "May 26, 2020",
+          title: "全通路 5% 回饋神卡：CRO / MCO Visa 卡",
+          content: "MCO Visa 大幅降低了人們接觸加密貨幣的門檻... 但也容易讓人一不小心就忽視了它的風險。這類卡片犧牲了「去中心化」，但也讓人們換到了便利性。"
+        }
+      ]
     },
     {
       year: "Gen 2.0 (2021-2023)",
       title: "DeFi 簽帳卡 (Debit)",
-      desc: "非託管錢包連接。直接扣除 USDC/USDT。雖然去中心化，但失去了資金效率，消費掉的錢無法再生息。",
-      detail: "例子：Gnosis Pay, Monolith。"
+      desc: "非託管錢包連接。直接扣除 USDC。雖然去中心化，但失去了資金效率。",
+      detail: "中期階段，重點在於「自託管 (Self-Custody)」與基礎建設的打通。",
+      articles: [
+        {
+          date: "Dec 08, 2020",
+          title: "Visa 將數位美金（USDC）放進全球支付網路",
+          content: "Visa 態度 180 度大轉變，讓 USDC 直接進入全球支付網路。Visa 估計，每年透過支票以及電匯進行的付款達 120 兆美元... 這是基礎建設的關鍵轉折。"
+        },
+        {
+          date: "Nov 14, 2023",
+          title: "Gnosis Pay：直接從錢包扣款的 Visa 金融卡",
+          content: "Gnosis Pay 的出現是一大創舉：卡片資金不是放在交易所，也不是銀行帳戶，而是個人錢包。這標誌著 Self-custody 支付的真正開始。"
+        }
+      ]
     },
     {
       year: "Gen 3.0 (2024-Present)",
       title: "Ether.fi Cash (Credit)",
-      desc: "基於資產的信用消費。你的 ETH/LRT 繼續質押生息 (4-5%)，消費時自動借款。保留資產上漲潛力。",
-      detail: "例子：Ether.fi Cash on Scroll。"
+      desc: "基於資產的信用消費。你的 ETH/LRT 繼續質押生息，消費時自動借款。",
+      detail: "成熟階段。基礎設施完備，現在我們追求的是「資金效率」與「資產增值」。",
+      articles: [
+        {
+          date: "May 08, 2025",
+          title: "穩定幣支付卡大爆發！Visa 是以太坊第二層網路",
+          content: "穩定幣已經脫離原本的交易避險工具，成為日常消費的支付工具。Visa 就像以太坊上的第二層網路（L2），讓交易更有效率。這為 Ether.fi 的出現鋪平了道路。"
+        }
+      ]
     }
   ];
 
@@ -113,10 +157,13 @@ const App = () => {
 
       {/* The Problem / Context */}
       <SlideSection>
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-4">
           <History className="text-purple-400" />
-          The Evolution of Crypto Cards
+          The Evolution
         </h2>
+        <p className="text-gray-400 mb-10 text-lg">
+          我從 2020 年開始追蹤加密貨幣支付卡的發展，這是一條從「中心化變現」走向「去中心化信用」的漫長道路。
+        </p>
         
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           {eras.map((era, index) => (
@@ -129,17 +176,28 @@ const App = () => {
           ))}
         </div>
 
-        <div className="bg-gray-800/50 p-8 rounded-2xl border border-gray-700">
-          <h3 className="text-2xl font-bold text-purple-300 mb-4">
-            {eras[activeEra].title}
-          </h3>
-          <p className="text-lg text-gray-300 mb-4">
-            {eras[activeEra].desc}
-          </p>
-          <div className="p-4 bg-gray-900/50 rounded-lg border-l-4 border-purple-500">
-            <p className="text-gray-400 font-mono text-sm">
-              {eras[activeEra].detail}
+        {/* Detailed View Panel */}
+        <div className="bg-gray-800/50 rounded-2xl border border-gray-700 overflow-hidden">
+          <div className="p-8 border-b border-gray-700/50">
+            <h3 className="text-2xl font-bold text-purple-300 mb-2">
+              {eras[activeEra].title}
+            </h3>
+            <p className="text-lg text-gray-300">
+              {eras[activeEra].desc}
             </p>
+          </div>
+          
+          <div className="p-8 bg-gray-900/30">
+            <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <Activity className="w-4 h-4" />
+              Blocktrend Archives (Historical Context)
+            </h4>
+            
+            <div className="grid md:grid-cols-1 gap-4">
+              {eras[activeEra].articles.map((article, idx) => (
+                <ArticleCard key={idx} {...article} />
+              ))}
+            </div>
           </div>
         </div>
       </SlideSection>
@@ -148,10 +206,10 @@ const App = () => {
       <SlideSection>
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Why ether.fi Cash is Different?
+            Gen 3.0: Why ether.fi Cash is Different?
           </h2>
           <p className="text-xl text-gray-400">
-            它不是一張 Debit Card，它是一張由你的 LRT 資產擔保的 Credit Card。
+            它站在前人的肩膀上。它不是一張 Debit Card，它是一張由你的 LRT 資產擔保的 Credit Card。
           </p>
         </div>
 
