@@ -149,18 +149,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 13;
-
-  // Set Title and Favicon
-  useEffect(() => {
-    document.title = "Ether.fi Cash - The Evolution of Crypto Payments";
-    
-    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/svg+xml';
-    link.rel = 'shortcut icon';
-    link.href = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💳</text></svg>';
-    document.getElementsByTagName('head')[0].appendChild(link);
-  }, []);
+  const totalSlides = 12;
 
   // Keyboard navigation
   useEffect(() => {
@@ -308,7 +297,7 @@ export default function App() {
                           <div>
                             <h4 className="text-gray-500 text-xs uppercase tracking-wider mb-1">巨大的交易摩擦 (Friction)</h4>
                             <p className="text-gray-300 text-sm">披薩成本 $25 → 付出 $41 等值 BTC</p>
-                            <p className="text-yellow-500 text-sm font-bold mt-1">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去. 溢價 64%。"</p>
+                            <p className="text-yellow-500 text-sm font-bold mt-1">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。溢價 64%。"</p>
                           </div>
                        </div>
                      </div>
@@ -581,10 +570,10 @@ export default function App() {
           </div>
         );
 
-      // --- NEW SLIDE 10: MODERN EXPERIENCE ---
+      // --- NEW SLIDE 10: MODERN EXPERIENCE (MERGED WITH ANATOMY) ---
       case 10:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
+          <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-12 min-h-full overflow-y-auto">
             <div className="flex flex-col gap-8">
               <div className="text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3 (Part 2)</span>
@@ -598,7 +587,43 @@ export default function App() {
               </div>
 
               <div className="w-full rounded-2xl overflow-hidden border border-gray-700 shadow-2xl">
-                 <img src="https://duk.tw/aq4HNG.png" alt="Modern Crypto Card Experience" className="w-full h-auto object-contain" />
+                 <img src="https://duk.tw/aq4HNG.png" alt="Modern Crypto Card Experience" className="w-full h-auto object-contain max-h-[400px]" />
+              </div>
+
+              <div className="mt-8 mb-4">
+                <span className="text-purple-400 font-mono text-xs mb-4 block tracking-widest uppercase text-center">Under The Hood: Ether.fi Cash</span>
+                <div className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-3 gap-6 lg:gap-8 items-center justify-center h-auto lg:h-[500px] w-full max-w-5xl mx-auto">
+                  
+                  {/* Central Card Visual */}
+                  <div className="lg:col-start-2 lg:row-start-2 z-10 w-full flex justify-center order-1 lg:order-none mb-8 lg:mb-0">
+                    <div className="relative w-64 h-40 md:w-80 md:h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-2xl border border-purple-500/50 shadow-[0_0_50px_rgba(168,85,247,0.3)] flex flex-col justify-between p-6 transform hover:scale-105 transition-transform duration-500">
+                      <div className="flex justify-between items-start">
+                        <span className="text-purple-200 font-bold italic tracking-wider">ether.fi</span>
+                        <Globe className="text-purple-400/50 w-6 h-6" />
+                      </div>
+                      <div className="text-center">
+                         <span className="text-white text-opacity-20 font-bold text-4xl tracking-widest">CASH</span>
+                      </div>
+                      <div className="flex justify-between items-end">
+                        <div className="text-purple-100 font-mono tracking-widest text-sm">**** 8888</div>
+                        <div className="text-xs text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded">L2 NATIVE</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-start-2 lg:row-start-1 flex justify-center order-2 lg:order-none w-full">
+                    <AnatomyPart icon={Globe} title="Visa Network" desc="解決「通用性」。就像 Crypto.com 一樣，連接全球 8000 萬商戶。" position="bottom" color="blue" />
+                  </div>
+                  <div className="lg:col-start-2 lg:row-start-3 flex justify-center order-3 lg:order-none w-full">
+                    <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="解決「成本」。就像失敗的 Monolith，但這次手續費夠低了。" position="top" color="yellow" />
+                  </div>
+                  <div className="lg:col-start-1 lg:row-start-2 flex justify-center order-4 lg:order-none w-full">
+                    <AnatomyPart icon={Lock} title="Smart Wallet" desc="解決「安全性」。資金在合約帳戶內 (Self-Custody)，避免 FTX 風險。" position="right" color="green" />
+                  </div>
+                  <div className="lg:col-start-3 lg:row-start-2 flex justify-center order-5 lg:order-none w-full">
+                    <AnatomyPart icon={TrendingUp} title="Token Rewards" desc="解決「誘因」。消費即挖礦，利用 DeFi 收益覆蓋最後一點摩擦成本。" position="left" color="purple" />
+                  </div>
+                </div>
               </div>
 
               <div className="bg-yellow-900/10 p-6 rounded-2xl border border-yellow-500/20">
@@ -623,55 +648,6 @@ export default function App() {
         );
 
       case 11:
-        return (
-          <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
-            <div className="text-center mb-8 lg:mb-12 shrink-0">
-              <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE BLUEPRINT</span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
-                Anatomy of Ether.fi Cash
-              </h2>
-              <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
-                把歷史的拼圖拼起來，這就是它現在的樣子。<br/>
-                每一個組件，都是為了解決過去某個階段的失敗。
-              </p>
-            </div>
-
-            <div className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-3 gap-6 lg:gap-8 items-center justify-center h-auto lg:h-[600px] w-full max-w-5xl mx-auto">
-              
-              {/* Central Card Visual */}
-              <div className="lg:col-start-2 lg:row-start-2 z-10 w-full flex justify-center order-1 lg:order-none mb-8 lg:mb-0">
-                <div className="relative w-64 h-40 md:w-80 md:h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-2xl border border-purple-500/50 shadow-[0_0_50px_rgba(168,85,247,0.3)] flex flex-col justify-between p-6 transform hover:scale-105 transition-transform duration-500">
-                  <div className="flex justify-between items-start">
-                    <span className="text-purple-200 font-bold italic tracking-wider">ether.fi</span>
-                    <Globe className="text-purple-400/50 w-6 h-6" />
-                  </div>
-                  <div className="text-center">
-                     <span className="text-white text-opacity-20 font-bold text-4xl tracking-widest">CASH</span>
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div className="text-purple-100 font-mono tracking-widest text-sm">**** 8888</div>
-                    <div className="text-xs text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded">L2 NATIVE</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-start-2 lg:row-start-1 flex justify-center order-2 lg:order-none w-full">
-                <AnatomyPart icon={Globe} title="Visa Network" desc="解決「通用性」。就像 Crypto.com 一樣，連接全球 8000 萬商戶。" position="bottom" color="blue" />
-              </div>
-              <div className="lg:col-start-2 lg:row-start-3 flex justify-center order-3 lg:order-none w-full">
-                <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="解決「成本」。就像失敗的 Monolith，但這次手續費夠低了。" position="top" color="yellow" />
-              </div>
-              <div className="lg:col-start-1 lg:row-start-2 flex justify-center order-4 lg:order-none w-full">
-                <AnatomyPart icon={Lock} title="Smart Wallet" desc="解決「安全性」。資金在合約帳戶內 (Self-Custody)，避免 FTX 風險。" position="right" color="green" />
-              </div>
-              <div className="lg:col-start-3 lg:row-start-2 flex justify-center order-5 lg:order-none w-full">
-                <AnatomyPart icon={TrendingUp} title="Token Rewards" desc="解決「誘因」。消費即挖礦，利用 DeFi 收益覆蓋最後一點摩擦成本。" position="left" color="purple" />
-              </div>
-            </div>
-          </div>
-        );
-
-      case 12:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12 overflow-y-auto">
             <h2 className="text-4xl md:text-7xl font-bold mb-8 text-white">
