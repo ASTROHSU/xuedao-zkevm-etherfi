@@ -256,7 +256,7 @@ export default function App() {
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-8">
+              <div className="grid md:grid-cols-5 gap-8 mb-4">
                 <div className="md:col-span-3">
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
@@ -287,34 +287,35 @@ export default function App() {
                    </div>
                 </div>
                 
-                <div className="md:col-span-2 flex flex-col justify-center gap-3 text-sm md:text-base text-gray-500 bg-gray-900/30 p-6 rounded-xl border border-gray-800 h-fit">
-                     <div className="flex justify-between border-b border-gray-800 pb-2">
-                       <span>BTC "Market" Value</span>
-                       <span className="text-green-400">~$41.00 USD</span>
+                <div className="md:col-span-2 flex flex-col gap-6">
+                     <div className="bg-gray-900/30 p-6 rounded-xl border border-gray-800">
+                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
+                         <span className="text-sm text-gray-500">BTC "Market" Value</span>
+                         <span className="text-green-400 font-mono">~$41.00 USD</span>
+                       </div>
+                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
+                         <span className="text-sm text-gray-500">Pizza Cost</span>
+                         <span className="text-red-400 font-mono">~$25.00 USD</span>
+                       </div>
+                       <div className="flex justify-between pt-1">
+                         <span className="text-sm text-gray-500">Premium Paid</span>
+                         <span className="text-yellow-500 font-bold font-mono">+$16.00 (64%)</span>
+                       </div>
+                       <div className="text-xs mt-4 text-gray-400 italic text-center">
+                         這 $16 美元的價差，就是當時為了「用比特幣買東西」所付出的代價。
+                       </div>
                      </div>
-                     <div className="flex justify-between border-b border-gray-800 pb-2">
-                       <span>Pizza Cost</span>
-                       <span className="text-red-400">~$25.00 USD</span>
-                     </div>
-                     <div className="flex justify-between pt-1">
-                       <span>Premium Paid</span>
-                       <span className="text-yellow-500 font-bold">+$16.00 (64%)</span>
-                     </div>
-                     <div className="text-xs mt-4 text-gray-400 italic text-center">
-                       這 $16 美元的價差，就是當時為了「用比特幣買東西」所付出的代價。
+
+                     <div className="bg-gray-900/30 p-4 rounded-xl border border-gray-800">
+                        <FlowSection steps={[
+                          { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
+                          { icon: Mail, title: "Forum", sub: "發文尋找" },
+                          { icon: Activity, title: "Jercos", sub: "刷卡代付" },
+                          { icon: CreditCard, title: "Bridge", sub: "法幣結算" },
+                          { icon: Pizza, title: "Pizza", sub: "完成交易" }
+                        ]} title="The Workflow" />
                      </div>
                 </div>
-              </div>
-
-              {/* FLOW CHART RESTORED */}
-              <div className="mt-4">
-                <FlowSection steps={[
-                  { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
-                  { icon: Mail, title: "BitcoinTalk", sub: "發文尋找買家" },
-                  { icon: Activity, title: "Jercos", sub: "刷卡幫買披薩" },
-                  { icon: CreditCard, title: "Fiat Bridge", sub: "支付法幣" },
-                  { icon: Pizza, title: "Pizza", sub: "送到 Laszlo 手上" }
-                ]} />
               </div>
             </div>
           </div>
