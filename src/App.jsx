@@ -4,7 +4,7 @@ import {
   History, ChevronRight, Activity, BookOpen, ChevronLeft, 
   Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, 
   QrCode, Store, Smartphone, Globe, Lock, CheckCircle, 
-  Landmark, RefreshCw, AlertCircle, Banknote, Mail 
+  Landmark, RefreshCw, AlertCircle, Banknote, Mail, Key, Fingerprint
 } from 'lucide-react';
 
 // --- Components ---
@@ -149,7 +149,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 12;
+  const totalSlides = 13; // Increased to 13
 
   // Keyboard navigation
   useEffect(() => {
@@ -381,7 +381,7 @@ export default function App() {
               question="比特幣可以買東西嗎？"
               answer="可以，我們會幫店家自動換匯。"
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
-              subText={`問題：這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
+              subText={`問題：\n這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
               theme="yellow"
             >
               <FlowSection steps={[
@@ -555,72 +555,124 @@ export default function App() {
           </div>
         );
 
+      // --- NEW SLIDE 9: INFRASTRUCTURE ---
       case 9:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-              <div className="flex-1 w-full text-white">
-                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3 (2024-Present)</span>
-                <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                  The Final Bridge
+            <div className="flex flex-col gap-8">
+              <div className="text-white">
+                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3 (Part 1)</span>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                  The Infrastructure Fix (2024)
                 </h2>
-                <p className="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                  為什麼現在可以了？<br/>
-                  因為基礎設施 <span className="text-white font-bold">Layer 2 (Scroll)</span> 終於跟上了夢想。
-                </p>
-                
-                <div className="space-y-6">
-                  <div className="flex gap-4 p-4 bg-purple-900/20 border border-purple-500/30 rounded-xl">
-                    <div className="bg-purple-500/20 p-3 rounded-lg h-fit shrink-0">
-                      <Layers className="w-6 h-6 text-purple-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white">Scroll (L2) 解決了 Monolith 的問題</h4>
-                      <p className="text-sm text-gray-400 mt-1">
-                        zkEVM 讓 Gas Fee 趨近於零。每一筆刷卡都能在鏈上低成本結算，不需要補貼也能運作。
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4 p-4 bg-green-900/20 border border-green-500/30 rounded-xl">
-                    <div className="bg-green-500/20 p-3 rounded-lg h-fit shrink-0">
-                      <TrendingUp className="w-6 h-6 text-green-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white">Ether.fi 解決了 CEX 的問題</h4>
-                      <p className="text-sm text-gray-400 mt-1">
-                        你的錢在合約帳戶裡 (Self-Custody)，不是在交易所。而且還能持續生息 (Positive Carry)。
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-6">
+                   <div className="flex items-start gap-3">
+                     <div className="bg-green-500/20 p-1.5 rounded text-xs font-bold text-green-400">A</div>
+                     <p className="text-green-200 font-medium text-sm md:text-base">"Layer 2 的低費率 + 帳戶抽象化 (AA) 解決了最後一哩路。"</p>
+                   </div>
                 </div>
               </div>
 
-              <div className="flex-1 flex flex-col items-center py-8 md:py-0">
-                 <div className="relative w-64 h-64 md:w-72 md:h-72 mb-8">
-                    <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-                    <div className="relative z-10 bg-gray-900 border border-gray-700 p-8 rounded-3xl shadow-2xl h-full flex flex-col justify-center items-center text-center aspect-square">
-                      <Zap className="w-16 h-16 text-yellow-400 mb-4" />
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-2">Frictionless</h3>
-                      <p className="text-gray-400 text-sm">
-                        Spending becomes<br/>Borrowing.
-                      </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-900/40 to-gray-900 p-6 rounded-2xl border border-blue-500/30">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-blue-500/20 p-3 rounded-xl text-blue-400">
+                      <Layers className="w-8 h-8" />
                     </div>
-                 </div>
+                    <h3 className="text-xl font-bold text-white">L2 Low Fees</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    從 2024 年開始，以太坊 Layer 2 (如 Arbitrum, Optimism, Scroll) 的手續費大幅下降。
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-400">✓</span> 日常小額支付終於不用再跑在昂貴的 L1 上。
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-400">✓</span> 吞吐量大增，不再有 DeFi Summer 的擁堵問題。
+                    </li>
+                  </ul>
+                </div>
 
-                 <FlowSection steps={[
-                    { icon: Layers, title: "L2 Wallet", sub: "Scroll zkEVM" },
-                    { icon: TrendingUp, title: "Assets", sub: "生息資產" },
-                    { icon: CreditCard, title: "Visa", sub: "刷卡 (借款)" },
-                    { icon: RefreshCw, title: "Settle", sub: "低 Gas 還款" },
-                    { icon: Store, title: "Shop", sub: "7-11 咖啡" }
-                  ]} />
+                <div className="bg-gradient-to-br from-purple-900/40 to-gray-900 p-6 rounded-2xl border border-purple-500/30">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-purple-500/20 p-3 rounded-xl text-purple-400">
+                      <Key className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Account Abstraction</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    支援 Passkeys 與智慧合約錢包 (Smart Accounts)。
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-400">✓</span> 告別助記詞，用 FaceID 就能登入。
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-green-400">✓</span> 可設定自動扣款、社交恢復，體驗如 Web2 般滑順。
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="text-center mt-4">
+                <p className="text-gray-500 italic">這些技術拼圖全部串在一起，才催生了現代的加密支付卡。</p>
               </div>
             </div>
           </div>
         );
 
+      // --- NEW SLIDE 10: MODERN EXPERIENCE ---
       case 10:
+        return (
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
+            <div className="flex flex-col gap-8">
+              <div className="text-white">
+                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3 (Part 2)</span>
+                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                  The Modern Experience
+                </h2>
+                <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
+                  Ether.fi, Coinbase, Bybit, RedotPay 百花齊放。<br/>
+                  現在的體驗是：<span className="text-white font-bold">只在儲值時接觸 Crypto，消費時完全無感。</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-8 items-center justify-center py-4">
+                 <div className="relative w-64 h-40 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl border border-gray-700 flex flex-col justify-between p-4 shadow-2xl transform rotate-[-5deg] z-0">
+                    <div className="text-gray-500 font-bold text-xs">Crypto Wallet</div>
+                    <div className="text-white font-mono text-lg">USDC Deposit</div>
+                 </div>
+                 <ArrowRight className="text-gray-500 w-8 h-8 hidden md:block" />
+                 <ArrowDown className="text-gray-500 w-8 h-8 md:hidden" />
+                 <div className="relative w-64 h-40 bg-gradient-to-r from-gray-100 to-white rounded-xl border border-gray-200 flex flex-col justify-center items-center shadow-[0_0_30px_rgba(255,255,255,0.1)] z-10">
+                    <Smartphone className="text-black w-12 h-12 mb-2" />
+                    <span className="text-black font-bold">Apple Pay</span>
+                 </div>
+              </div>
+
+              <div className="bg-yellow-900/10 p-6 rounded-2xl border border-yellow-500/20">
+                <h3 className="text-xl font-bold text-yellow-500 mb-3 flex items-center gap-2">
+                  <Landmark className="w-6 h-6" />
+                  The Business Model: "Yield"
+                </h3>
+                <p className="text-gray-300 leading-relaxed">
+                  現在的卡片怎麼賺錢？答案是<span className="text-white font-bold">收益 (Yield)</span>。<br/>
+                  就像銀行希望你存錢一樣，這些協議希望你把加密資產 (TVL) 放在他們那裡產生 DeFi 收益 (Positive Carry)。
+                </p>
+                <div className="mt-4 flex items-center gap-4 text-sm text-yellow-200/70">
+                  <span>存款 → 產生收益</span>
+                  <ArrowRight className="w-4 h-4" />
+                  <span>支付補貼</span>
+                  <ArrowRight className="w-4 h-4" />
+                  <span>吸引更多存款</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 11:
         return (
           <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
             <div className="text-center mb-8 lg:mb-12 shrink-0">
@@ -669,7 +721,7 @@ export default function App() {
           </div>
         );
 
-      case 11:
+      case 12:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12 overflow-y-auto">
             <h2 className="text-4xl md:text-7xl font-bold mb-8 text-white">
