@@ -4,31 +4,53 @@ import {
   History, ChevronRight, Activity, BookOpen, ChevronLeft, 
   Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, 
   QrCode, Store, Smartphone, Globe, Lock, CheckCircle, 
-  Landmark, RefreshCw, AlertCircle, Banknote 
+  Landmark, RefreshCw, AlertCircle, Banknote, Mail 
 } from 'lucide-react';
 
 // --- Components ---
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
-  <div className="flex flex-col items-center relative z-10 group w-full md:w-auto">
-    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 shadow-lg transition-all duration-300 ${
+  <div className="flex flex-col items-center relative z-10 group w-full md:w-auto flex-1">
+    <div className={`w-10 h-10 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-6 h-6 md:w-8 md:h-8" />
+      <Icon className="w-5 h-5 md:w-7 md:h-7" />
     </div>
-    <h4 className="font-bold text-white text-lg md:text-xl text-center mb-2">{title}</h4>
-    <p className="text-sm md:text-base text-gray-400 text-center max-w-[200px] md:max-w-[160px] leading-snug">{sub}</p>
+    <h4 className="font-bold text-white text-sm md:text-base text-center mb-1">{title}</h4>
+    <p className="text-xs text-gray-400 text-center max-w-[120px] leading-snug">{sub}</p>
     
     {!isLast && (
-      <div className="hidden md:block absolute top-1/2 -right-1/2 w-full h-[2px] bg-gray-700 -z-10 transform -translate-y-1/2"></div>
+      <div className="hidden md:block absolute top-5 -right-[50%] w-full h-[2px] bg-gray-700 -z-10"></div>
     )}
     {!isLast && (
-       <div className="md:hidden my-4 text-gray-600 animate-bounce">
-        <ArrowDown className="w-6 h-6" />
+       <div className="md:hidden my-2 text-gray-600">
+        <ArrowDown className="w-4 h-4" />
       </div>
     )}
+  </div>
+);
+
+const FlowSection = ({ steps, title = "Payment Flow" }) => (
+  <div className="mt-8 w-full max-w-5xl mx-auto">
+    <div className="flex items-center gap-2 mb-6 opacity-50">
+      <div className="h-[1px] bg-gray-700 flex-1"></div>
+      <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">{title}</span>
+      <div className="h-[1px] bg-gray-700 flex-1"></div>
+    </div>
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-2 relative px-4">
+       {steps.map((step, index) => (
+         <ProcessStep 
+           key={index}
+           icon={step.icon} 
+           title={step.title} 
+           sub={step.sub} 
+           isLast={index === steps.length - 1}
+           isBad={step.isBad}
+         />
+       ))}
+    </div>
   </div>
 );
 
@@ -66,7 +88,7 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   );
 };
 
-const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, answer, theme = "blue", image }) => {
+const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, answer, theme = "blue", image, children }) => {
   const themes = {
     blue: "from-blue-900/50 to-gray-900 border-blue-500/30 text-blue-400",
     purple: "from-purple-900/50 to-gray-900 border-purple-500/30 text-purple-400",
@@ -75,47 +97,52 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
   };
 
   return (
-    <div className={`flex flex-col md:flex-row gap-8 items-stretch bg-gradient-to-br ${themes[theme]} p-8 rounded-2xl border w-full max-w-6xl mx-auto min-h-[450px]`}>
-      <div className="flex-1 space-y-6 flex flex-col">
-        <div>
-          <span className="font-mono text-sm tracking-widest opacity-80 mb-2 block">{era}</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
+    <div className={`flex flex-col h-full w-full max-w-6xl mx-auto`}>
+      <div className={`flex flex-col md:flex-row gap-8 items-stretch bg-gradient-to-br ${themes[theme]} p-8 rounded-2xl border w-full min-h-[400px]`}>
+        <div className="flex-1 space-y-6 flex flex-col">
+          <div>
+            <span className="font-mono text-sm tracking-widest opacity-80 mb-2 block">{era}</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
+          </div>
+          
+          <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-4">
+             <div className="flex items-start gap-3 mb-2">
+               <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
+               <p className="text-gray-300 italic">"{question}"</p>
+             </div>
+             <div className="flex items-start gap-3">
+               <div className={`bg-${theme}-500/20 p-1.5 rounded text-xs font-bold text-${theme}-400`}>A</div>
+               <p className={`text-${theme}-200 font-medium`}>{answer}</p>
+             </div>
+          </div>
+
+          {image && (
+            <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 relative group">
+               <img src={image} alt={title} className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          )}
+
+          <div className={`p-4 rounded-xl bg-gray-900/50 border border-white/10 flex-grow`}>
+            {!image && <Icon className="w-10 h-10 mb-3 opacity-80" />}
+            <p className="text-lg text-gray-200 leading-relaxed font-light">{mainText}</p>
+          </div>
         </div>
         
-        <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-4">
-           <div className="flex items-start gap-3 mb-2">
-             <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
-             <p className="text-gray-300 italic">"{question}"</p>
-           </div>
-           <div className="flex items-start gap-3">
-             <div className={`bg-${theme}-500/20 p-1.5 rounded text-xs font-bold text-${theme}-400`}>A</div>
-             <p className={`text-${theme}-200 font-medium`}>{answer}</p>
-           </div>
-        </div>
-
-        {image && (
-          <div className="w-full h-48 rounded-xl overflow-hidden border border-white/10 relative group">
-             <img src={image} alt={title} className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="flex-1 w-full bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col">
+          <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
+            <Icon className="w-32 h-32" />
           </div>
-        )}
-
-        <div className={`p-4 rounded-xl bg-gray-900/50 border border-white/10 flex-grow`}>
-          {!image && <Icon className="w-10 h-10 mb-3 opacity-80" />}
-          <p className="text-lg text-gray-200 leading-relaxed font-light">{mainText}</p>
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <AlertCircle className="w-5 h-5" /> The Reality
+          </h3>
+          <p className="text-gray-400 text-lg leading-relaxed whitespace-pre-line flex-grow">
+            {subText}
+          </p>
         </div>
       </div>
       
-      <div className="flex-1 w-full bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col">
-        <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-          <Icon className="w-32 h-32" />
-        </div>
-        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5" /> The Reality
-        </h3>
-        <p className="text-gray-400 text-lg leading-relaxed whitespace-pre-line flex-grow">
-          {subText}
-        </p>
-      </div>
+      {/* Flow Section Rendered Below Card */}
+      {children}
     </div>
   );
 };
@@ -231,9 +258,8 @@ export default function App() {
                 The Day of "No Exchange" <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-12">
+              <div className="grid md:grid-cols-5 gap-8 mb-4">
                 <div className="md:col-span-3">
-                   {/* ADDED IMAGE HERE */}
                    <img 
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
                      alt="Bitcoin Pizza" 
@@ -281,6 +307,15 @@ export default function App() {
                      </div>
                 </div>
               </div>
+
+              {/* FLOW CHART RESTORED */}
+              <FlowSection steps={[
+                { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
+                { icon: Mail, title: "BitcoinTalk", sub: "發文尋找買家" },
+                { icon: Activity, title: "Jercos", sub: "刷卡幫買披薩" },
+                { icon: CreditCard, title: "Fiat Bridge", sub: "支付法幣" },
+                { icon: Pizza, title: "Pizza", sub: "送到 Laszlo 手上" }
+              ]} />
             </div>
           </div>
         );
@@ -300,7 +335,15 @@ export default function App() {
               mainText="2010 年 7 月 Mt. Gox 成立 (比披薩日晚 2 個月)。總算開始解決流動性分散問題，大家不用再上論壇貼文，而是有專門平台集中流動性，讓價格變得透明且可查詢。"
               subText={`問題：消費流程還是兩段式。雖然解決了幣換錢、報價不透明的問題，但總有一個人要麻煩。除非他願意長期持有比特幣。\n\n要嘛是消費者先把比特幣換成法幣，或是找到願意收比特幣的個人，請他幫忙用法幣代購。交易所解決了「幣變錢」的問題，但沒有解決「支付」的問題。`}
               theme="blue"
-            />
+            >
+              <FlowSection steps={[
+                { icon: Wallet, title: "User", sub: "持有 BTC" },
+                { icon: Landmark, title: "Exchange", sub: "掛單賣出 (Sell)" },
+                { icon: Banknote, title: "Withdraw", sub: "法幣提現到銀行" },
+                { icon: Coins, title: "Cash", sub: "領出現金" },
+                { icon: Store, title: "Shop", sub: "去買東西" }
+              ]} />
+            </TimelineCard>
           </div>
         );
 
@@ -317,7 +360,15 @@ export default function App() {
               mainText="Overstock, Newegg 等科技電商開始「願意收幣」。這簡化了使用者的流程，你可以直接把幣轉給商家。"
               subText={`問題：這變成了商家的麻煩。\n\n多虧有中心化交易所的報價，電商才知道要收多少幣。但商家收了幣之後，他們也要自己去交易所賣掉換現金。負擔只是從消費者轉移到了商家身上。`}
               theme="purple"
-            />
+            >
+              <FlowSection steps={[
+                { icon: Wallet, title: "User", sub: "發送 BTC" },
+                { icon: ArrowRight, title: "Direct", sub: "直接轉帳" },
+                { icon: Store, title: "Merchant", sub: "收到 BTC" },
+                { icon: Landmark, title: "Exchange", sub: "商家去賣幣" },
+                { icon: Banknote, title: "Fiat", sub: "商家換回法幣" }
+              ]} />
+            </TimelineCard>
           </div>
         );
 
@@ -333,7 +384,15 @@ export default function App() {
               mainText="BitPay, Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有風險了。"
               subText={`問題：\n這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
               theme="yellow"
-            />
+            >
+              <FlowSection steps={[
+                { icon: Wallet, title: "User", sub: "發送 BTC" },
+                { icon: RefreshCw, title: "BitPay", sub: "即時鎖定匯率" },
+                { icon: Landmark, title: "Processor", sub: "自動換匯" },
+                { icon: ArrowRight, title: "Settle", sub: "法幣結算" },
+                { icon: Store, title: "Merchant", sub: "收到法幣" }
+              ]} />
+            </TimelineCard>
           </div>
         );
 
@@ -349,7 +408,15 @@ export default function App() {
               mainText="Lightning Network 讓交易變快；USDT 讓價值穩定。技術一直在進步，支付不再需要等 10 分鐘。"
               subText={`問題：\n你還是只能在「支援加密貨幣」的特定店家消費。\n\n我想買咖啡、我想搭捷運、我想去便利商店。\n現實世界絕大多數的消費場景，依然只收法幣 (Visa/Mastercard)。\n\n我們需要的不是「更快的轉帳」，而是「通用的支付」。`}
               theme="green"
-            />
+            >
+              <FlowSection steps={[
+                { icon: Wallet, title: "User", sub: "LN 錢包" },
+                { icon: Zap, title: "Channel", sub: "建立支付通道" },
+                { icon: QrCode, title: "Invoice", sub: "掃描發票" },
+                { icon: ArrowRight, title: "Instant", sub: "秒速確認" },
+                { icon: Store, title: "Merchant", sub: "特定支援商家" }
+              ]} />
+            </TimelineCard>
           </div>
         );
 
@@ -390,8 +457,8 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="flex-1 flex justify-center w-full py-8 md:py-0">
-                <div className="relative w-full max-w-[320px]">
+              <div className="flex-1 flex justify-center w-full py-8 md:py-0 flex-col">
+                <div className="relative w-full max-w-[320px] mx-auto mb-8">
                   <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-br from-blue-900 to-blue-600 rounded-2xl border border-blue-400/30 transform -rotate-6 shadow-2xl z-10 flex flex-col justify-between p-6">
                     <div className="text-blue-200 font-bold italic">CEX CARD</div>
                     <div className="flex justify-between items-end">
@@ -400,6 +467,14 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+                
+                <FlowSection steps={[
+                  { icon: Wallet, title: "User", sub: "充值到 CEX" },
+                  { icon: Landmark, title: "CEX", sub: "託管資金 (Risk)" },
+                  { icon: CreditCard, title: "Visa", sub: "刷卡消費" },
+                  { icon: RefreshCw, title: "Auto", sub: "自動賣幣" },
+                  { icon: Store, title: "Merchant", sub: "收到法幣" }
+                ]} />
               </div>
             </div>
           </div>
@@ -460,6 +535,14 @@ export default function App() {
                 </ul>
               </div>
             </div>
+
+            <FlowSection steps={[
+                { icon: Shield, title: "Smart Wallet", sub: "L1 合約" },
+                { icon: CreditCard, title: "Swipe", sub: "刷卡觸發" },
+                { icon: AlertTriangle, title: "L1 Gas", sub: "手續費 $15+", isBad: true },
+                { icon: RefreshCw, title: "Swap", sub: "鏈上換幣" },
+                { icon: Store, title: "Merchant", sub: "交易完成" }
+              ]} />
           </div>
         );
 
@@ -505,7 +588,7 @@ export default function App() {
               </div>
 
               <div className="flex-1 flex flex-col items-center py-8 md:py-0">
-                 <div className="relative w-64 h-64 md:w-72 md:h-72">
+                 <div className="relative w-64 h-64 md:w-72 md:h-72 mb-8">
                     <div className="absolute inset-0 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
                     <div className="relative z-10 bg-gray-900 border border-gray-700 p-8 rounded-3xl shadow-2xl h-full flex flex-col justify-center items-center text-center aspect-square">
                       <Zap className="w-16 h-16 text-yellow-400 mb-4" />
@@ -515,6 +598,14 @@ export default function App() {
                       </p>
                     </div>
                  </div>
+
+                 <FlowSection steps={[
+                    { icon: Layers, title: "L2 Wallet", sub: "Scroll zkEVM" },
+                    { icon: TrendingUp, title: "Assets", sub: "生息資產" },
+                    { icon: CreditCard, title: "Visa", sub: "刷卡 (借款)" },
+                    { icon: RefreshCw, title: "Settle", sub: "低 Gas 還款" },
+                    { icon: Store, title: "Shop", sub: "7-11 咖啡" }
+                  ]} />
               </div>
             </div>
           </div>
@@ -523,6 +614,7 @@ export default function App() {
       case 10:
         return (
           <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
+            {/* ... existing code for Slide 10 (Anatomy) ... */}
             <div className="text-center mb-8 lg:mb-12 shrink-0">
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE BLUEPRINT</span>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
