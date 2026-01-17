@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, QrCode, Store, Smartphone } from 'lucide-react';
+import { CreditCard, ArrowRight, Zap, Shield, TrendingUp, Wallet, History, ChevronRight, Activity, BookOpen, ChevronLeft, Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown, QrCode, Store, Smartphone, Globe, Lock, CheckCircle } from 'lucide-react';
 
 // --- Components ---
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
   <div className="flex flex-col items-center relative z-10 group w-full md:w-auto">
-    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-4 shadow-lg transition-all duration-300 ${
+    <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 shadow-lg transition-all duration-300 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-5 h-5 md:w-6 md:h-6" />
+      <Icon className="w-6 h-6 md:w-8 md:h-8" />
     </div>
-    <h4 className="font-bold text-white text-sm md:text-base text-center mb-1">{title}</h4>
-    <p className="text-xs md:text-sm text-gray-400 text-center max-w-[200px] md:max-w-[140px] leading-tight">{sub}</p>
+    <h4 className="font-bold text-white text-lg md:text-xl text-center mb-2">{title}</h4>
+    <p className="text-sm md:text-base text-gray-400 text-center max-w-[200px] md:max-w-[160px] leading-snug">{sub}</p>
     
+    {/* Mobile Arrow Only - Desktop relies on the parent background line for cleaner look */}
     {!isLast && (
-      <div className="absolute top-6 md:top-7 left-1/2 w-full h-[2px] bg-gray-700 -z-10 hidden md:block">
-        <div className="absolute right-0 -top-2 text-gray-700">
-          <ChevronRight className="w-5 h-5" />
-        </div>
-      </div>
-    )}
-    {!isLast && (
-      <div className="md:hidden my-2 text-gray-600 animate-bounce">
-        <ArrowDown className="w-5 h-5" />
+      <div className="md:hidden my-4 text-gray-600 animate-bounce">
+        <ArrowDown className="w-6 h-6" />
       </div>
     )}
   </div>
@@ -37,11 +31,46 @@ const FeeLayer = ({ title, value }) => (
   </div>
 );
 
+const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) => {
+  const colorClasses = {
+    purple: "text-purple-400 bg-purple-500/10 border-purple-500/30",
+    blue: "text-blue-400 bg-blue-500/10 border-blue-500/30",
+    green: "text-green-400 bg-green-500/10 border-green-500/30",
+    yellow: "text-yellow-400 bg-yellow-500/10 border-yellow-500/30"
+  };
+
+  const lineStyles = {
+    "top-left": "bottom-0 right-0 translate-y-full translate-x-1/2 h-16 w-[2px]",
+    "top-right": "bottom-0 left-0 translate-y-full -translate-x-1/2 h-16 w-[2px]",
+    "bottom-left": "top-0 right-0 -translate-y-full translate-x-1/2 h-16 w-[2px]",
+    "bottom-right": "top-0 left-0 -translate-y-full -translate-x-1/2 h-16 w-[2px]",
+    "top": "bottom-0 left-1/2 -translate-x-1/2 translate-y-full h-12 w-[2px]",
+    "bottom": "top-0 left-1/2 -translate-x-1/2 -translate-y-full h-12 w-[2px]",
+    "left": "right-0 top-1/2 -translate-y-1/2 translate-x-full w-8 h-[2px]",
+    "right": "left-0 top-1/2 -translate-y-1/2 -translate-x-full w-8 h-[2px]"
+  };
+
+  return (
+    <div className={`relative p-4 rounded-xl border backdrop-blur-sm ${colorClasses[color]} flex flex-col items-center text-center w-full md:w-64 z-20`}>
+      <div className="mb-2 p-2 rounded-full bg-gray-900/50">
+        <Icon className="w-6 h-6" />
+      </div>
+      <h4 className="font-bold text-white text-lg mb-1">{title}</h4>
+      <p className="text-xs text-gray-300 leading-relaxed">{desc}</p>
+      
+      {/* Connecting Line (Desktop Only) */}
+      <div className={`hidden md:block absolute bg-gray-600/50 ${lineStyles[position] || ""}`}>
+        <div className="absolute w-2 h-2 bg-white rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_white]"></div>
+      </div>
+    </div>
+  );
+};
+
 // --- Main App ---
 
 const App = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 7;
+  const totalSlides = 8; // Updated to 8
 
   // Keyboard navigation
   useEffect(() => {
@@ -92,8 +121,93 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 1: GEN 0 - BITCOIN PIZZA
+      // SLIDE 1: ANATOMY (NEW)
       case 1:
+        return (
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
+            <div className="text-center mb-8 md:mb-12">
+              <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">THE BLUEPRINT</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                Anatomy of Ether.fi Cash
+              </h2>
+              <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
+                這不是一張普通的卡片，而是一個由多層技術堆疊而成的「DeFi 樂高」。<br/>
+                我們接下來要講的每一個歷史階段，都是為了完成這張圖拼圖中的其中一塊。
+              </p>
+            </div>
+
+            <div className="relative flex flex-col md:grid md:grid-cols-3 md:grid-rows-3 gap-6 md:gap-0 items-center justify-center h-auto md:h-[500px] w-full max-w-4xl mx-auto">
+              
+              {/* Central Card Visual */}
+              <div className="md:col-start-2 md:row-start-2 z-10 w-full flex justify-center order-1 md:order-none mb-8 md:mb-0">
+                <div className="relative w-64 h-40 md:w-80 md:h-48 bg-gradient-to-br from-purple-900 to-gray-900 rounded-2xl border border-purple-500/50 shadow-[0_0_50px_rgba(168,85,247,0.3)] flex flex-col justify-between p-6 transform hover:scale-105 transition-transform duration-500">
+                  <div className="flex justify-between items-start">
+                    <span className="text-purple-200 font-bold italic tracking-wider">ether.fi</span>
+                    <Globe className="text-purple-400/50 w-6 h-6" />
+                  </div>
+                  <div className="text-center">
+                     <span className="text-white text-opacity-20 font-bold text-4xl tracking-widest">CASH</span>
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="text-purple-100 font-mono tracking-widest text-sm">**** 8888</div>
+                    <div className="text-xs text-purple-300 border border-purple-500/50 px-2 py-0.5 rounded">L2 NATIVE</div>
+                  </div>
+                  
+                  {/* Connecting Lines for Mobile (Simulated) */}
+                  <div className="md:hidden absolute -top-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
+                  <div className="md:hidden absolute -bottom-6 left-1/2 w-0.5 h-6 bg-gray-700"></div>
+                </div>
+              </div>
+
+              {/* Top: Visa */}
+              <div className="md:col-start-2 md:row-start-1 flex justify-center order-2 md:order-none w-full">
+                <AnatomyPart 
+                  icon={Globe} 
+                  title="Visa Network" 
+                  desc="解決「換幣」難題。連接全球 8000 萬商戶，讓加密貨幣能像法幣一樣流通。"
+                  position="bottom"
+                  color="blue"
+                />
+              </div>
+
+              {/* Bottom: Scroll */}
+              <div className="md:col-start-2 md:row-start-3 flex justify-center order-3 md:order-none w-full">
+                <AnatomyPart 
+                  icon={Layers} 
+                  title="Scroll zkEVM" 
+                  desc="解決「Gas Fee」。提供極低成本的結算層，讓高頻小額消費成為可能。"
+                  position="top"
+                  color="yellow"
+                />
+              </div>
+
+              {/* Left: Smart Wallet */}
+              <div className="md:col-start-1 md:row-start-2 flex justify-center order-4 md:order-none w-full">
+                <AnatomyPart 
+                  icon={Lock} 
+                  title="Smart Wallet" 
+                  desc="解決「自託管」。資金在你的合約帳戶內，非交易所託管。支援多重簽名與恢復機制。"
+                  position="right"
+                  color="green"
+                />
+              </div>
+
+              {/* Right: Rewards */}
+              <div className="md:col-start-3 md:row-start-2 flex justify-center order-5 md:order-none w-full">
+                <AnatomyPart 
+                  icon={TrendingUp} 
+                  title="Token Rewards" 
+                  desc="解決「誘因」。消費即挖礦 (Spend to Earn)，回饋大於磨損，實現正收益 (Positive Carry)。"
+                  position="left"
+                  color="purple"
+                />
+              </div>
+            </div>
+          </div>
+        );
+
+      // SLIDE 2: GEN 0 - BITCOIN PIZZA
+      case 2:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="mb-8">
@@ -102,22 +216,22 @@ const App = () => {
                 The "Human" Bridge <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
               
-              <div className="grid md:grid-cols-5 gap-8 mb-8">
+              <div className="grid md:grid-cols-5 gap-8 mb-12">
                 <div className="md:col-span-3">
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                      這是比特幣歷史上最重要的一天。
                      <span className="text-white font-bold mx-1">Laszlo Hanyecz</span> 
                      (GPU 挖礦發明者) 在論壇苦等 4 天，只為了證明比特幣可以作為貨幣，而不僅僅是數位收藏品。
                    </p>
-                   <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm">
-                     <div className="flex gap-3 mb-4">
+                   <div className="bg-gray-800/50 p-5 rounded-xl border border-gray-700 text-sm md:text-base">
+                     <div className="flex gap-4 mb-4">
                         <div className="min-w-[4px] bg-purple-500 rounded-full h-auto"></div>
                         <div>
                           <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">當時的網友建議</p>
                           <p className="text-gray-300 italic">"為何不去交易所賣掉換 $41 美金？買披薩只要 $25，你還能現賺 $16 價差。"</p>
                         </div>
                      </div>
-                     <div className="flex gap-3">
+                     <div className="flex gap-4">
                         <div className="min-w-[4px] bg-yellow-500 rounded-full h-auto"></div>
                         <div>
                           <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Jercos 的獲利 (Arbitrage)</p>
@@ -128,7 +242,7 @@ const App = () => {
                    </div>
                 </div>
                 
-                <div className="md:col-span-2 flex flex-col justify-center gap-3 text-sm text-gray-500 bg-gray-900/30 p-5 rounded-xl border border-gray-800">
+                <div className="md:col-span-2 flex flex-col justify-center gap-3 text-sm md:text-base text-gray-500 bg-gray-900/30 p-6 rounded-xl border border-gray-800">
                      <div className="flex justify-between border-b border-gray-800 pb-2">
                        <span>Buyer</span>
                        <span className="text-gray-300 font-bold">Laszlo (Florida)</span>
@@ -155,7 +269,7 @@ const App = () => {
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0 relative pb-12">
                {/* Connecting Line */}
-               <div className="hidden md:block absolute top-7 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
+               <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-gradient-to-r from-purple-900 via-gray-700 to-yellow-900 -z-10"></div>
 
                <ProcessStep icon={Wallet} title="Laszlo" sub="佛羅里達發起懸賞 (10k BTC)" />
                <ProcessStep icon={Layers} title="BitcoinTalk" sub="論壇媒合 (等待4天)" />
@@ -170,8 +284,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 2: THE FRICTION ERA (NEW)
-      case 2:
+      // SLIDE 3: THE FRICTION ERA
+      case 3:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="mb-8">
@@ -190,14 +304,14 @@ const App = () => {
               <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
                 <div className="flex items-center gap-3 mb-4 text-purple-400">
                   <Store className="w-6 h-6" />
-                  <h3 className="font-bold text-white">Direct Acceptance</h3>
+                  <h3 className="font-bold text-white text-lg">Direct Acceptance</h3>
                 </div>
-                <p className="text-sm text-gray-300 mb-4 h-12">
+                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
                   Overstock, Newegg (2014).<br/>
                   商家雖然願意收，但只收不付。
                 </p>
-                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
-                  <p className="mb-1 text-red-400 font-bold">UX Nightmare:</p>
+                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
+                  <p className="mb-2 text-red-400 font-bold">UX Nightmare:</p>
                   1. 打開錢包<br/>
                   2. 掃描 QR Code<br/>
                   3. 手動確認金額<br/>
@@ -209,14 +323,14 @@ const App = () => {
               <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
                 <div className="flex items-center gap-3 mb-4 text-purple-400">
                   <QrCode className="w-6 h-6" />
-                  <h3 className="font-bold text-white">Payment Processors</h3>
+                  <h3 className="font-bold text-white text-lg">Payment Processors</h3>
                 </div>
-                <p className="text-sm text-gray-300 mb-4 h-12">
+                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
                   BitPay (2014-2018).<br/>
                   幫商家立刻換成法幣避險。
                 </p>
-                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
-                  <p className="mb-1 text-yellow-500 font-bold">The Truth:</p>
+                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
+                  <p className="mb-2 text-yellow-500 font-bold">The Truth:</p>
                   這是在解決「商家的風險」，<br/>
                   不是在解決「用戶的體驗」。<br/>
                   對消費者來說，依然沒有更簡單。
@@ -227,14 +341,14 @@ const App = () => {
               <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
                 <div className="flex items-center gap-3 mb-4 text-purple-400">
                   <Zap className="w-6 h-6" />
-                  <h3 className="font-bold text-white">Tech Improvements</h3>
+                  <h3 className="font-bold text-white text-lg">Tech Improvements</h3>
                 </div>
-                <p className="text-sm text-gray-300 mb-4 h-12">
+                <p className="text-sm md:text-base text-gray-300 mb-4 h-12">
                   Lightning, Stablecoins (2016+).<br/>
                   交易變快了，波動變小了。
                 </p>
-                <div className="bg-gray-900 p-3 rounded text-xs text-gray-400 border border-gray-800">
-                  <p className="mb-1 text-red-400 font-bold">Still Friction:</p>
+                <div className="bg-gray-900 p-4 rounded text-sm text-gray-400 border border-gray-800 leading-relaxed">
+                  <p className="mb-2 text-red-400 font-bold">Still Friction:</p>
                   技術成功，但 UX 失敗。<br/>
                   還是要開 Channel、轉帳、操作錢包。<br/>
                   這不是「刷卡」的體驗。
@@ -248,8 +362,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 3: GEN 1 - CEX CARDS (UPDATED)
-      case 3:
+      // SLIDE 4: GEN 1 - CEX CARDS
+      case 4:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
@@ -306,8 +420,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 4: GEN 2 - THE FAILED PIONEERS
-      case 4:
+      // SLIDE 5: GEN 2 - THE FAILED PIONEERS
+      case 5:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="mb-8 md:mb-10">
@@ -371,8 +485,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 5: GEN 3 - ETHER.FI CASH
-      case 5:
+      // SLIDE 6: GEN 3 - ETHER.FI CASH
+      case 6:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 md:py-0 min-h-full">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
@@ -430,8 +544,8 @@ const App = () => {
           </div>
         );
 
-      // SLIDE 6: CONCLUSION / DEMO
-      case 6:
+      // SLIDE 7: CONCLUSION / DEMO
+      case 7:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12">
             <h2 className="text-4xl md:text-7xl font-bold mb-8">
