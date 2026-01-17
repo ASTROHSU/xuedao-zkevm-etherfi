@@ -428,32 +428,31 @@ export default function App() {
               <div className="flex-1 w-full text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1 (2019-2022)</span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                  The "Centralized" Card
+                  The "Network" Access
                 </h2>
-                <p className="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
-                  2019 年 Crypto.com 發卡，這是一個轉折點。<br/>
-                  它解決了「通用性」：你可以用加密貨幣在任何收 Visa 的地方消費。
+                <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-6">
+                   <div className="flex items-start gap-3 mb-2">
+                     <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
+                     <p className="text-gray-300 italic text-sm md:text-base">"比特幣可以買東西嗎？"</p>
+                   </div>
+                   <div className="flex items-start gap-3">
+                     <div className="bg-green-500/20 p-1.5 rounded text-xs font-bold text-green-400">A</div>
+                     <p className="text-green-200 font-medium text-sm md:text-base">"可以，只要店家有貼 Visa 標誌。"</p>
+                   </div>
+                </div>
+                <p className="text-base md:text-lg text-gray-400 mb-6 leading-relaxed">
+                  2019 年 Crypto.com 的關鍵突破，在於將加密貨幣接入了 <span className="text-white font-bold">Visa 支付網絡</span>。<br/><br/>
+                  支付本質改變了：使用者不再需要去尋找「願意收幣的特定商家」，而是只要認得「Visa 品牌」。這徹底解決了通路問題。
                 </p>
                 
-                <div className="bg-gray-800 p-6 rounded-xl border border-gray-700 w-full mb-6">
-                   <h3 className="font-bold text-white mb-4 flex items-center gap-2">
-                     <CheckCircle className="text-green-500" />
-                     UX Solved
+                <div className="bg-red-900/10 p-5 rounded-xl border border-red-500/20 w-full mb-4">
+                   <h3 className="font-bold text-red-200 mb-2 flex items-center gap-2 text-sm">
+                     <AlertCircle className="w-4 h-4" />
+                     The Trade-off (Custodial)
                    </h3>
-                   <p className="text-gray-300 text-sm mb-4">
-                     不用等區塊確認、不用管商家收不收幣。刷下去就對了，後端自動賣幣換法幣。
-                   </p>
-                </div>
-
-                <div className="bg-red-900/20 p-6 rounded-xl border border-red-500/30 w-full">
-                   <h3 className="font-bold text-red-200 mb-4 flex items-center gap-2">
-                     <XCircle className="text-red-500" />
-                     Ownership Lost
-                   </h3>
-                   <p className="text-red-200/80 text-sm">
-                     代價是：你的錢必須放在中心化交易所 (CEX)。<br/>
-                     這張卡本質上是<span className="text-white font-bold">「交易所帳戶的提款卡」</span>。<br/>
-                     FTX 事件後，大家都知道這意味著什麼：Not your keys, not your coins.
+                   <p className="text-red-200/70 text-xs md:text-sm leading-relaxed">
+                     Visa 當時並不直接收加密貨幣，它只是讓交易所發卡。<br/>
+                     這本質上是<span className="text-white font-bold">「交易所帳戶的提款卡」</span>。你需要先把幣存在中心化交易所 (甚至先換成法幣)，後端的髒活由交易所處理。
                    </p>
                 </div>
               </div>
@@ -470,11 +469,11 @@ export default function App() {
                 </div>
                 
                 <FlowSection steps={[
-                  { icon: Wallet, title: "User", sub: "充值到 CEX" },
+                  { icon: Wallet, title: "Deposit", sub: "充值進交易所" },
                   { icon: Landmark, title: "CEX", sub: "託管資金 (Risk)" },
-                  { icon: CreditCard, title: "Visa", sub: "刷卡消費" },
-                  { icon: RefreshCw, title: "Auto", sub: "自動賣幣" },
-                  { icon: Store, title: "Merchant", sub: "收到法幣" }
+                  { icon: RefreshCw, title: "Fiat", sub: "後端換法幣" },
+                  { icon: Globe, title: "Visa Net", sub: "通用網絡" },
+                  { icon: Store, title: "Any Shop", sub: "全球通用" }
                 ]} />
               </div>
             </div>
@@ -489,9 +488,19 @@ export default function App() {
               <h2 className="text-3xl md:text-5xl font-bold mb-4">
                 The Failed Pioneers (L1)
               </h2>
-              <p className="text-lg md:text-xl text-gray-400 max-w-3xl">
-                既然 CEX 危險，那為什麼不做「自託管卡」？<br/>
-                其實早就有人做了，但他們死於 <span className="text-red-400 font-bold">Ethereum L1 的高昂成本</span>。
+              <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-6 max-w-2xl">
+                 <div className="flex items-start gap-3 mb-2">
+                   <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
+                   <p className="text-gray-300 italic text-sm md:text-base">"我可以自己保管錢並消費嗎？"</p>
+                 </div>
+                 <div className="flex items-start gap-3">
+                   <div className="bg-red-500/20 p-1.5 rounded text-xs font-bold text-red-400">A</div>
+                   <p className="text-red-200 font-medium text-sm md:text-base">"可以，但每筆交易要付 $15 Gas Fee。"</p>
+                 </div>
+              </div>
+              <p className="text-lg md:text-xl text-gray-400 max-w-3xl leading-relaxed">
+                同時期 (2018) Monolith (TokenCard) 試圖做「自託管支付」。<br/>
+                錢在你的合約錢包，不在交易所。方向是對的，但基礎設施 (Ethereum L1) 是錯的。
               </p>
             </div>
 
@@ -499,19 +508,15 @@ export default function App() {
               <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">TokenCard (Monolith)</h3>
-                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Self-Custody</span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Weird UX</h3>
+                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Process</span>
                   </div>
-                  <Coins className="text-gray-500 w-8 h-8" />
+                  <Smartphone className="text-gray-500 w-8 h-8" />
                 </div>
                 <ul className="space-y-4 text-gray-400 text-sm md:text-base">
                   <li className="flex items-start gap-2">
-                    <span className="text-green-400 font-bold">✓</span>
-                    <span>理想：刷卡時直接扣合約錢包，資金自己保管。</span>
-                  </li>
-                  <li className="flex items-start gap-2">
                     <span className="text-red-500 font-bold">✗</span>
-                    <span>死因：買一杯 $5 咖啡，要付 <span className="text-white font-bold">$15 Gas Fee</span>。沒人會用。</span>
+                    <span>流程怪異：你在實體店刷卡後，還得拿出手機在 App 裡「簽名驗證」，交易才會過。</span>
                   </li>
                 </ul>
               </div>
@@ -519,29 +524,25 @@ export default function App() {
               <div className="bg-gray-800/50 p-6 md:p-8 rounded-2xl border border-gray-700 hover:border-gray-500 transition-colors">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Argent Wallet</h3>
-                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Gas Subsidy</span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-1">Costly</h3>
+                    <span className="text-xs font-mono bg-gray-700 px-2 py-1 rounded text-gray-300">Gas Fee</span>
                   </div>
-                  <Shield className="text-gray-500 w-8 h-8" />
+                  <AlertTriangle className="text-gray-500 w-8 h-8" />
                 </div>
                 <ul className="space-y-4 text-gray-400 text-sm md:text-base">
                   <li className="flex items-start gap-2">
-                    <span className="text-green-400 font-bold">✓</span>
-                    <span>理想：為了使用者體驗，官方補貼 Gas (Meta-tx)。</span>
-                  </li>
-                  <li className="flex items-start gap-2">
                     <span className="text-red-500 font-bold">✗</span>
-                    <span>死因：DeFi Summer Gas 暴漲，專案方<span className="text-white font-bold">燒不起錢</span>，補貼模式破產。</span>
+                    <span>買一杯 $15 的商品，要付 $15 的 Gas Fee。除非是純粹的信仰者，否則沒人會用。</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <FlowSection steps={[
-                { icon: Shield, title: "Smart Wallet", sub: "L1 合約" },
                 { icon: CreditCard, title: "Swipe", sub: "刷卡觸發" },
-                { icon: AlertTriangle, title: "L1 Gas", sub: "手續費 $15+", isBad: true },
-                { icon: RefreshCw, title: "Swap", sub: "鏈上換幣" },
+                { icon: Smartphone, title: "Sign App", sub: "手機簽名驗證" },
+                { icon: AlertTriangle, title: "L1 Gas", sub: "Gas Fee $$$", isBad: true },
+                { icon: Shield, title: "Contract", sub: "L1 合約扣款" },
                 { icon: Store, title: "Merchant", sub: "交易完成" }
               ]} />
           </div>
