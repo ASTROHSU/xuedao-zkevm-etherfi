@@ -10,36 +10,31 @@ import {
 // --- Components ---
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
-  <div className="flex flex-col items-center relative z-10 group w-full md:w-auto flex-1">
-    <div className={`w-10 h-10 md:w-14 md:h-14 rounded-2xl flex items-center justify-center mb-3 shadow-lg transition-all duration-300 ${
+  <div className="flex flex-col items-center relative z-10 group flex-1 min-w-0">
+    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center mb-2 shadow-lg transition-all duration-300 shrink-0 ${
       isBad 
         ? 'bg-red-500/10 border border-red-500/30 text-red-400 group-hover:bg-red-500/20' 
         : 'bg-gray-800 border border-gray-700 text-purple-400 group-hover:border-purple-500'
     }`}>
-      <Icon className="w-5 h-5 md:w-7 md:h-7" />
+      <Icon className="w-4 h-4 md:w-5 md:h-5" />
     </div>
-    <h4 className="font-bold text-white text-sm md:text-base text-center mb-1">{title}</h4>
-    <p className="text-xs text-gray-400 text-center max-w-[120px] leading-snug">{sub}</p>
+    <h4 className="font-bold text-white text-xs text-center mb-0.5 truncate w-full px-1">{title}</h4>
+    <p className="text-[10px] text-gray-400 text-center leading-tight hidden md:block">{sub}</p>
     
     {!isLast && (
-      <div className="hidden md:block absolute top-5 -right-[50%] w-full h-[2px] bg-gray-700 -z-10"></div>
-    )}
-    {!isLast && (
-       <div className="md:hidden my-2 text-gray-600">
-        <ArrowDown className="w-4 h-4" />
-      </div>
+      <div className="absolute top-4 -right-[50%] w-full h-[1px] bg-gray-700 -z-10"></div>
     )}
   </div>
 );
 
-const FlowSection = ({ steps, title = "Payment Flow" }) => (
-  <div className="mt-8 w-full max-w-5xl mx-auto">
-    <div className="flex items-center gap-2 mb-6 opacity-50">
+const FlowSection = ({ steps, title = "Payment Flow", className = "" }) => (
+  <div className={`w-full ${className}`}>
+    <div className="flex items-center gap-2 mb-3 opacity-40">
       <div className="h-[1px] bg-gray-700 flex-1"></div>
-      <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">{title}</span>
+      <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest">{title}</span>
       <div className="h-[1px] bg-gray-700 flex-1"></div>
     </div>
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-start gap-4 md:gap-2 relative px-4">
+    <div className="flex flex-row justify-between items-start gap-1 relative">
        {steps.map((step, index) => (
          <ProcessStep 
            key={index}
@@ -97,52 +92,55 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
   };
 
   return (
-    <div className={`flex flex-col h-full w-full max-w-6xl mx-auto`}>
-      <div className={`flex flex-col md:flex-row gap-8 items-stretch bg-gradient-to-br ${themes[theme]} p-8 rounded-2xl border w-full min-h-[400px]`}>
-        <div className="flex-1 space-y-6 flex flex-col">
+    <div className={`flex flex-col justify-center min-h-full w-full max-w-7xl mx-auto py-4`}>
+      <div className={`flex flex-col lg:flex-row gap-6 items-stretch bg-gradient-to-br ${themes[theme]} p-6 md:p-8 rounded-2xl border w-full`}>
+        <div className="flex-1 space-y-4 flex flex-col">
           <div>
-            <span className="font-mono text-sm tracking-widest opacity-80 mb-2 block">{era}</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
+            <span className="font-mono text-sm tracking-widest opacity-80 mb-1 block">{era}</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{title}</h2>
           </div>
           
-          <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 mb-4 shrink-0">
+          <div className="bg-gray-900/40 p-4 rounded-xl border border-white/5 shrink-0">
              <div className="flex items-start gap-3 mb-2">
                <div className="bg-white/10 p-1.5 rounded text-xs font-bold text-white">Q</div>
-               <p className="text-gray-300 italic">"{question}"</p>
+               <p className="text-gray-300 italic text-sm md:text-base">"{question}"</p>
              </div>
              <div className="flex items-start gap-3">
                <div className={`bg-${theme}-500/20 p-1.5 rounded text-xs font-bold text-${theme}-400`}>A</div>
-               <p className={`text-${theme}-200 font-medium`}>{answer}</p>
+               <p className={`text-${theme}-200 font-medium text-sm md:text-base`}>{answer}</p>
              </div>
           </div>
 
           {image && (
             <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group shrink-0">
-               <img src={image} alt={title} className="w-full h-auto object-contain" />
+               <img src={image} alt={title} className="w-full h-auto max-h-64 object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )}
 
           <div className={`p-4 rounded-xl bg-gray-900/50 border border-white/10 flex-grow`}>
             {!image && <Icon className="w-10 h-10 mb-3 opacity-80" />}
-            <p className="text-lg text-gray-200 leading-relaxed font-light">{mainText}</p>
+            <p className="text-base md:text-lg text-gray-200 leading-relaxed font-light">{mainText}</p>
           </div>
         </div>
         
-        <div className="flex-1 w-full bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col">
-          <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-40 transition-opacity">
-            <Icon className="w-32 h-32" />
+        <div className="flex-1 lg:w-1/2 bg-black/20 p-6 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col justify-between min-h-[300px]">
+          <div>
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+              <Icon className="w-48 h-48" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2 relative z-10">
+              <AlertCircle className="w-5 h-5" /> The Reality
+            </h3>
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed whitespace-pre-line relative z-10 mb-6">
+              {subText}
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" /> The Reality
-          </h3>
-          <p className="text-gray-400 text-lg leading-relaxed whitespace-pre-line flex-grow">
-            {subText}
-          </p>
+          
+          <div className="relative z-10 mt-auto">
+            {children}
+          </div>
         </div>
       </div>
-      
-      {/* Flow Section Rendered Below Card */}
-      {children}
     </div>
   );
 };
@@ -151,7 +149,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 12; // Increased by 1
+  const totalSlides = 12;
 
   // Keyboard navigation
   useEffect(() => {
@@ -309,13 +307,15 @@ export default function App() {
               </div>
 
               {/* FLOW CHART RESTORED */}
-              <FlowSection steps={[
-                { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
-                { icon: Mail, title: "BitcoinTalk", sub: "發文尋找買家" },
-                { icon: Activity, title: "Jercos", sub: "刷卡幫買披薩" },
-                { icon: CreditCard, title: "Fiat Bridge", sub: "支付法幣" },
-                { icon: Pizza, title: "Pizza", sub: "送到 Laszlo 手上" }
-              ]} />
+              <div className="mt-4">
+                <FlowSection steps={[
+                  { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
+                  { icon: Mail, title: "BitcoinTalk", sub: "發文尋找買家" },
+                  { icon: Activity, title: "Jercos", sub: "刷卡幫買披薩" },
+                  { icon: CreditCard, title: "Fiat Bridge", sub: "支付法幣" },
+                  { icon: Pizza, title: "Pizza", sub: "送到 Laszlo 手上" }
+                ]} />
+              </div>
             </div>
           </div>
         );
@@ -339,7 +339,7 @@ export default function App() {
               <FlowSection steps={[
                 { icon: Wallet, title: "User", sub: "持有 BTC" },
                 { icon: Landmark, title: "Exchange", sub: "掛單賣出 (Sell)" },
-                { icon: Banknote, title: "Withdraw", sub: "法幣提現到銀行" },
+                { icon: Banknote, title: "Withdraw", sub: "法幣提現" },
                 { icon: Coins, title: "Cash", sub: "領出現金" },
                 { icon: Store, title: "Shop", sub: "去買東西" }
               ]} />
@@ -366,7 +366,7 @@ export default function App() {
                 { icon: ArrowRight, title: "Direct", sub: "直接轉帳" },
                 { icon: Store, title: "Merchant", sub: "收到 BTC" },
                 { icon: Landmark, title: "Exchange", sub: "商家去賣幣" },
-                { icon: Banknote, title: "Fiat", sub: "商家換回法幣" }
+                { icon: Banknote, title: "Fiat", sub: "換回法幣" }
               ]} />
             </TimelineCard>
           </div>
@@ -388,7 +388,7 @@ export default function App() {
             >
               <FlowSection steps={[
                 { icon: Wallet, title: "User", sub: "發送 BTC" },
-                { icon: RefreshCw, title: "BitPay", sub: "即時鎖定匯率" },
+                { icon: RefreshCw, title: "BitPay", sub: "鎖定匯率" },
                 { icon: Landmark, title: "Processor", sub: "自動換匯" },
                 { icon: ArrowRight, title: "Settle", sub: "法幣結算" },
                 { icon: Store, title: "Merchant", sub: "收到法幣" }
@@ -412,10 +412,10 @@ export default function App() {
             >
               <FlowSection steps={[
                 { icon: Wallet, title: "User", sub: "LN 錢包" },
-                { icon: Zap, title: "Channel", sub: "建立支付通道" },
+                { icon: Zap, title: "Channel", sub: "支付通道" },
                 { icon: QrCode, title: "Invoice", sub: "掃描發票" },
                 { icon: ArrowRight, title: "Instant", sub: "秒速確認" },
-                { icon: Store, title: "Merchant", sub: "特定支援商家" }
+                { icon: Store, title: "Merchant", sub: "特定商家" }
               ]} />
             </TimelineCard>
           </div>
@@ -424,7 +424,7 @@ export default function App() {
       case 7:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-12 min-h-full">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
               <div className="flex-1 w-full text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1 (2019-2022)</span>
                 <h2 className="text-3xl md:text-5xl font-bold mb-6">
