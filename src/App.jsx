@@ -227,6 +227,13 @@ export default function App() {
               
               <div className="grid md:grid-cols-5 gap-8 mb-12">
                 <div className="md:col-span-3">
+                   {/* ADDED IMAGE HERE */}
+                   <img 
+                     src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png" 
+                     alt="Bitcoin Pizza" 
+                     className="w-full rounded-xl border border-gray-700 mb-6 shadow-lg object-cover h-48 md:h-64"
+                   />
+                   
                    <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                      這個故事最重要的並不是披薩，而是<span className="text-red-400 font-bold">「那時候沒有中心化交易所」</span>。
                      幣價非常不確定，Laszlo 只能到論壇喊價。
@@ -242,9 +249,9 @@ export default function App() {
                      <div className="flex gap-4">
                         <div className="min-w-[4px] bg-yellow-500 rounded-full h-auto"></div>
                         <div>
-                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Jercos 的套利機會</p>
-                          <p className="text-yellow-400 font-bold">披薩成本 $25 → 收到市值 $41 的比特幣</p>
-                          <p className="text-gray-300 italic">"這 <span className="text-white">$16 美金的價差</span> 就是為了彌補「沒有交易所」的不確定性。"</p>
+                          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">巨大的交易摩擦 (Friction)</p>
+                          <p className="text-yellow-400 font-bold">披薩成本 $25 → 付出 $41 等值 BTC</p>
+                          <p className="text-gray-300 italic">"Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。<span className="text-white">溢價 64%</span>。"</p>
                         </div>
                      </div>
                    </div>
@@ -260,11 +267,11 @@ export default function App() {
                        <span className="text-red-400">~$25.00 USD</span>
                      </div>
                      <div className="flex justify-between pt-1">
-                       <span>Arbitrage Profit</span>
+                       <span>Premium Paid</span>
                        <span className="text-yellow-500 font-bold">+$16.00 (64%)</span>
                      </div>
                      <div className="text-xs mt-4 text-gray-400 italic text-center">
-                       Jercos 願意收幣，是因為他賺了這個巨大價差。
+                       這 $16 美元的價差，就是當時為了「用比特幣買東西」所付出的代價。
                      </div>
                 </div>
               </div>
@@ -283,8 +290,8 @@ export default function App() {
               icon={Landmark}
               question="比特幣可以買東西嗎？"
               answer="可以，但你要先去賣掉換錢。"
-              mainText="2010 年 Mt. Gox 成立，解決了「報價」與「流動性」問題。大家終於知道 1 顆比特幣值多少錢。"
-              subText={`問題：\n消費流程還是兩段式的。\n\n你必須先去交易所 → 賣幣 → 提領法幣 → 再去買披薩。\n\n交易所解決了「幣變錢」的問題，但沒有解決「支付」的問題。`}
+              mainText="2010 年 7 月 Mt. Gox 成立 (比披薩日晚 2 個月)。總算開始解決流動性分散問題，大家不用再上論壇貼文，而是有專門平台集中流動性，讓價格變得透明且可查詢。"
+              subText={`問題：\n消費流程還是兩段式的。\n\n你要嘛是先把比特幣換成法幣，或是找到特定願意收比特幣的個人付他幣，請他幫忙用法幣代購。\n\n交易所解決了「幣變錢」的問題，但沒有解決「支付」的問題。`}
               theme="blue"
             />
           </div>
@@ -505,7 +512,6 @@ export default function App() {
           </div>
         );
 
-      // SLIDE 10: ANATOMY (MOVED TO END)
       case 10:
         return (
           <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-8 md:py-12 min-h-full overflow-y-auto">
@@ -611,9 +617,6 @@ export default function App() {
 
       {/* Footer Controls */}
       <footer className="h-16 border-t border-gray-800 bg-gray-900/90 backdrop-blur-md flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
-        <div className="text-xs text-gray-600 truncate max-w-[150px] md:max-w-none">
-          Jan 17 • Taipei • Astro Hsu
-        </div>
         
         <div className="flex gap-2">
           <button 
@@ -633,6 +636,10 @@ export default function App() {
           >
             <ChevronRight className="w-6 h-6" />
           </button>
+        </div>
+
+        <div className="text-xs text-gray-600 truncate max-w-[150px] md:max-w-none">
+          Jan 17 • Taipei • Astro Hsu
         </div>
       </footer>
     </div>
