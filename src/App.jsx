@@ -644,8 +644,8 @@ export default function App() {
       case 11:
          return (
           <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-8 stagger">
-            <h2 className="text-5xl md:text-8xl font-extrabold text-white tracking-tight">
-              用就對了 <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Just Use It.</span>
+            <h2 className="text-5xl md:text-8xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              先用再說
             </h2>
             <p className="text-lg md:text-2xl text-gray-400 max-w-3xl leading-relaxed px-2 mt-6 mb-10">
               這條路走了 15 年，現在終於通了。<br/>
