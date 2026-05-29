@@ -7,6 +7,23 @@ import {
   Landmark, RefreshCw, AlertCircle, Banknote, Mail, Key, Fingerprint
 } from 'lucide-react';
 
+// --- Speaker notes (what you SAY — kept off the slides, toggle with N) ---
+
+const speakerNotes = {
+  0: `開場。我們從一個概念講起：你手上的比特幣，跟樓下那杯咖啡之間，其實隔了非常遠的距離。這段距離花了 15 年才被填平。今天就用「支付的演變」這條線，把這 15 年講完。`,
+  1: `先給大家看終點長什麼樣子。今天理想的體驗：使用者付 USDC 或 ETH，中間透過 Visa 網絡自動換匯，商家收到的是 USD 或 TWD 法幣。三個步驟，聽起來理所當然。但這看似簡單的三步，區塊鏈世界整整花了 15 年才走完。接下來我們倒回去看每一代是怎麼卡住的。`,
+  2: `Gen 0，2010 年 5 月 22 日，著名的比特幣披薩日。但重點不是披薩，而是「那時候根本沒有交易所」。沒有交易所就沒有公允報價，Laszlo 只能上論壇喊價，論壇上有人猜這 1 萬顆 BTC 大概值 41 美元。披薩成本其實只要 25 美元，等於他付了 41 美元的等值 BTC，溢價 64%。這 16 美元的價差，就是當時「用比特幣買東西」的摩擦成本。流程也很克難：Laszlo 發文 → Jercos 用信用卡幫他代付 → 法幣結算 → 披薩送到。`,
+  3: `Era 1。2010 年 7 月 Mt. Gox 成立，比披薩日只晚兩個月。交易所把分散的流動性集中起來，報價終於透明、可查詢，解決了「幣值多少」的問題。但消費還是兩段式：你得先把幣賣掉換成法幣、提現、領現金，再去買東西。交易所解決了「幣變錢」，沒解決「支付」。摩擦沒有消失，只是換了位置。`,
+  4: `Era 2，2013 到 2016。Overstock、Newegg 這些科技電商開始願意直接收幣，使用者體驗簡化了，幣直接轉給商家就好。但麻煩轉移到商家身上——商家收了幣，還是得自己跑去交易所賣掉換現金，一樣要承擔幣價波動。這種模式很難擴大到一般店家。`,
+  5: `Era 3，2014 到 2018。BitPay、Coinbase Commerce 出現，幫商家自動換匯、鎖定匯率，商家終於沒有匯率風險了。但對消費者還是很痛：要等大約 10 分鐘區塊確認、要自己付礦工費、中間商給的匯率通常很差。是「可用」但「不好用」。`,
+  6: `Era 4，2016 到 2019。技術一直在進步：閃電網絡讓交易變快，USDT 讓價值穩定，支付不用再等 10 分鐘。但根本問題沒解決——你還是只能在「支援加密貨幣」的特定店家消費。我想買咖啡、搭捷運、進便利商店，現實世界絕大多數場景只收 Visa/Mastercard。我們要的不是更快的轉帳，是通用的支付。`,
+  7: `Gen 1，2019 到 2022，轉捩點。Crypto.com 把加密貨幣接上 Visa 支付網絡。使用者不用再找「願意收幣的店家」，只要認得 Visa 標誌就行，通路問題一次解決，全球 8000 萬商戶都能用。代價是託管：Visa 當時並不直接收幣，是交易所幫你發卡、後端換匯。本質上這只是一張「交易所帳戶的提款卡」，你的錢在交易所手上——FTX 之後大家都知道這意味著什麼。`,
+  8: `Gen 2，2018 到 2020。有人想解決託管問題。Monolith（TokenCard）嘗試做自託管支付：資金鎖在你自己的合約錢包裡，消費前手動把錢充值到一個法幣緩衝區，Visa 再從那裡扣款。自託管是做到了，但代價慘重——流程斷層，每次消費前要先掏手機發一筆交易；而且每次充值都是一筆 L1 交易，充 10 美元可能就要付 5 到 10 美元的 Gas。太貴、太麻煩，所以失敗了。`,
+  9: `Gen 3 上半場，2024。兩塊拼圖補上了。第一，Layer 2 的低手續費——Arbitrum、Optimism、Scroll 讓日常小額支付不用再跑在昂貴的 L1 上，吞吐量也夠了。第二，帳戶抽象化 AA——支援 Passkeys 和智慧合約錢包，可以用 FaceID 登入、告別助記詞，還能設定自動扣款、社交恢復，體驗像 Web2 一樣滑順。這兩塊一補上，現代加密支付卡才成立。`,
+  10: `Gen 3 下半場。現在 Ether.fi、Coinbase、Bybit、RedotPay 百花齊放，體驗變成：只在儲值時碰一下 Crypto，消費的當下完全無感。用 Ether.fi Cash 拆給大家看四個零件怎麼各自解決一個歷史難題：Visa 網絡解決通用性、Scroll zkEVM 解決成本（就是 Monolith 當年缺的那塊）、智能錢包解決安全性也就是自託管、代幣獎勵解決誘因。商業模式是「收益」：協議希望你把資產存著產生 DeFi 收益，再拿收益補貼你的支付，吸引更多存款，形成正循環。`,
+  11: `收尾。這條路走了 15 年，現在終於通了。與其聽我講，不如等一下拿手機出來，我們現場註冊、去樓下 7-11 買杯咖啡，你就懂了。`,
+};
+
 // --- Components ---
 
 const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) => (
@@ -58,10 +75,6 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   };
 
   const lineStyles = {
-    "top-left": "bottom-0 right-0 translate-y-full translate-x-1/2 h-16 w-[2px]",
-    "top-right": "bottom-0 left-0 translate-y-full -translate-x-1/2 h-16 w-[2px]",
-    "bottom-left": "top-0 right-0 -translate-y-full translate-x-1/2 h-16 w-[2px]",
-    "bottom-right": "top-0 left-0 -translate-y-full -translate-x-1/2 h-16 w-[2px]",
     "top": "bottom-0 left-1/2 -translate-x-1/2 translate-y-full h-10 w-[2px]",
     "bottom": "top-0 left-1/2 -translate-x-1/2 -translate-y-full h-10 w-[2px]",
     "left": "right-0 top-1/2 -translate-y-1/2 translate-x-full w-8 h-[2px]",
@@ -69,12 +82,12 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   };
 
   return (
-    <div className={`relative p-3 rounded-xl border backdrop-blur-sm ${colorClasses[color]} flex flex-col items-center text-center w-full lg:w-56 z-20 transition-all duration-300 hover:scale-[1.03]`}>
+    <div className={`relative px-4 py-3 rounded-xl border backdrop-blur-sm ${colorClasses[color]} flex flex-col items-center text-center w-full lg:w-52 z-20 transition-all duration-300 hover:scale-[1.04]`}>
       <div className="mb-1.5 p-2 rounded-full bg-gray-900/50">
         <Icon className="w-5 h-5" />
       </div>
-      <h4 className="font-bold text-white text-base mb-1">{title}</h4>
-      <p className="text-xs text-gray-300 leading-relaxed">{desc}</p>
+      <h4 className="font-bold text-white text-base mb-0.5">{title}</h4>
+      <p className="text-xs text-gray-300/90 leading-snug">{desc}</p>
 
       <div className={`hidden lg:block absolute bg-gray-600/50 ${lineStyles[position] || ""}`}>
         <div className="absolute w-2 h-2 bg-white rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_white]"></div>
@@ -83,57 +96,67 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
   );
 };
 
-const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, answer, theme = "blue", image, children }) => {
+// Era timeline slide: title + Q&A motif + punch line on the left, problems + flow on the right.
+const TimelineCard = ({ title, era, icon: Icon, takeaway, problems = [], question, answer, theme = "blue", image, children }) => {
   const themes = {
     blue: "from-blue-900/50 to-gray-900 border-blue-500/30 text-blue-400",
     purple: "from-purple-900/50 to-gray-900 border-purple-500/30 text-purple-400",
     yellow: "from-yellow-900/50 to-gray-900 border-yellow-500/30 text-yellow-400",
     green: "from-green-900/50 to-gray-900 border-green-500/30 text-green-400",
   };
+  const takeawayColor = {
+    blue: "text-blue-300", purple: "text-purple-300", yellow: "text-yellow-300", green: "text-green-300",
+  };
 
   return (
-    <div className={`flex flex-col justify-center min-h-full w-full max-w-6xl mx-auto`}>
-      <div className={`flex flex-col lg:flex-row gap-4 items-stretch bg-gradient-to-br ${themes[theme]} p-4 md:p-6 rounded-2xl border w-full backdrop-blur-sm`}>
-        <div className="flex-1 space-y-3 flex flex-col">
+    <div className="flex flex-col justify-center min-h-full w-full max-w-6xl mx-auto">
+      <div className={`flex flex-col lg:flex-row gap-5 items-stretch bg-gradient-to-br ${themes[theme]} p-5 md:p-7 rounded-2xl border w-full backdrop-blur-sm`}>
+        {/* Left: the scaffold */}
+        <div className="flex-1 flex flex-col gap-4">
           <div>
             <span className="font-mono text-xs tracking-widest opacity-80 mb-1 block">{era}</span>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">{title}</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{title}</h2>
           </div>
 
-          <div className="bg-gray-900/40 p-3 rounded-xl border border-white/5 shrink-0">
+          <div className="bg-gray-900/40 p-3.5 rounded-xl border border-white/5">
              <div className="flex items-start gap-2.5 mb-2">
                <div className="bg-white/10 p-1 rounded text-[11px] font-bold text-white shrink-0">Q</div>
-               <p className="text-gray-300 italic text-sm">「{question}」</p>
+               <p className="text-gray-300 italic text-sm md:text-base">「{question}」</p>
              </div>
              <div className="flex items-start gap-2.5">
                <div className={`bg-${theme}-500/20 p-1 rounded text-[11px] font-bold text-${theme}-400 shrink-0`}>A</div>
-               <p className={`text-${theme}-200 font-medium text-sm`}>{answer}</p>
+               <p className={`text-${theme}-200 font-medium text-sm md:text-base`}>{answer}</p>
              </div>
           </div>
 
           {image && (
             <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group shrink-0">
-               <img src={image} alt={title} className="w-full h-auto max-h-36 md:max-h-44 object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+               <img src={image} alt={title} className="w-full h-auto max-h-44 object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )}
 
-          <div className={`p-3 rounded-xl bg-gray-900/50 border border-white/10 flex-grow`}>
-            {!image && <Icon className="w-8 h-8 mb-2 opacity-80" />}
-            <p className="text-sm md:text-base text-gray-200 leading-relaxed font-light">{mainText}</p>
-          </div>
+          {takeaway && (
+            <p className={`mt-auto text-2xl md:text-3xl font-bold leading-snug ${takeawayColor[theme]}`}>{takeaway}</p>
+          )}
         </div>
 
-        <div className="flex-1 lg:w-1/2 bg-black/20 p-4 md:p-5 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col gap-4 justify-between">
+        {/* Right: the problem + the flow visual */}
+        <div className="flex-1 lg:w-1/2 bg-black/20 p-5 rounded-xl border border-white/5 relative overflow-hidden group flex flex-col gap-6 justify-between">
           <div className="relative z-10">
             <div className="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
               <Icon className="w-56 h-56" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2 relative z-10">
-              <AlertCircle className="w-5 h-5" /> 現實情況
+            <h3 className="text-sm font-bold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-widest relative z-10">
+              <AlertCircle className="w-4 h-4" /> 卡在哪
             </h3>
-            <p className="text-gray-400 text-sm md:text-base leading-relaxed whitespace-pre-line relative z-10">
-              {subText}
-            </p>
+            <ul className="space-y-2.5 relative z-10">
+              {problems.map((p, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-gray-200 text-base md:text-lg">
+                  <XCircle className="w-5 h-5 text-red-400/80 shrink-0 mt-0.5" />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="relative z-10 w-full">
@@ -150,6 +173,7 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [showNotes, setShowNotes] = useState(false);
   const totalSlides = 12;
 
   // Set Title and Favicon
@@ -189,6 +213,8 @@ export default function App() {
         goToSlide(0);
       } else if (e.key === 'End') {
         goToSlide(totalSlides - 1);
+      } else if (e.key === 'n' || e.key === 'N') {
+        setShowNotes(s => !s);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -216,9 +242,8 @@ export default function App() {
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 leading-relaxed mt-8 md:mt-10">
-              這兩端花了 15 年才真正連起來。<br/>
-              這是一段關於「支付演變」的故事。
+            <p className="text-lg md:text-xl text-gray-500 mt-8 md:mt-10">
+              支付演變的 15 年。
             </p>
 
             <div className="flex items-center gap-2 text-gray-600 mt-10 hidden md:flex">
@@ -228,17 +253,13 @@ export default function App() {
           </div>
         );
 
-      // SLIDE 1: THE TARGET (NEW)
+      // SLIDE 1: THE TARGET
       case 1:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 min-h-full">
-            <div className="text-center mb-10">
+            <div className="text-center mb-12">
                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">終極目標</span>
-               <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">今天，它是這樣<span className="text-gray-500">運作的</span></h2>
-               <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                 這就是我們現在追求的終極體驗。<br/>
-                 聽起來很簡單：你付加密貨幣，店家收法幣。
-               </p>
+               <h2 className="text-3xl md:text-6xl font-bold text-white tracking-tight">今天，它是這樣<span className="text-gray-500">運作的</span></h2>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 max-w-5xl mx-auto w-full relative">
@@ -271,8 +292,8 @@ export default function App() {
                </div>
             </div>
 
-            <div className="text-center mt-10 animate-pulse text-gray-500 text-sm md:text-base">
-               這看似簡單的三步，區塊鏈世界花了 15 年才走完。
+            <div className="text-center mt-12 text-gray-500 text-base md:text-lg">
+               簡單的三步，<span className="text-white font-semibold">走了 15 年</span>。
             </div>
           </div>
         );
@@ -283,60 +304,41 @@ export default function App() {
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 min-h-full">
             <div>
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 0（2010 年 5 月 22 日）</span>
-              <h2 className="text-2xl md:text-4xl font-bold mb-5 flex items-center gap-3 flex-wrap text-white">
-                「沒有交易所」的那一天 <Pizza className="text-yellow-500 w-7 h-7 md:w-9 md:h-9" />
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 flex items-center gap-3 flex-wrap text-white tracking-tight">
+                「沒有交易所」的那一天 <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
 
-              <div className="grid md:grid-cols-5 gap-5 mb-5">
-                <div className="md:col-span-3 flex flex-col">
+              <div className="grid md:grid-cols-5 gap-5 mb-6">
+                <div className="md:col-span-3">
                    <img
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png"
                      alt="Bitcoin Pizza"
-                     className="w-full rounded-xl border border-gray-700 mb-4 shadow-lg object-cover max-h-52"
+                     className="w-full rounded-xl border border-gray-700 shadow-lg object-cover max-h-64"
                    />
-
-                   <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-                     這個故事最重要的並不是披薩，而是<span className="text-red-400 font-bold">「那時候沒有中心化交易所」</span>。
-                     幣價非常不確定，Laszlo 只能到論壇喊價。
-                   </p>
                 </div>
 
-                <div className="md:col-span-2 flex flex-col">
-                     <div className="bg-gray-900/30 p-4 rounded-xl border border-gray-800">
-                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
-                         <span className="text-xs text-gray-500">BTC「市場」價值</span>
-                         <span className="text-green-400 font-mono font-bold text-sm">~$41.00 USD</span>
-                       </div>
-                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-2">
-                         <span className="text-xs text-gray-500">披薩成本</span>
-                         <span className="text-red-400 font-mono font-bold text-sm">~$25.00 USD</span>
-                       </div>
-                       <div className="flex justify-between border-b border-gray-800 pb-2 mb-3">
-                         <span className="text-xs text-gray-500">付出的溢價</span>
-                         <span className="text-yellow-500 font-bold font-mono text-sm">+$16.00（64%）</span>
-                       </div>
-
-                       <p className="text-gray-300 italic text-xs mb-3 leading-relaxed">
-                         「這 $16 美元的價差，就是當時為了『用比特幣買東西』所付出的代價。」
-                       </p>
-
-                       <div className="space-y-3">
-                          <div>
-                            <h4 className="text-gray-500 text-[11px] uppercase tracking-wider mb-0.5">當時的問題</h4>
-                            <p className="text-gray-300 text-xs italic">「這 10,000 顆比特幣到底值多少錢？沒人說得準，論壇上有人說大概值 $41 美金。」</p>
-                          </div>
-                          <div>
-                            <h4 className="text-gray-500 text-[11px] uppercase tracking-wider mb-0.5">巨大的交易摩擦（Friction）</h4>
-                            <p className="text-yellow-500 text-xs font-bold">「Laszlo 為了買 $25 美元的披薩，付了 $41 美元出去。溢價 64%。」</p>
-                          </div>
-                       </div>
-                     </div>
+                <div className="md:col-span-2 flex flex-col justify-center bg-gray-900/30 p-5 rounded-xl border border-gray-800">
+                   <div className="flex justify-between items-baseline border-b border-gray-800 pb-3 mb-3">
+                     <span className="text-sm text-gray-500">BTC「市場」價值</span>
+                     <span className="text-green-400 font-mono font-bold">~$41</span>
+                   </div>
+                   <div className="flex justify-between items-baseline border-b border-gray-800 pb-3 mb-3">
+                     <span className="text-sm text-gray-500">披薩成本</span>
+                     <span className="text-red-400 font-mono font-bold">~$25</span>
+                   </div>
+                   <div className="flex justify-between items-baseline">
+                     <span className="text-sm text-gray-500">付出的溢價</span>
+                     <span className="text-yellow-500 font-bold font-mono text-lg">+64%</span>
+                   </div>
+                   <p className="text-yellow-500/90 text-sm font-semibold mt-4 leading-snug">
+                     溢價 64% = 當年「用 BTC 付款」的代價。
+                   </p>
                 </div>
               </div>
 
               <FlowSection steps={[
                 { icon: Wallet, title: "Laszlo", sub: "持有 10k BTC" },
-                { icon: Mail, title: "論壇", sub: "發文尋找" },
+                { icon: Mail, title: "論壇", sub: "發文喊價" },
                 { icon: Activity, title: "Jercos", sub: "刷卡代付" },
                 { icon: CreditCard, title: "代付橋接", sub: "法幣結算" },
                 { icon: Pizza, title: "披薩", sub: "完成交易" }
@@ -357,8 +359,8 @@ export default function App() {
               image="https://bitbo.io/calendar/assets/img/hacks/interface.png"
               question="比特幣可以買東西嗎？"
               answer="可以，但你要先去賣掉換錢。"
-              mainText="2010 年 7 月 Mt. Gox 成立（比披薩日晚 2 個月）。總算開始解決流動性分散問題，大家不用再上論壇貼文，而是有專門平台集中流動性，讓價格變得透明且可查詢。"
-              subText={`問題：消費流程還是兩段式。雖然解決了幣換錢、報價不透明的問題，但總有一個人要麻煩。除非他願意長期持有比特幣。\n\n要嘛是消費者先把比特幣換成法幣，或是找到願意收比特幣的個人，請他幫忙用法幣代購。交易所解決了「幣變錢」的問題，但沒有解決「支付」的問題。`}
+              takeaway="幣變錢 ≠ 支付"
+              problems={["消費仍是兩段式", "得先賣幣、提現、領鈔", "摩擦只是換了位置"]}
               theme="blue"
             >
               <FlowSection steps={[
@@ -381,16 +383,16 @@ export default function App() {
               icon={Store}
               image="https://duk.tw/RCPxA0.png"
               question="比特幣可以買東西嗎？"
-              answer="可以，但僅限願意收幣的電商平台、科技公司。"
-              mainText="Overstock、Newegg 等科技電商開始「願意收幣」。這簡化了使用者的流程，你可以直接把幣轉給商家。"
-              subText={`問題：這變成了商家的麻煩。\n\n多虧有中心化交易所的報價，電商才知道要收多少幣。但商家收了幣之後，他們也要自己去交易所賣掉換現金。負擔只是從消費者轉移到了商家身上。`}
+              answer="可以，但僅限願意收幣的電商。"
+              takeaway="麻煩只是換人扛"
+              problems={["負擔轉移到商家", "商家得自己賣幣", "難擴大到一般店家"]}
               theme="purple"
             >
               <FlowSection steps={[
                 { icon: Wallet, title: "使用者", sub: "發送 BTC" },
                 { icon: ArrowRight, title: "直接轉帳", sub: "點對點" },
                 { icon: Store, title: "商家", sub: "收到 BTC" },
-                { icon: Landmark, title: "交易所", sub: "商家去賣幣" },
+                { icon: Landmark, title: "交易所", sub: "商家賣幣" },
                 { icon: Banknote, title: "法幣", sub: "換回法幣" }
               ]} />
             </TimelineCard>
@@ -405,9 +407,9 @@ export default function App() {
               title="支付處理商"
               icon={RefreshCw}
               question="比特幣可以買東西嗎？"
-              answer="可以，我們會幫店家自動換匯。"
-              mainText="BitPay、Coinbase Commerce 出現。消費者付幣，中間商自動換成法幣給店家。商家終於沒有匯率風險了。"
-              subText={`問題：這對商家好，但對消費者還是很痛苦。\n\n1. 你要等 10 分鐘區塊確認。\n2. 你要自己付礦工費。\n3. 中間商匯率通常很差。\n\n是個「可用」但「不好用」的體驗。`}
+              answer="可以，我們幫店家自動換匯。"
+              takeaway="可用，但不好用"
+              problems={["要等 ~10 分鐘確認", "得自己付礦工費", "中間商匯率很差"]}
               theme="yellow"
             >
               <FlowSection steps={[
@@ -429,9 +431,9 @@ export default function App() {
               title="技術改良"
               icon={Zap}
               question="比特幣可以買東西嗎？"
-              answer="可以，而且現在變快了（USDT / 閃電網絡）。"
-              mainText="Lightning Network 讓交易變快；USDT 讓價值穩定。技術一直在進步，支付不再需要等 10 分鐘。"
-              subText={`問題：你還是只能在「支援加密貨幣」的特定店家消費。\n\n我想買咖啡、我想搭捷運、我想去便利商店。現實世界絕大多數的消費場景，依然只收法幣（Visa / Mastercard）。\n\n我們需要的不是「更快的轉帳」，而是「通用的支付」。`}
+              answer="可以，而且現在變快了。"
+              takeaway="更快 ≠ 通用"
+              problems={["仍限特定商家", "日常場景只收法幣", "要的是『通用支付』"]}
               theme="green"
               image="https://images.ctfassets.net/4ua9vnmkuhzj/6ftfQVD8uXtISVdt6utFmZ/6f014da9e96d58736600190c9979a487/lightning_network_1.jpg"
             >
@@ -449,39 +451,37 @@ export default function App() {
       case 7:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 min-h-full">
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
               <div className="flex-1 w-full text-white">
                 <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 1（2019-2022）</span>
-                <h2 className="text-2xl md:text-4xl font-bold mb-4">
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
                   接入「支付網絡」
                 </h2>
-                <div className="bg-gray-900/40 p-3 rounded-xl border border-white/5 mb-4">
+                <div className="bg-gray-900/40 p-3.5 rounded-xl border border-white/5 mb-5">
                    <div className="flex items-start gap-2.5 mb-2">
                      <div className="bg-white/10 p-1 rounded text-[11px] font-bold text-white shrink-0">Q</div>
-                     <p className="text-gray-300 italic text-sm">「比特幣可以買東西嗎？」</p>
+                     <p className="text-gray-300 italic text-sm md:text-base">「比特幣可以買東西嗎？」</p>
                    </div>
                    <div className="flex items-start gap-2.5">
                      <div className="bg-green-500/20 p-1 rounded text-[11px] font-bold text-green-400 shrink-0">A</div>
-                     <p className="text-green-200 font-medium text-sm">「可以，只要店家有貼 Visa 標誌。」</p>
+                     <p className="text-green-200 font-medium text-sm md:text-base">「可以，只要店家有貼 Visa 標誌。」</p>
                    </div>
                 </div>
-                <p className="text-sm md:text-base text-gray-400 mb-4 leading-relaxed">
-                  2019 年 Crypto.com 將加密貨幣接入 <span className="text-white font-bold">Visa 支付網絡</span>。使用者不再需要去尋找「願意收幣的特定商家」，而是只要認得「Visa 品牌」。這徹底解決了通路問題。
-                </p>
+                <p className="text-2xl md:text-3xl font-bold text-green-300 leading-snug mb-5">通路問題，一次解決</p>
 
                 <div className="bg-red-900/10 p-4 rounded-xl border border-red-500/20 w-full">
                    <h3 className="font-bold text-red-200 mb-1.5 flex items-center gap-2 text-sm">
                      <AlertCircle className="w-4 h-4" />
-                     代價：託管風險（Custodial）
+                     代價：託管風險
                    </h3>
-                   <p className="text-red-200/70 text-xs md:text-sm leading-relaxed">
-                     Visa 當時並不直接收加密貨幣，它只是讓交易所發卡。本質上是<span className="text-white font-bold">「交易所帳戶的提款卡」</span>。
+                   <p className="text-red-200/80 text-sm md:text-base leading-relaxed">
+                     錢在交易所手上 = 一張「交易所帳戶的提款卡」。
                    </p>
                 </div>
               </div>
 
               <div className="flex-1 flex justify-center w-full flex-col">
-                <div className="relative w-full max-w-[300px] mx-auto mb-8 h-44 md:h-52">
+                <div className="relative w-full max-w-[300px] mx-auto mb-10 h-44 md:h-48">
                   <div className="absolute top-0 left-0 w-full h-44 bg-gradient-to-br from-blue-900 to-blue-600 rounded-2xl border border-blue-400/30 transform -rotate-6 shadow-2xl z-10 flex flex-col justify-between p-5">
                     <div className="text-blue-200 font-bold italic">交易所卡</div>
                     <div className="flex justify-between items-end">
@@ -508,13 +508,13 @@ export default function App() {
           <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
             <TimelineCard
               era="GEN 2（2018-2020）"
-              title="失敗的先驅（L1）"
+              title="失敗的先驅"
               icon={Shield}
               image="https://miro.medium.com/1*kCFgcfRzore3mLX0OQnqfA.png"
-              question="我可以自己保管錢並消費嗎？"
-              answer="可以，但你必須先付 Gas Fee 充值法幣。"
-              mainText="2018 年 Monolith（TokenCard）試圖實現自託管支付。用戶需先將資金鎖入合約錢包，待消費前「手動充值」至法幣緩衝區，Visa 再從法幣帳戶扣款。"
-              subText={`雖然解決了自託管，但代價慘重：\n\n1. 流程斷層：消費前要先掏手機發送交易。\n2. 成本高昂：每次充值都是一筆 L1 交易，充 $10 可能要付 $5-$10 Gas Fee。`}
+              question="可以自己保管錢並消費嗎？"
+              answer="可以，但你得先付 Gas 充值。"
+              takeaway="自託管，但太貴太煩"
+              problems={["消費前要手動發交易", "每次充值都是 L1 交易", "充 $10 可能花 $5–10 Gas"]}
               theme="purple"
             >
               <FlowSection steps={[
@@ -531,87 +531,62 @@ export default function App() {
       case 9:
         return (
           <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 min-h-full">
-            <div className="flex flex-col gap-6">
-              <div className="text-white">
-                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3（上半場）</span>
-                <h2 className="text-2xl md:text-4xl font-bold mb-3">
-                  基礎設施補完（2024）
+            <div className="flex flex-col gap-8">
+              <div className="text-white text-center">
+                <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 3（上半場）· 2024</span>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+                  基礎設施補完
                 </h2>
-                <div className="bg-gray-900/40 p-3 rounded-xl border border-white/5">
-                   <div className="flex items-start gap-2.5">
-                     <div className="bg-green-500/20 p-1 rounded text-[11px] font-bold text-green-400 shrink-0">A</div>
-                     <p className="text-green-200 font-medium text-sm md:text-base">「Layer 2 的低費率 + 帳戶抽象化（AA）解決了最後一哩路。」</p>
-                   </div>
-                </div>
+                <p className="text-base md:text-lg text-gray-400 mt-3">解決最後一哩路的兩塊拼圖。</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-5">
-                <div className="bg-gradient-to-br from-blue-900/40 to-gray-900 p-5 rounded-2xl border border-blue-500/30">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-blue-500/20 p-2.5 rounded-xl text-blue-400">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-900/40 to-gray-900 p-6 rounded-2xl border border-blue-500/30">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-blue-500/20 p-3 rounded-xl text-blue-400">
                       <Layers className="w-7 h-7" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">L2 低手續費</h3>
+                    <h3 className="text-xl font-bold text-white">L2 低手續費</h3>
                   </div>
-                  <p className="text-gray-300 leading-relaxed mb-3 text-sm">
-                    從 2024 年開始，以太坊 Layer 2（如 Arbitrum、Optimism、Scroll）的手續費大幅下降。
-                  </p>
-                  <ul className="space-y-2 text-sm text-gray-400">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-400">✓</span> 日常小額支付終於不用再跑在昂貴的 L1 上。
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-400">✓</span> 吞吐量大增，不再有 DeFi Summer 的擁堵問題。
-                    </li>
+                  <ul className="space-y-2.5 text-base text-gray-300">
+                    <li className="flex items-start gap-2.5"><CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" /> 小額支付不再跑昂貴 L1</li>
+                    <li className="flex items-start gap-2.5"><CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" /> 吞吐量大，不再擁堵</li>
                   </ul>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-900/40 to-gray-900 p-5 rounded-2xl border border-purple-500/30">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-purple-500/20 p-2.5 rounded-xl text-purple-400">
+                <div className="bg-gradient-to-br from-purple-900/40 to-gray-900 p-6 rounded-2xl border border-purple-500/30">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="bg-purple-500/20 p-3 rounded-xl text-purple-400">
                       <Key className="w-7 h-7" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">帳戶抽象化（AA）</h3>
+                    <h3 className="text-xl font-bold text-white">帳戶抽象化（AA）</h3>
                   </div>
-                  <p className="text-gray-300 leading-relaxed mb-3 text-sm">
-                    支援 Passkeys 與智慧合約錢包（Smart Accounts）。
-                  </p>
-                  <ul className="space-y-2 text-sm text-gray-400">
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-400">✓</span> 告別助記詞，用 FaceID 就能登入。
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-green-400">✓</span> 可設定自動扣款、社交恢復，體驗如 Web2 般滑順。
-                    </li>
+                  <ul className="space-y-2.5 text-base text-gray-300">
+                    <li className="flex items-start gap-2.5"><CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" /> FaceID 登入，告別助記詞</li>
+                    <li className="flex items-start gap-2.5"><CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" /> 自動扣款、社交恢復</li>
                   </ul>
                 </div>
-              </div>
-
-              <div className="text-center">
-                <p className="text-gray-500 italic text-sm">這些技術拼圖全部串在一起，才催生了現代的加密支付卡。</p>
               </div>
             </div>
           </div>
         );
 
-      // --- SLIDE 10: MODERN EXPERIENCE (MERGED WITH ANATOMY) ---
+      // --- SLIDE 10: MODERN EXPERIENCE (ANATOMY) ---
       case 10:
         return (
           <div className="flex flex-col justify-center px-4 max-w-7xl mx-auto w-full py-6 min-h-full">
-            <div className="flex flex-col gap-3">
-              <div className="text-white">
-                <span className="text-purple-400 font-mono text-sm mb-1 block tracking-widest">GEN 3（下半場）</span>
-                <h2 className="text-2xl md:text-4xl font-bold mb-1.5">
+            <div className="flex flex-col gap-4">
+              <div className="text-white text-center">
+                <span className="text-purple-400 font-mono text-sm mb-1.5 block tracking-widest">GEN 3（下半場）</span>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
                   現代的體驗
                 </h2>
-                <p className="text-sm md:text-base text-gray-400 max-w-3xl leading-relaxed">
-                  Ether.fi、Coinbase、Bybit、RedotPay 百花齊放。<br/>
-                  現在的體驗是：<span className="text-white font-bold">只在儲值時接觸 Crypto，消費時完全無感。</span>
+                <p className="text-base md:text-lg text-gray-400 mt-2">
+                  <span className="text-white font-semibold">只在儲值時碰 Crypto，消費時完全無感。</span>
                 </p>
               </div>
 
               <div>
-                <span className="text-purple-400 font-mono text-xs mb-2 block tracking-widest uppercase text-center">拆解：Ether.fi Cash</span>
                 <div className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-3 gap-3 items-center justify-center h-auto lg:h-[300px] w-full max-w-4xl mx-auto">
 
                   {/* Central Card Visual */}
@@ -632,34 +607,34 @@ export default function App() {
                   </div>
 
                   <div className="lg:col-start-2 lg:row-start-1 flex justify-center order-2 lg:order-none w-full">
-                    <AnatomyPart icon={Globe} title="Visa 網絡" desc="解決「通用性」。就像 Crypto.com 一樣，連接全球 8000 萬商戶。" position="bottom" color="blue" />
+                    <AnatomyPart icon={Globe} title="Visa 網絡" desc="通用性 · 全球 8000 萬商戶" position="bottom" color="blue" />
                   </div>
                   <div className="lg:col-start-2 lg:row-start-3 flex justify-center order-3 lg:order-none w-full">
-                    <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="解決「成本」。就像失敗的 Monolith，但這次手續費夠低了。" position="top" color="yellow" />
+                    <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="成本 · 手續費夠低了" position="top" color="yellow" />
                   </div>
                   <div className="lg:col-start-1 lg:row-start-2 flex justify-center order-4 lg:order-none w-full">
-                    <AnatomyPart icon={Lock} title="智能錢包" desc="解決「安全性」。資金在合約帳戶內（自託管），避免 FTX 風險。" position="right" color="green" />
+                    <AnatomyPart icon={Lock} title="智能錢包" desc="安全性 · 自託管免 FTX 風險" position="right" color="green" />
                   </div>
                   <div className="lg:col-start-3 lg:row-start-2 flex justify-center order-5 lg:order-none w-full">
-                    <AnatomyPart icon={TrendingUp} title="代幣獎勵" desc="解決「誘因」。消費即挖礦，用 DeFi 收益覆蓋最後一點摩擦成本。" position="left" color="purple" />
+                    <AnatomyPart icon={TrendingUp} title="代幣獎勵" desc="誘因 · 消費即挖礦" position="left" color="purple" />
                   </div>
                 </div>
               </div>
 
-              <div className="bg-yellow-900/10 p-4 md:p-5 rounded-2xl border border-yellow-500/20">
-                <h3 className="text-lg font-bold text-yellow-500 mb-2 flex items-center gap-2">
-                  <Landmark className="w-5 h-5" />
-                  商業模式：收益（Yield）
-                </h3>
-                <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                  現在的卡片怎麼賺錢？答案是<span className="text-white font-bold">收益（Yield）</span>。就像銀行希望你存錢一樣，這些協議希望你把加密資產（TVL）放在他們那裡產生 DeFi 收益（Positive Carry）。
-                </p>
-                <div className="mt-3 flex items-center gap-3 text-xs md:text-sm text-yellow-200/70 flex-wrap">
-                  <span>存款 → 產生收益</span>
-                  <ArrowRight className="w-4 h-4" />
-                  <span>補貼支付</span>
-                  <ArrowRight className="w-4 h-4" />
-                  <span>吸引更多存款</span>
+              <div className="bg-yellow-900/10 px-5 py-4 rounded-2xl border border-yellow-500/20 max-w-4xl mx-auto w-full">
+                <div className="flex items-center gap-3 flex-wrap justify-between">
+                  <h3 className="text-base md:text-lg font-bold text-yellow-500 flex items-center gap-2">
+                    <Landmark className="w-5 h-5" /> 商業模式：收益
+                  </h3>
+                  <div className="flex items-center gap-3 text-sm text-yellow-200/80 flex-wrap">
+                    <span>存款</span>
+                    <ArrowRight className="w-4 h-4" />
+                    <span>DeFi 收益</span>
+                    <ArrowRight className="w-4 h-4" />
+                    <span>補貼支付</span>
+                    <ArrowRight className="w-4 h-4" />
+                    <span>更多存款</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -745,6 +720,23 @@ export default function App() {
         >
           {renderSlide()}
         </div>
+
+        {/* Presenter notes drawer — only the speaker sees this (toggle with N) */}
+        {showNotes && (
+          <div className="absolute inset-x-0 bottom-0 z-40 bg-gray-950/95 backdrop-blur-xl border-t border-purple-500/30 shadow-[0_-20px_40px_rgba(0,0,0,0.5)] animate-fade-in">
+            <div className="max-w-4xl mx-auto px-6 py-4 overflow-y-auto max-h-[40vh] scrollbar-slim">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-mono text-purple-400 tracking-widest uppercase flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" /> 講者備註 · 第 {currentSlide + 1} 頁
+                </span>
+                <button onClick={() => setShowNotes(false)} className="text-[11px] text-gray-500 hover:text-gray-300 font-mono">按 N 隱藏 ✕</button>
+              </div>
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed whitespace-pre-line">
+                {speakerNotes[currentSlide] || '（這頁沒有備註）'}
+              </p>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer Controls */}
@@ -786,8 +778,21 @@ export default function App() {
           ))}
         </div>
 
-        <div className="text-xs text-gray-600 truncate max-w-[120px] md:max-w-none">
-          1/17 • 台北 • Astro Hsu
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowNotes(s => !s)}
+            className={`flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-full border transition-all ${
+              showNotes
+                ? 'bg-purple-500/20 border-purple-500/40 text-purple-200'
+                : 'border-white/5 text-gray-500 hover:text-gray-300 hover:border-white/10'
+            }`}
+            aria-label="講者備註"
+          >
+            <BookOpen className="w-3.5 h-3.5" /> 備註 N
+          </button>
+          <div className="text-xs text-gray-600 truncate max-w-[110px] md:max-w-none hidden md:block">
+            1/17 • 台北 • Astro Hsu
+          </div>
         </div>
       </footer>
     </div>
