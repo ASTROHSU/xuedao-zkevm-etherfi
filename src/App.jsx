@@ -149,7 +149,8 @@ const TimelineCard = ({ title, era, icon: Icon, mainText, subText, question, ans
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 13;
+  const [direction, setDirection] = useState(1);
+  const totalSlides = 12;
 
   // Set Title and Favicon
   useEffect(() => {
@@ -162,48 +163,67 @@ export default function App() {
     document.getElementsByTagName('head')[0].appendChild(link);
   }, []);
 
+  const nextSlide = () => {
+    setDirection(1);
+    setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1));
+  };
+  const prevSlide = () => {
+    setDirection(-1);
+    setCurrentSlide(prev => Math.max(prev - 1, 0));
+  };
+  const goToSlide = (index) => {
+    setDirection(index >= currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
-        setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1));
+        e.preventDefault();
+        nextSlide();
       } else if (e.key === 'ArrowLeft') {
-        setCurrentSlide(prev => Math.max(prev - 1, 0));
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        goToSlide(totalSlides - 1);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1));
-  const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
+  }, [currentSlide]);
 
   const renderSlide = () => {
     switch(currentSlide) {
       // SLIDE 0: OPENING
       case 0:
         return (
-          <div className="flex flex-col justify-center items-center min-h-full py-12 text-center px-4 relative">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
-            
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs md:text-sm mb-8 md:mb-12">
+          <div className="flex flex-col justify-center items-center min-h-full py-12 text-center px-4 relative stagger">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs md:text-sm backdrop-blur-sm">
+               <span className="inline-block w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
                XueDAO Meetup • Taipei
             </div>
-            
-            <h1 className="text-4xl md:text-7xl font-bold mb-8 leading-tight text-white">
+
+            <h1 className="text-4xl md:text-7xl font-extrabold leading-tight text-white tracking-tight mt-8 md:mt-12">
               The Furthest Distance<br />
-              <span className="text-gray-500 text-2xl md:text-5xl block mt-4 font-normal">
-                is between your <span className="text-white">Bitcoin</span> and a <span className="text-white">Coffee</span>.
+              <span className="text-2xl md:text-5xl block mt-4 font-normal text-gray-500">
+                is between your{' '}
+                <span className="bg-gradient-to-r from-orange-300 to-yellow-400 bg-clip-text text-transparent font-semibold">Bitcoin</span>{' '}
+                and a{' '}
+                <span className="bg-gradient-to-r from-purple-300 to-blue-400 bg-clip-text text-transparent font-semibold">Coffee</span>.
               </span>
             </h1>
-            
-            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 px-4">
+
+            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 leading-relaxed mt-8 md:mt-10">
               這兩端花了 15 年才真正連起來。<br/>
               這是一段關於「支付演變」的故事。
             </p>
 
-            <div className="animate-bounce text-gray-600 mt-8 hidden md:block">
-              <span className="text-xs font-mono">PRESS SPACE TO START</span>
+            <div className="flex items-center gap-2 text-gray-600 mt-12 hidden md:flex">
+              <span className="text-xs font-mono tracking-widest">PRESS SPACE TO START</span>
+              <ChevronRight className="w-4 h-4 animate-pulse" />
             </div>
           </div>
         );
@@ -656,24 +676,24 @@ export default function App() {
 
       case 11:
          return (
-          <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12 overflow-y-auto">
-            <h2 className="text-4xl md:text-7xl font-bold mb-8 text-white">
-              Just Use It.
+          <div className="flex flex-col justify-center items-center text-center px-4 min-h-full py-12 overflow-y-auto stagger">
+            <h2 className="text-5xl md:text-8xl font-extrabold text-white tracking-tight">
+              Just <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Use It.</span>
             </h2>
-            <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mb-12 leading-relaxed px-2">
+            <p className="text-lg md:text-2xl text-gray-400 max-w-3xl leading-relaxed px-2 mt-8 mb-12">
               這條路走了 15 年，現在終於通了。<br/>
               去樓下 7-11 買杯咖啡，你就懂了。
             </p>
-            
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 p-8 rounded-2xl max-w-md w-full hover:border-purple-500 transition-all duration-300 cursor-pointer group">
-              <p className="text-purple-400 font-bold mb-2 text-sm uppercase tracking-widest">NEXT</p>
+
+            <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm border border-white/10 p-8 rounded-3xl max-w-md w-full hover:border-purple-500/60 transition-all duration-300 group shadow-2xl shadow-purple-900/10">
+              <p className="text-purple-400 font-bold mb-2 text-xs uppercase tracking-[0.2em]">NEXT</p>
               <h3 className="text-2xl font-bold text-white mb-4">Live Demo & Sign Up</h3>
               <p className="text-gray-400 text-sm mb-6">拿出你的手機，我們現在就來跨越這座橋。</p>
-              <a 
-                href="https://www.ether.fi/refer/7c8b3870" 
-                target="_blank" 
+              <a
+                href="https://www.ether.fi/refer/7c8b3870"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-purple-600 hover:bg-purple-500 text-white py-3 rounded-lg font-bold transition-all flex items-center justify-center gap-2"
+                className="w-full bg-purple-600 hover:bg-purple-500 text-white py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-900/30 active:scale-[0.98]"
               >
                 Let's Go <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
@@ -687,55 +707,94 @@ export default function App() {
   };
 
   return (
-    <div className="bg-gray-900 h-screen w-full text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col">
+    <div className="bg-gray-950 h-screen w-full text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col">
       {/* Header */}
-      <header className="h-16 border-b border-gray-800 bg-gray-900/90 backdrop-blur-md flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-lg md:text-xl tracking-tighter text-white">Blocktrend</span>
-          <span className="text-gray-500">x</span>
+      <header className="h-16 border-b border-white/5 bg-gray-950/70 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 shadow-[0_0_12px_rgba(168,85,247,0.6)]"></span>
+          <span className="font-bold text-lg md:text-xl tracking-tight text-white">Blocktrend</span>
+          <span className="text-gray-600">×</span>
           <span className="text-purple-400 font-semibold text-sm md:text-base">ether.fi</span>
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-xs font-mono text-gray-500 bg-gray-800 px-3 py-1 rounded">
-            <span>SPACE TO NEXT</span>
+          <div className="hidden md:flex items-center gap-2 text-[11px] font-mono text-gray-500 bg-white/5 border border-white/5 px-3 py-1 rounded-full">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
+            <span>SPACE / → TO NEXT</span>
           </div>
-          <div className="text-sm font-mono text-gray-400">
-            {currentSlide + 1} / {totalSlides}
+          <div className="text-sm font-mono text-gray-400 tabular-nums">
+            <span className="text-white">{String(currentSlide + 1).padStart(2, '0')}</span>
+            <span className="text-gray-600"> / {String(totalSlides).padStart(2, '0')}</span>
           </div>
         </div>
       </header>
 
+      {/* Progress bar */}
+      <div className="h-[3px] bg-white/5 shrink-0 z-50">
+        <div
+          className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-blue-500 transition-[width] duration-500 ease-out shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+          style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
+        ></div>
+      </div>
+
       {/* Main Slide Area */}
-      <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950 scroll-smooth">
-        <div className="h-full w-full overflow-y-auto overflow-x-hidden">
+      <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
+        {/* Ambient background glows */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-48 -left-32 w-[28rem] h-[28rem] bg-purple-600/15 rounded-full blur-3xl animate-glow-pulse"></div>
+          <div className="absolute -bottom-48 -right-32 w-[28rem] h-[28rem] bg-blue-600/15 rounded-full blur-3xl animate-glow-pulse" style={{ animationDelay: '2.5s' }}></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(168,85,247,0.08),transparent_60%)]"></div>
+        </div>
+
+        <div
+          key={currentSlide}
+          className={`relative h-full w-full overflow-y-auto overflow-x-hidden scrollbar-slim ${
+            direction >= 0 ? 'animate-slide-in-right' : 'animate-slide-in-left'
+          }`}
+        >
           {renderSlide()}
         </div>
       </main>
 
       {/* Footer Controls */}
-      <footer className="h-16 border-t border-gray-800 bg-gray-900/90 backdrop-blur-md flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
-        
+      <footer className="h-16 border-t border-white/5 bg-gray-950/70 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
+
         <div className="flex gap-2">
-          <button 
+          <button
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className="p-3 rounded-full hover:bg-gray-800 disabled:opacity-30 disabled:hover:bg-transparent transition-colors text-white"
+            className="p-3 rounded-full border border-white/5 hover:bg-white/5 hover:border-white/10 disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:border-white/5 transition-all text-white active:scale-95"
             aria-label="Previous Slide"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
-          
-          <button 
+
+          <button
             onClick={nextSlide}
             disabled={currentSlide === totalSlides - 1}
-            className="p-3 rounded-full bg-purple-600 hover:bg-purple-500 disabled:opacity-50 disabled:bg-gray-700 transition-all text-white shadow-lg shadow-purple-900/20"
+            className="p-3 rounded-full bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:bg-gray-700 transition-all text-white shadow-lg shadow-purple-900/30 active:scale-95"
             aria-label="Next Slide"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="text-xs text-gray-600 truncate max-w-[150px] md:max-w-none">
+        {/* Dot navigation */}
+        <div className="hidden sm:flex items-center gap-2">
+          {Array.from({ length: totalSlides }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goToSlide(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                i === currentSlide
+                  ? 'w-6 h-2 bg-gradient-to-r from-purple-400 to-blue-400'
+                  : 'w-2 h-2 bg-white/15 hover:bg-white/40'
+              }`}
+            ></button>
+          ))}
+        </div>
+
+        <div className="text-xs text-gray-600 truncate max-w-[120px] md:max-w-none">
           Jan 17 • Taipei • Astro Hsu
         </div>
       </footer>

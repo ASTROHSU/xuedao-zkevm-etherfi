@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  /* Sleek, minimal scrollbar that fits the dark theme */
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(168, 85, 247, 0.35) transparent;
+  }
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-slim::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.3);
+    border-radius: 9999px;
+  }
+  .scrollbar-slim::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.55);
+  }
+
+  /* Staggered entrance for content blocks within a slide */
+  .stagger > * {
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.15s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.25s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.35s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.45s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.55s; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
