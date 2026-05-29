@@ -229,7 +229,7 @@ export default function App() {
           <div className="flex flex-col justify-center items-center min-h-full py-8 text-center px-4 relative stagger">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs md:text-sm backdrop-blur-sm">
                <span className="inline-block w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-               XueDAO Meetup • 台北
+               XueDAO × Sui • Taipei Hacker House
             </div>
 
             <h1 className="text-4xl md:text-7xl font-extrabold leading-tight text-white tracking-tight mt-8 md:mt-12">
@@ -791,7 +791,7 @@ export default function App() {
             <BookOpen className="w-3.5 h-3.5" /> 備註 N
           </button>
           <div className="text-xs text-gray-600 truncate max-w-[110px] md:max-w-none hidden md:block">
-            1/17 • 台北 • Astro Hsu
+            5/30 • 台北 • Astro Hsu
           </div>
         </div>
       </footer>
