@@ -130,8 +130,8 @@ const TimelineCard = ({ title, era, icon: Icon, takeaway, problems = [], questio
           </div>
 
           {image && (
-            <div className="w-full rounded-xl overflow-hidden border border-white/10 relative group shrink-0">
-               <img src={image} alt={title} className="w-full h-auto max-h-44 object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="w-full aspect-[16/9] rounded-xl overflow-hidden border border-white/10 relative group shrink-0 bg-black/30">
+               <img src={image} alt={title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           )}
 
@@ -301,19 +301,19 @@ export default function App() {
       // SLIDE 2: GEN 0 - BITCOIN PIZZA
       case 2:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-8 min-h-full">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-6 min-h-full">
             <div>
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 0（2010 年 5 月 22 日）</span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 flex items-center gap-3 flex-wrap text-white tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 flex items-center gap-3 flex-wrap text-white tracking-tight">
                 「沒有交易所」的那一天 <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
 
-              <div className="grid md:grid-cols-5 gap-5 mb-6">
-                <div className="md:col-span-3">
+              <div className="grid md:grid-cols-5 gap-4 mb-4">
+                <div className="md:col-span-3 aspect-[16/9] rounded-xl overflow-hidden border border-gray-700 shadow-lg bg-black/30">
                    <img
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png"
                      alt="Bitcoin Pizza"
-                     className="w-full rounded-xl border border-gray-700 shadow-lg object-cover max-h-64"
+                     className="w-full h-full object-cover"
                    />
                 </div>
 
