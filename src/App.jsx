@@ -110,7 +110,7 @@ const TimelineCard = ({ title, era, icon: Icon, takeaway, problems = [], questio
 
   return (
     <div className="flex flex-col justify-center min-h-full w-full max-w-6xl mx-auto">
-      <div className={`flex flex-col lg:flex-row gap-5 items-stretch bg-gradient-to-br ${themes[theme]} p-5 md:p-7 rounded-2xl border w-full backdrop-blur-sm`}>
+      <div className={`flex flex-col lg:flex-row gap-4 items-stretch bg-gradient-to-br ${themes[theme]} p-4 md:p-6 rounded-2xl border w-full backdrop-blur-sm`}>
         {/* Left: the scaffold */}
         <div className="flex-1 flex flex-col gap-4">
           <div>
@@ -301,14 +301,14 @@ export default function App() {
       // SLIDE 2: GEN 0 - BITCOIN PIZZA
       case 2:
         return (
-          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-6 min-h-full">
+          <div className="flex flex-col justify-center px-4 max-w-6xl mx-auto w-full py-5 min-h-full">
             <div>
               <span className="text-purple-400 font-mono text-sm mb-2 block tracking-widest">GEN 0（2010 年 5 月 22 日）</span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 flex items-center gap-3 flex-wrap text-white tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold mb-3 flex items-center gap-3 flex-wrap text-white tracking-tight">
                 「沒有交易所」的那一天 <Pizza className="text-yellow-500 w-8 h-8 md:w-10 md:h-10" />
               </h2>
 
-              <div className="grid md:grid-cols-5 gap-4 mb-4">
+              <div className="grid md:grid-cols-5 gap-4 mb-3">
                 <div className="md:col-span-3 aspect-[16/9] rounded-xl overflow-hidden border border-gray-700 shadow-lg bg-black/30">
                    <img
                      src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F155a7e3a-c625-4d76-9da3-607893c001a2_1024x683.png"
@@ -351,7 +351,7 @@ export default function App() {
 
       case 3:
         return (
-          <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-5">
             <TimelineCard
               era="ERA 1（2010-2012）"
               title="交易所時代"
@@ -376,7 +376,7 @@ export default function App() {
 
       case 4:
         return (
-          <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-5">
             <TimelineCard
               era="ERA 2（2013-2016）"
               title="商家開始收幣"
@@ -401,7 +401,7 @@ export default function App() {
 
       case 5:
         return (
-          <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-5">
             <TimelineCard
               era="ERA 3（2014-2018）"
               title="支付處理商"
@@ -425,7 +425,7 @@ export default function App() {
 
       case 6:
         return (
-          <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-5">
             <TimelineCard
               era="ERA 4（2016-2019）"
               title="技術改良"
@@ -505,7 +505,7 @@ export default function App() {
 
       case 8:
         return (
-          <div className="flex flex-col justify-center px-4 min-h-full w-full py-8">
+          <div className="flex flex-col justify-center px-4 min-h-full w-full py-5">
             <TimelineCard
               era="GEN 2（2018-2020）"
               title="失敗的先驅"
@@ -675,34 +675,6 @@ export default function App() {
 
   return (
     <div className="bg-gray-950 h-screen w-full text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col">
-      {/* Header */}
-      <header className="h-14 border-b border-white/5 bg-gray-950/70 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
-        <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 shadow-[0_0_12px_rgba(168,85,247,0.6)]"></span>
-          <span className="font-bold text-lg md:text-xl tracking-tight text-white">Blocktrend</span>
-          <span className="text-gray-600">×</span>
-          <span className="text-purple-400 font-semibold text-sm md:text-base">ether.fi</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-[11px] font-mono text-gray-500 bg-white/5 border border-white/5 px-3 py-1 rounded-full">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-            <span>空白鍵 / → 下一頁</span>
-          </div>
-          <div className="text-sm font-mono text-gray-400 tabular-nums">
-            <span className="text-white">{String(currentSlide + 1).padStart(2, '0')}</span>
-            <span className="text-gray-600"> / {String(totalSlides).padStart(2, '0')}</span>
-          </div>
-        </div>
-      </header>
-
-      {/* Progress bar */}
-      <div className="h-[3px] bg-white/5 shrink-0 z-50">
-        <div
-          className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-blue-500 transition-[width] duration-500 ease-out shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-          style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
-        ></div>
-      </div>
-
       {/* Main Slide Area */}
       <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
         {/* Ambient background glows */}
@@ -739,30 +711,38 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer Controls */}
-      <footer className="h-14 border-t border-white/5 bg-gray-950/70 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
+      {/* Single consolidated control bar */}
+      <footer className="h-12 border-t border-white/5 bg-gray-950/70 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-50">
 
-        <div className="flex gap-2">
-          <button
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            className="p-2.5 rounded-full border border-white/5 hover:bg-white/5 hover:border-white/10 disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:border-white/5 transition-all text-white active:scale-95"
-            aria-label="上一頁"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === totalSlides - 1}
-            className="p-2.5 rounded-full bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:bg-gray-700 transition-all text-white shadow-lg shadow-purple-900/30 active:scale-95"
-            aria-label="下一頁"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+        {/* Left: brand + prev/next */}
+        <div className="flex items-center gap-3">
+          <span className="hidden md:flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-gradient-to-br from-purple-400 to-blue-500"></span>
+            <span className="font-semibold text-sm text-gray-200 tracking-tight">Blocktrend</span>
+            <span className="text-gray-600 text-sm">×</span>
+            <span className="text-purple-400 font-semibold text-sm">ether.fi</span>
+          </span>
+          <div className="flex gap-1.5">
+            <button
+              onClick={prevSlide}
+              disabled={currentSlide === 0}
+              className="p-2 rounded-full border border-white/5 hover:bg-white/5 hover:border-white/10 disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:border-white/5 transition-all text-white active:scale-95"
+              aria-label="上一頁"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              disabled={currentSlide === totalSlides - 1}
+              className="p-2 rounded-full bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:bg-gray-700 transition-all text-white shadow-lg shadow-purple-900/30 active:scale-95"
+              aria-label="下一頁"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Dot navigation */}
+        {/* Center: the single position indicator — clickable dots (desktop) / count (mobile) */}
         <div className="hidden sm:flex items-center gap-2">
           {Array.from({ length: totalSlides }).map((_, i) => (
             <button
@@ -777,7 +757,12 @@ export default function App() {
             ></button>
           ))}
         </div>
+        <div className="sm:hidden text-sm font-mono text-gray-400 tabular-nums">
+          <span className="text-white">{String(currentSlide + 1).padStart(2, '0')}</span>
+          <span className="text-gray-600"> / {String(totalSlides).padStart(2, '0')}</span>
+        </div>
 
+        {/* Right: notes toggle + event tag */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowNotes(s => !s)}
@@ -790,8 +775,8 @@ export default function App() {
           >
             <BookOpen className="w-3.5 h-3.5" /> 備註 N
           </button>
-          <div className="text-xs text-gray-600 truncate max-w-[110px] md:max-w-none hidden md:block">
-            5/30 • 台北 • Astro Hsu
+          <div className="text-xs text-gray-600 hidden lg:block">
+            5/30 • 台北
           </div>
         </div>
       </footer>
