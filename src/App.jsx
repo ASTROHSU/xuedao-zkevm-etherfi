@@ -35,8 +35,8 @@ const ProcessStep = ({ icon: Icon, title, sub, isLast = false, isBad = false }) 
     }`}>
       <Icon className="w-5 h-5 md:w-6 md:h-6" />
     </div>
-    <h4 className="font-bold text-white text-xs md:text-sm text-center mb-0.5 w-full px-1 leading-tight">{title}</h4>
-    <p className="text-[11px] md:text-xs text-gray-400 text-center leading-tight">{sub}</p>
+    <h4 className="font-bold text-white text-sm md:text-base text-center mb-0.5 w-full px-1 leading-tight">{title}</h4>
+    <p className="text-xs md:text-sm text-gray-400 text-center leading-tight">{sub}</p>
 
     {!isLast && (
       <div className="hidden md:block absolute top-5 md:top-6 -right-[50%] w-full h-[2px] bg-gray-700 -z-10"></div>
@@ -174,7 +174,20 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
   const [showNotes, setShowNotes] = useState(false);
+  const [scale, setScale] = useState(1);
   const totalSlides = 12;
+
+  // Fixed 16:9 design canvas, scaled to fill the screen — keeps every element a
+  // constant fraction of the display, so text scales UP on a big projector and
+  // the deck never needs to scroll. (1280x720 design size.)
+  const DESIGN_W = 1280;
+  const DESIGN_H = 720;
+  useEffect(() => {
+    const update = () => setScale(Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H));
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   // Set Title and Favicon
   useEffect(() => {
@@ -674,7 +687,11 @@ export default function App() {
   };
 
   return (
-    <div className="bg-gray-950 h-screen w-full text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-gray-950 overflow-hidden flex items-center justify-center">
+    <div
+      className="bg-gray-950 text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col shadow-2xl"
+      style={{ width: DESIGN_W, height: DESIGN_H, transform: `scale(${scale})`, transformOrigin: 'center center' }}
+    >
       {/* Main Slide Area */}
       <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
         {/* Ambient background glows */}
@@ -780,6 +797,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+    </div>
     </div>
   );
 }
