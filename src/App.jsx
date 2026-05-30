@@ -382,16 +382,32 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
   const [showNotes, setShowNotes] = useState(false);
-  const [scale, setScale] = useState(1);
+  const [viewport, setViewport] = useState({
+    scale: 1,
+    width: 1280,
+    height: 720,
+  });
   const totalSlides = 15;
 
-  // Fixed 16:9 design canvas, scaled to fill the screen — keeps every element a
-  // constant fraction of the display, so text scales UP on a big projector and
-  // the deck never needs to scroll. (1280x720 design size.)
+  // Fixed design canvas, scaled to fit the screen. Desktop and landscape stay
+  // on the original 16:9 deck; narrow portrait phones use a taller canvas so
+  // the mobile layout does not get crushed into a tiny 16:9 strip.
   const DESIGN_W = 1280;
   const DESIGN_H = 720;
+  const MOBILE_PORTRAIT_W = 720;
+  const MOBILE_PORTRAIT_H = 1280;
   useEffect(() => {
-    const update = () => setScale(Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H));
+    const update = () => {
+      const isMobilePortrait = window.innerWidth <= 640 && window.innerHeight > window.innerWidth;
+      const width = isMobilePortrait ? MOBILE_PORTRAIT_W : DESIGN_W;
+      const height = isMobilePortrait ? MOBILE_PORTRAIT_H : DESIGN_H;
+
+      setViewport({
+        width,
+        height,
+        scale: Math.min(window.innerWidth / width, window.innerHeight / height),
+      });
+    };
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
@@ -907,7 +923,12 @@ export default function App() {
     <div className="fixed inset-0 bg-gray-950 overflow-hidden flex items-center justify-center">
     <div
       className="bg-gray-950 text-gray-100 font-sans selection:bg-purple-500 selection:text-white overflow-hidden flex flex-col shadow-2xl"
-      style={{ width: DESIGN_W, height: DESIGN_H, transform: `scale(${scale})`, transformOrigin: 'center center' }}
+      style={{
+        width: viewport.width,
+        height: viewport.height,
+        transform: `scale(${viewport.scale})`,
+        transformOrigin: 'center center',
+      }}
     >
       {/* Main Slide Area */}
       <main className="flex-1 relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
