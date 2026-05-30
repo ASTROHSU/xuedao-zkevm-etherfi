@@ -389,28 +389,30 @@ export default function App() {
   });
   const totalSlides = 15;
 
-  // Fixed design canvas, scaled to fit the screen. Desktop and landscape stay
-  // on the original 16:9 deck; narrow portrait phones use a taller canvas so
-  // the mobile layout does not get crushed into a tiny 16:9 strip.
+  // Desktop and landscape use the original fixed 16:9 design canvas, scaled to
+  // fit the screen. Portrait phones use the real viewport directly, because
+  // shrinking a fixed canvas and then transform-scaling it makes the deck too
+  // small inside mobile browsers.
   const DESIGN_W = 1280;
   const DESIGN_H = 720;
-  const MOBILE_PORTRAIT_W = 720;
-  const MOBILE_PORTRAIT_H = 1280;
   useEffect(() => {
     const update = () => {
       const isMobilePortrait = window.innerWidth <= 640 && window.innerHeight > window.innerWidth;
-      const width = isMobilePortrait ? MOBILE_PORTRAIT_W : DESIGN_W;
-      const height = isMobilePortrait ? MOBILE_PORTRAIT_H : DESIGN_H;
+      const visualHeight = window.visualViewport?.height || window.innerHeight;
 
       setViewport({
-        width,
-        height,
-        scale: Math.min(window.innerWidth / width, window.innerHeight / height),
+        width: isMobilePortrait ? window.innerWidth : DESIGN_W,
+        height: isMobilePortrait ? visualHeight : DESIGN_H,
+        scale: isMobilePortrait ? 1 : Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H),
       });
     };
     update();
     window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    window.visualViewport?.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.visualViewport?.removeEventListener('resize', update);
+    };
   }, []);
 
   // Set Title and Favicon
@@ -928,6 +930,7 @@ export default function App() {
         height: viewport.height,
         transform: `scale(${viewport.scale})`,
         transformOrigin: 'center center',
+        flexShrink: 0,
       }}
     >
       {/* Main Slide Area */}
