@@ -19,9 +19,12 @@ const speakerNotes = {
   6: `Era 4，2016 到 2019。技術一直在進步：閃電網絡讓交易變快，USDT 讓價值穩定，支付不用再等 10 分鐘。但根本問題沒解決——你還是只能在「支援加密貨幣」的特定店家消費。我想買咖啡、搭捷運、進便利商店，現實世界絕大多數場景只收 Visa/Mastercard。我們要的不是更快的轉帳，是通用的支付。`,
   7: `Gen 1，2019 到 2022，轉捩點。Crypto.com 把加密貨幣接上 Visa 支付網絡。使用者不用再找「願意收幣的店家」，只要認得 Visa 標誌就行，通路問題一次解決，全球 8000 萬商戶都能用。代價是託管：Visa 當時並不直接收幣，是交易所幫你發卡、後端換匯。本質上這只是一張「交易所帳戶的提款卡」，你的錢在交易所手上——FTX 之後大家都知道這意味著什麼。`,
   8: `Gen 2，2018 到 2020。有人想解決託管問題。Monolith（TokenCard）嘗試做自託管支付：資金鎖在你自己的合約錢包裡，消費前手動把錢充值到一個法幣緩衝區，Visa 再從那裡扣款。自託管是做到了，但代價慘重——流程斷層，每次消費前要先掏手機發一筆交易；而且每次充值都是一筆 L1 交易，充 10 美元可能就要付 5 到 10 美元的 Gas。太貴、太麻煩，所以失敗了。`,
-  9: `Gen 3 上半場，2024。兩塊拼圖補上了。第一，Layer 2 的低手續費——Arbitrum、Optimism、Scroll 讓日常小額支付不用再跑在昂貴的 L1 上，吞吐量也夠了。第二，帳戶抽象化 AA——支援 Passkeys 和智慧合約錢包，可以用 FaceID 登入、告別助記詞，還能設定自動扣款、社交恢復，體驗像 Web2 一樣滑順。這兩塊一補上，現代加密支付卡才成立。`,
-  10: `Gen 3 下半場。現在 Ether.fi、Coinbase、Bybit、RedotPay 百花齊放，體驗變成：只在儲值時碰一下 Crypto，消費的當下完全無感。用 Ether.fi Cash 拆給大家看四個零件怎麼各自解決一個歷史難題：Visa 網絡解決通用性、Scroll zkEVM 解決成本（就是 Monolith 當年缺的那塊）、智能錢包解決安全性也就是自託管、代幣獎勵解決誘因。商業模式是「收益」：協議希望你把資產存著產生 DeFi 收益，再拿收益補貼你的支付，吸引更多存款，形成正循環。`,
+  9: `Gen 3 上半場，2024。兩塊拼圖補上了。第一，Layer 2 的低手續費——Arbitrum、Optimism 讓日常小額支付不用再跑在昂貴的 L1 上，吞吐量也夠了。第二，帳戶抽象化 AA——支援 Passkeys 和智慧合約錢包，可以用 FaceID 登入、告別助記詞，還能設定自動扣款、社交恢復，體驗像 Web2 一樣滑順。這兩塊一補上，現代加密支付卡才成立。`,
+  10: `Gen 3 下半場。現在 Ether.fi、Coinbase、Bybit、RedotPay 百花齊放，體驗變成：只在儲值時碰一下 Crypto，消費的當下完全無感。用 Ether.fi Cash 拆給大家看四個零件怎麼各自解決一個歷史難題：Visa 網絡解決通用性、Optimism 解決成本（就是 Monolith 當年缺的那塊）、智能錢包解決安全性也就是自託管、代幣獎勵解決誘因。商業模式是「收益」：協議希望你把資產存著產生 DeFi 收益，再拿收益補貼你的支付，吸引更多存款，形成正循環。`,
   11: `收尾。這條路走了 15 年，現在終於通了。與其聽我講，不如等一下拿手機出來，我們現場註冊、去樓下 7-11 買杯咖啡，你就懂了。`,
+  12: `附錄第一頁。現在 GENIUS Act 尚未生效，穩定幣在企業帳上比較像無形資產：用成本入帳，只能認減損，不能因為價格回升就調高價值。它不是現金，也還不是完整的金融資產。`,
+  13: `附錄第二頁。GENIUS Act 生效後，關鍵變化是法律明確保障一比一贖回權。這會讓穩定幣更接近金融資產：用公允價值處理、可放在流動資產，也可能比較容易被銀行接受做擔保。但它仍然不是現金流量表裡的現金。`,
+  14: `附錄第三頁。只有在某國真的宣布穩定幣是法定貨幣之後，才可能進入現金身份。這一步目前還沒有發生，所以這張是未來情境：收到穩定幣才可能直接進現金流量表，跨境支付也會更像即時法幣結算。`,
 };
 
 // --- Components ---
@@ -91,6 +94,211 @@ const AnatomyPart = ({ icon: Icon, title, desc, position, color = "purple" }) =>
 
       <div className={`hidden lg:block absolute bg-gray-600/50 ${lineStyles[position] || ""}`}>
         <div className="absolute w-2 h-2 bg-white rounded-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_white]"></div>
+      </div>
+    </div>
+  );
+};
+
+const StablecoinFeature = ({ tone = "neutral", children }) => {
+  const dotClass = {
+    yes: "bg-emerald-400",
+    new: "bg-blue-400",
+    no: "bg-gray-500",
+    neutral: "bg-gray-600"
+  }[tone];
+
+  return (
+    <li className="flex items-start gap-1.5 leading-tight">
+      <span className={`mt-1 h-1.5 w-1.5 rounded-full shrink-0 ${dotClass}`}></span>
+      <span>{children}</span>
+    </li>
+  );
+};
+
+const StablecoinStatus = ({ active, children }) => (
+  <span className={`inline-flex w-fit items-center rounded-full px-2 py-0.5 text-[9px] font-bold tracking-[0.12em] ${
+    active ? "bg-emerald-500 text-white" : "bg-gray-800 text-gray-500 border border-white/5"
+  }`}>
+    {children}
+  </span>
+);
+
+const stablecoinIdentityStyles = {
+  intangible: {
+    label: "無形資產",
+    badge: "text-orange-200 bg-orange-400/10 border-orange-400/20",
+    active: "border-orange-400/70 bg-orange-500/10 shadow-[inset_4px_0_0_rgba(251,146,60,0.9)]",
+    inactive: "border-orange-400/10 bg-orange-500/5 opacity-35"
+  },
+  financial: {
+    label: "金融資產",
+    badge: "text-blue-200 bg-blue-400/10 border-blue-400/20",
+    active: "border-blue-400/70 bg-blue-500/10 shadow-[inset_4px_0_0_rgba(96,165,250,0.95)]",
+    inactive: "border-blue-400/10 bg-blue-500/5 opacity-35"
+  },
+  cash: {
+    label: "現金",
+    badge: "text-emerald-200 bg-emerald-400/10 border-emerald-400/20",
+    active: "border-emerald-400/70 bg-emerald-500/10 shadow-[inset_4px_0_0_rgba(52,211,153,0.95)]",
+    inactive: "border-emerald-400/10 bg-emerald-500/5 opacity-35"
+  }
+};
+
+const stablecoinAppendixSlides = [
+  {
+    time: "2026 現在",
+    context: "GENIUS Act 尚未生效",
+    transition: "下一步：GENIUS Act 生效（最遲 2027/1/18）",
+    active: "intangible",
+    takeaway: "沒有受法律保障的一比一贖回權，所以還停在「資產」而不是「現金」。",
+    cells: {
+      intangible: {
+        status: "適用中",
+        features: [
+          ["yes", "成本入帳，只減損不增值"],
+          ["no", "不能當擔保品"],
+          ["no", "不計入流動性指標"],
+          ["no", "處分要算損益"],
+          ["yes", "需做年度減損測試"]
+        ]
+      },
+      financial: {
+        status: "尚未解鎖",
+        features: [
+          ["no", "需法律保障贖回權"],
+          ["no", "發行商仍可拒絕贖回"]
+        ]
+      },
+      cash: {
+        status: "尚未解鎖",
+        features: [["no", "需成為法定貨幣"]]
+      }
+    }
+  },
+  {
+    time: "2027 年初",
+    context: "GENIUS Act 生效後",
+    transition: "下一步：某國宣布穩定幣為法定貨幣（目前未發生）",
+    active: "financial",
+    takeaway: "法律保障贖回權後，穩定幣更像可請求付款的金融資產，但仍不是現金。",
+    cells: {
+      intangible: {
+        status: "不再適用",
+        features: [
+          ["no", "法律保障贖回權後"],
+          ["no", "自動升級為金融資產"]
+        ]
+      },
+      financial: {
+        status: "適用中",
+        features: [
+          ["new", "公允價值入帳，漲跌反映損益"],
+          ["new", "可歸類為流動資產"],
+          ["new", "銀行可能接受做擔保"],
+          ["yes", "匯率變動正常處理"],
+          ["no", "仍非現金流量表的「現金」"]
+        ]
+      },
+      cash: {
+        status: "尚未解鎖",
+        features: [["no", "需成為法定貨幣"]]
+      }
+    }
+  },
+  {
+    time: "未來？",
+    context: "法定貨幣地位確立",
+    transition: "前提：主權國家把穩定幣正式納入法定貨幣",
+    active: "cash",
+    takeaway: "只有取得法定貨幣地位後，穩定幣才可能真正進入會計上的「現金」。",
+    cells: {
+      intangible: {
+        status: "—",
+        features: []
+      },
+      financial: {
+        status: "—",
+        features: []
+      },
+      cash: {
+        status: "完全解鎖",
+        features: [
+          ["new", "收到即入現金流量表"],
+          ["new", "可開穩定幣存款帳戶"],
+          ["new", "計入法定資本與流動性要求"],
+          ["new", "跨境支付即時結算"],
+          ["new", "匯兌處理，非資產處分"]
+        ]
+      }
+    }
+  }
+];
+
+const StablecoinIdentityCard = ({ identity, cell, active }) => {
+  const styles = stablecoinIdentityStyles[identity];
+
+  return (
+    <div className={`flex min-h-[350px] flex-col rounded-xl border p-6 transition-all ${active ? styles.active : styles.inactive}`}>
+      <div className={`mb-5 inline-flex w-fit rounded-full border px-3 py-1 text-xs font-bold tracking-widest ${styles.badge}`}>
+        {styles.label}
+      </div>
+      <StablecoinStatus active={active}>{cell.status}</StablecoinStatus>
+      {cell.features.length > 0 ? (
+        <ul className={`mt-6 space-y-3 text-xl leading-snug ${active ? "text-gray-100" : "text-gray-400"}`}>
+          {cell.features.map(([tone, text]) => (
+            <StablecoinFeature key={text} tone={tone}>{text}</StablecoinFeature>
+          ))}
+        </ul>
+      ) : (
+        <div className="flex flex-1 items-center justify-center text-5xl font-bold text-gray-700">—</div>
+      )}
+    </div>
+  );
+};
+
+const StablecoinAppendix = ({ phaseIndex }) => {
+  const slide = stablecoinAppendixSlides[phaseIndex];
+
+  return (
+    <div className="flex min-h-full w-full flex-col justify-center px-10 py-7">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="mb-7 flex items-end justify-between gap-8">
+          <div>
+            <span className="mb-2 block font-mono text-xs tracking-widest text-purple-400">APPENDIX {phaseIndex + 1}/3</span>
+            <h2 className="text-4xl font-bold tracking-tight text-white">穩定幣的三種身份</h2>
+          </div>
+          <div className="max-w-xl text-right">
+            <div className="text-2xl font-bold text-white">{slide.time}</div>
+            <div className="mt-1 text-base text-gray-400">{slide.context}</div>
+          </div>
+        </div>
+
+        <div className="mb-6 rounded-xl border border-white/10 bg-gray-950/70 px-5 py-4">
+          <div className="flex items-center justify-between gap-6">
+            <p className="text-xl font-semibold leading-snug text-gray-100">{slide.takeaway}</p>
+            <div className="flex shrink-0 items-center gap-2 text-sm text-gray-400">
+              <ArrowDown className="h-4 w-4 text-gray-500" />
+              {slide.transition}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-5">
+          {["intangible", "financial", "cash"].map(identity => (
+            <StablecoinIdentityCard
+              key={identity}
+              identity={identity}
+              cell={slide.cells[identity]}
+              active={slide.active === identity}
+            />
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-7 text-sm text-gray-400">
+          <div className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-emerald-400"></span>已具備的權利</div>
+          <div className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-blue-400"></span>該階段新解鎖</div>
+          <div className="flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-gray-500"></span>尚未具備</div>
+        </div>
       </div>
     </div>
   );
@@ -175,7 +383,7 @@ export default function App() {
   const [direction, setDirection] = useState(1);
   const [showNotes, setShowNotes] = useState(false);
   const [scale, setScale] = useState(1);
-  const totalSlides = 12;
+  const totalSlides = 15;
 
   // Fixed 16:9 design canvas, scaled to fill the screen — keeps every element a
   // constant fraction of the display, so text scales UP on a big projector and
@@ -623,7 +831,7 @@ export default function App() {
                     <AnatomyPart icon={Globe} title="Visa 網絡" desc="通用性 · 全球 8000 萬商戶" position="bottom" color="blue" />
                   </div>
                   <div className="lg:col-start-2 lg:row-start-3 flex justify-center order-3 lg:order-none w-full">
-                    <AnatomyPart icon={Layers} title="Scroll zkEVM" desc="成本 · 手續費夠低了" position="top" color="yellow" />
+                    <AnatomyPart icon={Layers} title="Optimism" desc="成本 · 手續費夠低了" position="top" color="yellow" />
                   </div>
                   <div className="lg:col-start-1 lg:row-start-2 flex justify-center order-4 lg:order-none w-full">
                     <AnatomyPart icon={Lock} title="智能錢包" desc="安全性 · 自託管免 FTX 風險" position="right" color="green" />
@@ -681,6 +889,15 @@ export default function App() {
           </div>
         );
 
+      case 12:
+        return <StablecoinAppendix phaseIndex={0} />;
+
+      case 13:
+        return <StablecoinAppendix phaseIndex={1} />;
+
+      case 14:
+        return <StablecoinAppendix phaseIndex={2} />;
+
       default:
         return null;
     }
@@ -735,9 +952,7 @@ export default function App() {
         <div className="flex items-center gap-3">
           <span className="hidden md:flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-gradient-to-br from-purple-400 to-blue-500"></span>
-            <span className="font-semibold text-sm text-gray-200 tracking-tight">Blocktrend</span>
-            <span className="text-gray-600 text-sm">×</span>
-            <span className="text-purple-400 font-semibold text-sm">ether.fi</span>
+            <span className="font-semibold text-sm text-gray-200 tracking-tight">區塊勢</span>
           </span>
           <div className="flex gap-1.5">
             <button
