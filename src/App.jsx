@@ -4,7 +4,8 @@ import {
   History, ChevronRight, Activity, BookOpen, ChevronLeft,
   Pizza, AlertTriangle, Layers, XCircle, Coins, ArrowDown,
   QrCode, Store, Smartphone, Globe, Lock, CheckCircle,
-  Landmark, RefreshCw, AlertCircle, Banknote, Mail, Key, Fingerprint
+  Landmark, RefreshCw, AlertCircle, Banknote, Mail, Key, Fingerprint,
+  Maximize2, Minimize2
 } from 'lucide-react';
 
 // --- Speaker notes (what you SAY — kept off the slides, toggle with N) ---
@@ -382,6 +383,7 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(1);
   const [showNotes, setShowNotes] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [viewport, setViewport] = useState({
     scale: 1,
     width: 1280,
@@ -426,6 +428,14 @@ export default function App() {
     document.getElementsByTagName('head')[0].appendChild(link);
   }, []);
 
+  useEffect(() => {
+    const updateFullscreenState = () => setIsFullscreen(Boolean(document.fullscreenElement));
+
+    updateFullscreenState();
+    document.addEventListener('fullscreenchange', updateFullscreenState);
+    return () => document.removeEventListener('fullscreenchange', updateFullscreenState);
+  }, []);
+
   const nextSlide = () => {
     setDirection(1);
     setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1));
@@ -437,6 +447,13 @@ export default function App() {
   const goToSlide = (index) => {
     setDirection(index >= currentSlide ? 1 : -1);
     setCurrentSlide(index);
+  };
+  const toggleFullscreen = async () => {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      await document.exitFullscreen();
+    }
   };
 
   // Keyboard navigation
@@ -1020,6 +1037,15 @@ export default function App() {
 
         {/* Right: notes toggle + event tag */}
         <div className="flex items-center gap-3">
+          <button
+            onClick={toggleFullscreen}
+            className="hidden md:flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-full border border-white/5 text-gray-500 hover:text-gray-300 hover:border-white/10 transition-all"
+            aria-label={isFullscreen ? "離開全螢幕" : "進入全螢幕"}
+            title={isFullscreen ? "離開全螢幕" : "進入全螢幕"}
+          >
+            {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            {isFullscreen ? "離開" : "全螢幕"}
+          </button>
           <button
             onClick={() => setShowNotes(s => !s)}
             className={`flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-full border transition-all ${
